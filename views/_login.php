@@ -1,7 +1,7 @@
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark">
     <?php  require('views/_navbar.php');    ?>
-    <div class="container h-100 d-flex flex-column justify-content-center">
+    <div class="container h-100 d-flex flex-column mt-5 pt-5">
         <div class="row justify-content-center">
             <div class="col-6">
                 <div class="card text-center opacity-translation">
@@ -10,7 +10,7 @@
                         <form action="" method="post">
                         <div class="row justify-content-center ">
                             <div class="col-8 mb-3">
-                                <input <?php if(isset($errorLogin)){echo "oninput='RemoveError()'";}?> class="text-center form-control <?php if(isset($errorLogin)){echo "is-invalid";}?>" required type="text" placeholder="Nombre de Usuario" maxlength="20" name="username"  id="usernameinput" aria-describedby="emailHelp">
+                                <input <?php if(isset($errorLogin)){echo "oninput='RemoveError()'";}?> class="text-center form-control <?php if(isset($errorLogin)){echo "is-invalid";}?>" required type="text" placeholder="Nombre de Usuario" maxlength="20" name="username"  id="usernameinput">
                             </div>  
                             <div class="col-8 mb-3">
                                 <input <?php if(isset($errorLogin)){echo "oninput='RemoveError()'";}?> required type="password" placeholder="Contraseña" class="text-center form-control <?php if(isset($errorLogin)){echo "is-invalid";}?>" maxlength="20" name="password" id="passwordinput">

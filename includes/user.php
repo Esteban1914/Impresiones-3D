@@ -27,7 +27,7 @@ class User extends DB
     }
     public function close()
     {
-        session_abort();
+        session_unset();
         session_destroy();
     }
 }

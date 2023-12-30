@@ -10,6 +10,7 @@
         if($userManager->userExist($_POST['username'],$_POST['password']))
         {
             $userManager->setCurrentUser($_POST['username']);
+            header("Location: ./home.php");
         }
         else
         {
