@@ -48,7 +48,7 @@
     //     $sql = "CREATE TABLE user_telegram (
     //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //         username VARCHAR(20) NOT NULL,
-    //         usernameid INT(11) NOT NULL,
+    //         chatid INT(11) NOT NULL,
     //         user_id INT(11) UNSIGNED UNIQUE,
     //         FOREIGN KEY (user_id) REFERENCES users(id)
     //     )";

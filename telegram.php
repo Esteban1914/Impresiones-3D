@@ -24,7 +24,7 @@
                             </a>
                         </p>
                         <p lead >
-                            Conecte al Bot y escriba el comando <span class="badge bg-light cursor-select "><a data-bs-container="body"  data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Comando Copiado" class=" link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover h6" id="texto-copiable" onclick="copiarAlPortapapeles()">/start_link</a></span> y siga las intrucciones
+                            Conecte al Bot y escriba el comando <span class="badge bg-light cursor-select "><a data-bs-container="body"  data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Comando Copiado" class=" link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover h6" id="texto-copiable" onclick="copiarAlPortapapeles()">/vincular</a></span> y siga las intrucciones
                         </p>
                         
                     </div>
