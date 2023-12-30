@@ -5,11 +5,14 @@ class DB
 
     public function __construct()
     {
-        $this->host="localhost";
+        $this->host=getenv('DB_HOST');
         $this->db="impresiones3D";
-        $this->user="root";
-        $this->password="";
+        $this->user=getenv('DB_USER');
+        $this->password=getenv('DB_PASSWORD');
+        if($this->password==" ")
+            $this->password="";
         $this->charset='utf8mb4';
+
     }
 
     public function connect()
