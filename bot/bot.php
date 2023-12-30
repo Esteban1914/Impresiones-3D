@@ -17,8 +17,10 @@
             {
                 $message="Hola @".$username.", ID:".$usernameid.". Usuario no registrado";
             }
+            break;
         default:
             $message= "Comando Inválido:".$update["message"]['text'];
+            break;
     }
     $bot->sendMessage($chatID,$message);
 ?>
