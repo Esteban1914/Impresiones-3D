@@ -3,8 +3,8 @@
     $bot=new Bot();
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
-    $username=$update['user']['username'];
-    $usernameid=$update['user']['id'];
+    $username=$update['message']['from']['username'];
+    $usernameid=$update['message']['from']['id'];
     switch($update["message"]['text'])
     {
         case "/start_link":
