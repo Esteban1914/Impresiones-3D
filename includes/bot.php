@@ -21,6 +21,7 @@ class Bot
             die ("Error:" . $e->getMessage());
         }
         $conn->exec("USE impresiones3D");
+        return $conn;
     }
     public function sendMessage($chatID,$msg)
     {
@@ -29,6 +30,17 @@ class Bot
     public function reciveMessage()
     {
         return json_decode(file_get_contents("php://input"),true);
+    }
+    public function existUser($userID)
+    {
+        $conn=$this->connect();
+        $sql="SELECT id FROM user_telegram WHERE usernameid=:u";
+        $query=$conn->prepare($sql);
+        $query->execute([":u"=> $userID]);
+        if($query->rowCount()> 0)
+            return true;
+        return false;
+        
     }
 }
 ?>

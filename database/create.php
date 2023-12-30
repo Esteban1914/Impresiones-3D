@@ -1,18 +1,18 @@
 <?php
-    $servername="localhost";
-    $username="root";
-    $password= "";
+    // $servername="localhost";
+    // $username="Esteban";
+    // $password= "MyContra123_*123";
 
-    ///////////////////////CONNECT///////////////////////
-    try {
-        $conn = new PDO("mysql:host=$servername;", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "CONNECTED -> OK<br>";
-    } catch(PDOException $e) {
-        die ("Error:" . $e->getMessage());
-    }
+    // ///////////////////////CONNECT///////////////////////
+    // try {
+    //     $conn = new PDO("mysql:host=$servername;", $username, $password);
+    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     echo "CONNECTED -> OK<br>";
+    // } catch(PDOException $e) {
+    //     die ("Error:" . $e->getMessage());
+    // }
 
-    ///////////////////////CREATE DB///////////////////////
+    // ///////////////////////CREATE DB///////////////////////
     // try {
     //     $sql = "CREATE DATABASE impresiones3D";
     //     $conn->exec($sql);
@@ -22,15 +22,15 @@
     // }
     
 
-    ///////////////////////CONNECT DB///////////////////////
-    $conn->exec("USE impresiones3D");
-    echo "SELECT -> OK<br>";
+    // ///////////////////////CONNECT DB///////////////////////
+    // $conn->exec("USE impresiones3D");
+    // echo "SELECT -> OK<br>";
     
-    ///////////////////////ALTER DB///////////////////////
+    // ///////////////////////ALTER DB///////////////////////
     // $conn->exec("ALTER TABLE users CHANGE user_name username VARCHAR(50)");
     // echo "ALTER -> OK<br>";
 
-    ///////////////////////CREATE TABLE///////////////////////
+    // ///////////////////////CREATE TABLE///////////////////////
     // try {
     //     $sql = "CREATE TABLE users (
     //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -44,10 +44,11 @@
     //     die ("Error:" . $e->getMessage());
     // }
     
-        // try {
+    //     try {
     //     $sql = "CREATE TABLE user_telegram (
     //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //         username VARCHAR(20) NOT NULL,
+    //         usernameid INT(11) NOT NULL,
     //         user_id INT(11) UNSIGNED UNIQUE,
     //         FOREIGN KEY (user_id) REFERENCES users(id)
     //     )";
@@ -70,7 +71,7 @@
     //     die ("Error:" . $e->getMessage());
     // }
 
-    ///////////////////////INSERT TABLE///////////////////////
+    // ///////////////////////INSERT TABLE///////////////////////
     // $sql="INSERT INTO users (username,password) VALUES (:u,:p)";
     // $query=$conn->prepare($sql);
     // if($query->execute([":u"=> "ernesto","p"=> "12345678"]))
