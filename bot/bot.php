@@ -18,7 +18,7 @@
                 $message="Hola @".$username.", ID:".$usernameid.". Usuario no registrado";
             }
         default:
-            $message= "Comando Inválido";
+            $message= "Comando Inválido:".$update["message"]['text'];
     }
     $bot->sendMessage($chatID,$message);
 ?>
