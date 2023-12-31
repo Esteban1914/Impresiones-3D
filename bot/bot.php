@@ -23,7 +23,7 @@
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
                         $message="Completado :)%0AContinue en proceso de registro en la plataforma **impresiones3d**%0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
-                    else if ($resp===false)
+                    else if ($resp===null)
                         $message="No existe el usuario: @".$username." en la paltaforma :|";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
