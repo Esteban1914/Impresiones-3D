@@ -1,5 +1,6 @@
 <?php
     include_once "bot.php";
+    session_start();
     $bot=new Bot();
     if (isset($_POST['confirm']))
     {
