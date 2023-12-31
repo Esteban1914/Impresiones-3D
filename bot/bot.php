@@ -4,12 +4,11 @@
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
     $username=$update['message']['from']['username'];
-    $usernameid=$update['message']['from']['id'];
     $array=explode(" ", $update["message"]['text']);
     switch($array[0])
     {
         case "/vincular":
-            if($bot->existUser($usernameid))
+            if($bot->existUser($chatID))
             {
                 $message="Ya este usuario se encuentra registrado en 
                 [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)
@@ -20,8 +19,11 @@
             {
                 if (count($array)==2 && strpos($array[1], "@") !== false) 
                 {
-                    $bot->registerUser($username,$chatID,$array[1]);
-                    $message="Continue en proceso de registro en la plataforma%0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                    if($bot->registerUser($username,$chatID,$array[1]))
+                        $message="Continue en proceso de registro en la plataforma%0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                    else
+                        $message="Ha ocurrido un error en el proceso :(";
+                        
                 } 
                 else 
                     $message="Escriba el comando /vincular seguido del nombre de usuario de impresiones3d empezando por @ %0AEjemplo: /vincular @usuario";
