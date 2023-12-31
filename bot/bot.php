@@ -29,7 +29,7 @@
                         $message="Ha ocurrido un error en el proceso :(";
                 } 
                 else 
-                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma **impresiones3d** empezando por @ %0AEjemplo: /vincular @usuario";
+                    $message="Escriba \\n el comando /vincular seguido del nombre de usuario de la paltaforma **impresiones3d** empezando por @ %0AEjemplo: /vincular @usuario";
                   
             }
             break;
