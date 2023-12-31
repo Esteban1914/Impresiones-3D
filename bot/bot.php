@@ -8,12 +8,18 @@
     switch($array[0])
     {
         case "/vincular":
-            if($bot->existUser($chatID))
+            $eu=$bot->existUser($chatID);
+            $uic=$bot->userIsConfirmated($_SESSION['user']);
+            if($eu===true && $uic===true)
             {
                 $message="Ya este usuario se encuentra registrado en 
                 [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)
-                 como
+                 como @".$_SESSION['user']."
                 ";
+            }
+            else if($eu===true && $uic===false)
+            {
+                $message="Usuario en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
             }
             else
             {
@@ -22,21 +28,27 @@
                     $username=str_replace("@", "", $array[1]);
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
-                        $message="Completado :)%0AContinue en proceso de registro en la plataforma **impresiones3d**%0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                        $message="Completado :)\nContinue en proceso de registro en la plataforma **impresiones3d**\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
                     else if ($resp===null)
                         $message="No existe el usuario: @".$username." en la paltaforma :|";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
                 } 
                 else 
-                    $message="Escriba \\n el comando /vincular seguido del nombre de usuario de la paltaforma **impresiones3d** empezando por @ %0AEjemplo: /vincular @usuario";
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma **impresiones3d** empezando por @ \nEjemplo: /vincular @usuario";
                   
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Bot @eacb2_bot de la plataforma **impresiones3d**%0AComandos válidos:%0A/vincular";
+            $message= "Hola @".$usernametelegram.". Bot @eacb2_bot de la plataforma **impresiones3d**\nComandos válidos:\n/vincular";
             break;
     }
+    $message=str_replace("\n", rawurlencode("\n"), $message);
+    $message=str_replace("*", rawurlencode("*"), $message);
+    $message=str_replace("[", rawurlencode("["), $message);
+    $message=str_replace("]", rawurlencode("]"), $message);
+    $message=str_replace("(", rawurlencode("("), $message);
+    $message=str_replace(")", rawurlencode(")"), $message);
     $bot->sendMessage($chatID,$message);
 /*
 ok	true

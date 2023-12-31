@@ -11,8 +11,7 @@
                 <?php
                     include_once 'includes/bot.php';
                     $bot=new Bot();
-                    $uic=$bot->userIsConfirmated($_SESSION['user']);
-                    echo $uic;
+                    $uic=$bot->userIsConfirmated($_SESSION['user']);  
                 ?>
                 <div class="card text-white bg-<?php if($uic===true) echo "success"; else if($uic===false) echo "warning"; else echo "danger";?>">
                     <div class="card-body">
@@ -66,7 +65,6 @@
                                 <!-- Conecte al Bot y escriba el comando <span class="badge bg-light cursor-select "><a data-bs-container="body"  data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Comando Copiado" class=" link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover h6" id="texto-copiable" onclick="copiarAlPortapapeles()">/vincular</a></span> y siga las intrucciones -->
                             </p>
                         <?php endif; ?>
-                        
                         
                     </div>
                 </div>
