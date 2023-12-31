@@ -23,7 +23,7 @@
                             </div>
                         </h4>
                         <?php if($uic === true):?>
-                            <p  class="my-3 text-dark h4" lead>
+                            <p  class="my-3 h4" lead>
                                 Cuenta vinculada con @<?php echo $_SESSION['usernametelegram']?>
                             </p>
                         <?php elseif($uic === false): ?>
@@ -64,7 +64,7 @@
                             </div>
                             
                         <?php else: ?>
-                            <p class="h3 mt-5 text-dark">No se ha vinculado a
+                            <p class="h3 mt-5">No se ha vinculado a
                             <a href="https://t.me/eacb2_bot" target="_blank" data-bs-placement="right" data-bs-toggle="tooltip" data-bs-title="@eacb2_bot" target="_blank" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                                 eacb2_bot
                             </a>
