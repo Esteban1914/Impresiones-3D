@@ -83,7 +83,7 @@ class Bot
     {
         $user_id=$this->getUserIDByName($user_name);
         if($user_id===false)
-            return false;
+            return null;
         $conn=$this->connect();
         $sql="INSERT INTO user_telegram (username,chatid, user_id) VALUES (:un,:chi,:ui)";
         $query=$conn->prepare($sql);
