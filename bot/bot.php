@@ -11,11 +11,12 @@
         case "/vincular":
             if($bot->existUserTelegam($chatID)===true)
             {
-                $uic=$bot->userIsConfirmatedUserTelegram($_SESSION['usernametelegram']);
+                $uic=$bot->userIsConfirmatedUserTelegram($usernametelegram);
+                $username=$bot->getUserNameByUserNameTelegram($usernametelegram);
                 if($uic===true)
-                    $message="Usuario ".$_SESSION['user']." ya se encuentra registrado";
+                    $message="Usuario ".$username." ya se encuentra registrado";
                 else
-                    $message="Usuario ".$_SESSION['user']." en proceso de verificación";
+                    $message="Usuario ".$username." en proceso de verificación";
             }
             else
             {

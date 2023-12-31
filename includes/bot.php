@@ -42,17 +42,6 @@ class Bot
         return false;
         
     }
-    // public function getUserNameByChatId($chatID)
-    // {
-    //     $conn=$this->connect();
-    //     $sql="SELECT id FROM user_telegram WHERE chatid=:u";
-    //     $query=$conn->prepare($sql);
-    //     $query->execute([":u"=> $chatID]);
-    //     if($query->rowCount()> 0)
-    //         return true;
-    //     return false;
-        
-    // }
 
     public function getUserIDByName($username)
     {
@@ -80,6 +69,19 @@ class Bot
             return $row["chatid"];
         }
         return false;
+    }
+    public function getUserNameByUserNameTelegram($usernametelegram)
+    {
+        $conn=$this->connect();
+        $sql="SELECT users.username FROM users LEFT JOIN user_telegram ON users.id=user_telegram.user_id WHERE user_telegram.username=:unt";
+        $query=$conn->prepare($sql);
+        $query->execute([":unt"=> $usernametelegram]);
+        if($query->rowCount()> 0)
+        {
+            $row=$query->fetch(PDO::FETCH_ASSOC);
+            return $row["username"];
+        }
+        return null;
     }
     public function userIsConfirmated($username)
     {
