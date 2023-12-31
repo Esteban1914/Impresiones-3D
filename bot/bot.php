@@ -14,7 +14,7 @@
                 if($uic===true)
                     $message="Usuario ".$_SESSION['user']." ya se encuentra registrado";
                 else
-                    $message="Usuario ".$_SESSION['user']." en proceso de verificación";
+                    $message="Usuario ".$_SESSION['user']." en proceso de verificación".$uic;
             }
             else
             {
