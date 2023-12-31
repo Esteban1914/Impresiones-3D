@@ -5,7 +5,7 @@
     $chatID = $update["message"]["chat"]["id"];
     $username=$update['message']['from']['username'];
     $usernameid=$update['message']['from']['id'];
-    session_start();
+    
     switch($update["message"]['text'])
     {
         case "/vincular":
@@ -18,8 +18,8 @@
             }
             else
             {
-
-                $bot->registerUser($username,$chatID,);
+                
+                //$bot->registerUser($username,$chatID,);
                 $message="";
             }
             break;
@@ -27,11 +27,14 @@
             $message= "Hola @".$username.". Bot @eacb2_bot%0AComandos válidos:%0A/vincular";
             break;
     }
-    $LM="";
-    if(isset($_SESSION["LM"]))
-        $LM=$_SESSION["LM"];
-    $_SESSION["LM"]=$message;
-    $bot->sendMessage($chatID,$message."%0ALAST:".$LM);
+    $t="";
+    if (isset($_COOKIE["nombre_cookie"])) {
+        $t=$_COOKIE["nombre_cookie"];
+    } else {
+        setcookie("nombre_cookie", "valor_cookie", time()+3600, "/");
+    }
+    
+    $bot->sendMessage($chatID,$message."%0ALAST:".$t);
 /*
 ok	true
 result	
