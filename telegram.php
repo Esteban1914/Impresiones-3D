@@ -42,7 +42,7 @@
                             <p class="my-3 text-dark h4">Aceptar?</p>
                             <div class="row justify-content-around">
                                 <div class="col-auto">
-                                    <form action="includes/confirm_user.php" method="post" id="form_confirm">
+                                    <form action="includes/confirm.php" method="post" id="form_confirm">
                                         <a onclick="document.getElementById('form_confirm').submit();" class="btn">
                                             <div class="badge bg-success">
                                                 <i class="bi bi-check-circle h3"></i>
@@ -52,7 +52,7 @@
                                     </form>
                                 </div>
                                 <div class="col-auto">
-                                    <form action="includes/confirm_user.php" method="post" id="form_cancel">
+                                    <form action="includes/confirm.php" method="post" id="form_cancel">
                                         <a onclick="document.getElementById('form_cancel').submit();" class="btn">
                                             <div class="badge bg-danger">
                                             <i class="bi bi-x-circle h3"></i>
@@ -77,6 +77,20 @@
                         
                     </div>
                 </div>
+                
+                <?php if($uic === true):?>
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-auto mt-5">
+                            <form action="includes/confirm.php" method="post" id="form_desv">
+                                <a onclick="document.getElementById('form_desv').submit();" class="btn btn-sm btn-danger p-2 mt-5">
+                                        Desvincular Cuenta
+                                </a>
+                                <input type="hidden" name="desv">
+                            </form>
+                        </div>
+                    </div>
+                <?php endif;?>
+                
             </div>
             <div class="col-2"></div>
         </div>

@@ -126,7 +126,7 @@ class Bot
             return true;
         return false;
     } 
-    public function userNoConfirm($usernametelegram)
+    public function userDeleteConfirm($usernametelegram)
     {
         $conn=$this->connect();
         $sql="DELETE FROM user_telegram WHERE username=:u";

@@ -9,7 +9,7 @@
             if($bot->userConfirm($_SESSION['usernametelegram']))
             {
                 $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
-                $message="Has sido vinculado correctamente a la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                $message="Has sido vinculado correctamente a la cuanta @".$_SESSION['usernametelegram'];
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 
                 $bot->sendMessage($chatID,$message);
@@ -21,9 +21,23 @@
         if($bot->userIsConfirmated($_SESSION['user'])===false)
         {
             $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
-            if($bot->userNoConfirm($_SESSION['usernametelegram']))
+            if($bot->userDeleteConfirm($_SESSION['usernametelegram']))
             {
-                $message="Has ha cancelado la vinculación con la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                $message="Has ha cancelado la vinculación con la cuanta @".$_SESSION['usernametelegram'];
+                $message=str_replace("\n", rawurlencode("\n"), $message);
+                $bot->sendMessage($chatID,$message);
+                $_SESSION['usernametelegram']="";
+            }
+        }
+    }
+    else if (isset($_POST['desv']))
+    {
+        if($bot->userIsConfirmated($_SESSION['user'])===true)
+        {
+            $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
+            if($bot->userDeleteConfirm($_SESSION['usernametelegram']))
+            {
+                $message="Se ha desvinculado la cuanta @".$_SESSION['usernametelegram'];
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 $bot->sendMessage($chatID,$message);
                 $_SESSION['usernametelegram']="";
