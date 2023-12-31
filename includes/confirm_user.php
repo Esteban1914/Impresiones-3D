@@ -20,9 +20,9 @@
     {
         if($bot->userIsConfirmated($_SESSION['user'])===false)
         {
+            $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
             if($bot->userNoConfirm($_SESSION['usernametelegram']))
             {
-                $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
                 $message="Has ha cancelado la vinculación con la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 $bot->sendMessage($chatID,$message);
