@@ -25,10 +25,9 @@
                 } 
                 else 
                 {
-                    $message='Escriba el comando /vincular seguido del nombre de usuario de 
-                    [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)
-                    empezando por @ %0A
-                    Ejemplo: /vincular @usuario';
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de 
+                    impresiones3d empezando por @ %0A
+                    Ejemplo: /vincular @usuario";
                 }   
             }
             break;
