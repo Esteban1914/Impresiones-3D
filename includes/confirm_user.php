@@ -1,5 +1,5 @@
 <?php
-    include_once "includes/bot";
+    include_once "bot.php";
     $bot=new Bot();
     if (isset($_POST['confirm']))
     {
