@@ -37,7 +37,7 @@
             $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
             if($bot->userDeleteConfirm($_SESSION['usernametelegram']))
             {
-                $message="Se ha desvinculado la cuanta @".$_SESSION['usernametelegram'];
+                $message="Se ha desvinculado al usuario @".$_SESSION['usernametelegram'];
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 $bot->sendMessage($chatID,$message);
                 $_SESSION['usernametelegram']="";
