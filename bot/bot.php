@@ -25,7 +25,7 @@
                     $username=str_replace("@", "", $array[1]);
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
-                        $message="Confirmado :)\nContinue en proceso de registro en la plataforma";
+                        $message="Confirmada vinculación. Continue en proceso de registro en la plataforma";
                     else if ($resp===null)
                         $message="No existe el usuario: @".$username." en la paltaforma :|";
                     else    
