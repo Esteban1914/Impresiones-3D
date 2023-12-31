@@ -5,8 +5,8 @@
     $chatID = $update["message"]["chat"]["id"];
     $username=$update['message']['from']['username'];
     $usernameid=$update['message']['from']['id'];
-    
-    switch($update["message"]['text'])
+    $array=explode(" ", $update["message"]['text']);
+    switch($array[0])
     {
         case "/vincular":
             if($bot->existUser($usernameid))
@@ -18,9 +18,18 @@
             }
             else
             {
-                
-                //$bot->registerUser($username,$chatID,);
-                $message="";
+                if (count($array)==2 && strpos($array[1], "@") !== false) 
+                {
+                    $message="OK";
+                    //$bot->registerUser($username,$chatID,);
+                } 
+                else 
+                {
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de 
+                    [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php) 
+                    empezando por @ %0A
+                    Ejemplo: /vincular @usuario";
+                }   
             }
             break;
         default:
