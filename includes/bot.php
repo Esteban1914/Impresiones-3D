@@ -67,6 +67,20 @@ class Bot
         }
         return false;
     }
+
+    public function getChatIDByUsernametelegram($usernametelegram)
+    {
+        $conn=$this->connect();
+        $sql="SELECT chatid FROM user_telegram WHERE username=:unt";
+        $query=$conn->prepare($sql);
+        $query->execute([":unt"=> $usernametelegram]);
+        if($query->rowCount()> 0)
+        {
+            $row=$query->fetch(PDO::FETCH_ASSOC);
+            return $row["chatid"];
+        }
+        return false;
+    }
     public function userIsConfirmated($username)
     {
         $conn=$this->connect();
@@ -91,5 +105,23 @@ class Bot
             return true;
         return false;
     }
+    public function userConfirm($usernametelegram)
+    {
+        $conn=$this->connect();
+        $sql="UPDATE user_telegram SET registered=:r WHERE username=:u";
+        $query=$conn->prepare($sql);
+        if($query->execute(["r"=> true,":u"=> $usernametelegram]))
+            return true;
+        return false;
+    } 
+    public function userNoConfirm($usernametelegram)
+    {
+        $conn=$this->connect();
+        $sql="DELETE FROM user_telegram WHERE username=:u";
+        $query=$conn->prepare($sql);
+        if($query->execute([":u"=> $usernametelegram]))
+            return true;
+        return false;
+    } 
 }
 ?>

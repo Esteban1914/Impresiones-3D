@@ -12,9 +12,9 @@
             {
                 $uic=$bot->userIsConfirmated($_SESSION['user']);
                 if($uic===true)
-                    $message="Ya este usuario se encuentra registrado en [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php) como @".$_SESSION['user'];
+                    $message="Usuario ".$_SESSION['user']." ya se encuentra registrado en impresiones3d\nhttps://eacb2.duckdns.org/impresiones3d/impresiones3d.php";
                 else
-                    $message="Usuario en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                    $message="Usuario ".$_SESSION['user']." en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
             }
             else
             {
@@ -34,7 +34,7 @@
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Bot @eacb2_bot de la plataforma impresiones3d\nComandos válidos:\n/vincular";
+            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma impresiones3d\nPuede comununicarse utilizadno los comandos:\n/vincular";
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);

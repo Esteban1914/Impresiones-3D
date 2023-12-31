@@ -27,7 +27,7 @@
                                 Cuenta vinculada con @<?php echo $_SESSION['usernametelegram']?>
                             </p>
                         <?php elseif($uic === false): ?>
-                            <p lead class="text-dark">
+                            <p lead class="text-dark h5">
                                 Se quire vincular con @<?php 
                                     include_once "includes/user.php";
                                     if($_SESSION['usernametelegram']=="")
@@ -38,22 +38,31 @@
                                     echo $_SESSION['usernametelegram'];
                                 ?>
                                 <br>
-                                Aceptar?
-                                <form action="." method="post">
-                                    <div class="row justify-content-around">
-                                        <div class="col-auto">
-                                            <div class="badge bg-success">
-                                                <i class="bi bi-check-circle"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="badge bg-danger">
-                                                <i class="bi bi-x-circle"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </p>
+                            <p class="my-3 text-dark h4">Aceptar?</p>
+                            <div class="row justify-content-around">
+                                <div class="col-auto">
+                                    <form action="includes/confirm_user.php" method="post" id="form_confirm">
+                                        <a onclick="document.getElementById('form_confirm').submit();" class="btn">
+                                            <div class="badge bg-success">
+                                                <i class="bi bi-check-circle h3"></i>
+                                            </div>
+                                        </a>
+                                        <input type="hidden" name="confirm">
+                                    </form>
+                                </div>
+                                <div class="col-auto">
+                                    <form action="includes/confirm_user.php" method="post" id="form_confirm">
+                                        <a onclick="document.getElementById('form_confirm').submit();" class="btn">
+                                            <div class="badge bg-danger">
+                                            <i class="bi bi-x-circle h3"></i>
+                                            </div>
+                                        </a>
+                                        <input type="hidden" name="cancel">
+                                    </form>
+                                </div>
+                            </div>
+                            
                         <?php else: ?>
                             <p class="h4 mt-5">No se ha vinculado a
                             <a href="https://t.me/eacb2_bot" target="_blank" data-bs-placement="right" data-bs-toggle="tooltip" data-bs-title="@eacb2_bot" target="_blank" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
