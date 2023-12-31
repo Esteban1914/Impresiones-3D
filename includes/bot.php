@@ -60,6 +60,7 @@ class Bot
         $sql="SELECT id FROM users WHERE username=:un";
         $query=$conn->prepare($sql);
         $query->execute([":un"=> $username]);
+        print($query->rowCount());
         if($query->rowCount()> 0)
         {
             $row=$query->fetch(PDO::FETCH_ASSOC);
