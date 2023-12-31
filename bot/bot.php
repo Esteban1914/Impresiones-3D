@@ -8,43 +8,36 @@
     switch($array[0])
     {
         case "/vincular":
-            $eu=$bot->existUser($chatID);
-            $uic=$bot->userIsConfirmated($_SESSION['user']);
-            if($eu===true && $uic===true)
+            if($bot->existUserTelegam($chatID)===true)
             {
-                $message="Ya este usuario se encuentra registrado en 
-                [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)
-                 como @".$_SESSION['user']."
-                ";
-            }
-            else if($eu===true && $uic===false)
-            {
-                $message="Usuario en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                $uic=$bot->userIsConfirmated($_SESSION['user']);
+                if($uic===true)
+                    $message="Ya este usuario se encuentra registrado en [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php) como @".$_SESSION['user'];
+                else
+                    $message="Usuario en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
             }
             else
             {
-                if (count($array)==2 && strpos($array[1], "@") !== false) 
+                if(count($array)==2 && strpos($array[1], "@") !== false) 
                 {
                     $username=str_replace("@", "", $array[1]);
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
-                        $message="Completado :)\nContinue en proceso de registro en la plataforma **impresiones3d**\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                        $message="Completado :)\nContinue en proceso de registro en la plataforma impresiones3d\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
                     else if ($resp===null)
                         $message="No existe el usuario: @".$username." en la paltaforma :|";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
                 } 
                 else 
-                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma **impresiones3d** empezando por @ \nEjemplo: /vincular @usuario";
-                  
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma impresiones3d empezando por @ \nEjemplo: /vincular @usuario";
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Bot @eacb2_bot de la plataforma **impresiones3d**\nComandos válidos:\n/vincular";
+            $message= "Hola @".$usernametelegram.". Bot @eacb2_bot de la plataforma impresiones3d\nComandos válidos:\n/vincular";
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);
-    $message=str_replace("*", rawurlencode("*"), $message);
     $message=str_replace("[", rawurlencode("["), $message);
     $message=str_replace("]", rawurlencode("]"), $message);
     $message=str_replace("(", rawurlencode("("), $message);

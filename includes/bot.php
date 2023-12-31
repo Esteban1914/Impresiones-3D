@@ -31,7 +31,7 @@ class Bot
     {
         return json_decode(file_get_contents("php://input"),true);
     }
-    public function existUser($chatID)
+    public function existUserTelegam($chatID)
     {
         $conn=$this->connect();
         $sql="SELECT id FROM user_telegram WHERE chatid=:u";
