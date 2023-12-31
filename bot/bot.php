@@ -5,36 +5,33 @@
     $chatID = $update["message"]["chat"]["id"];
     $username=$update['message']['from']['username'];
     $usernameid=$update['message']['from']['id'];
-    function get_msg_default()
-    {   return "Bot @eacb2_bot%0AComandos válidos:%0A/vincular%0A/ingresar"; }
+    session_start();
     switch($update["message"]['text'])
     {
         case "/vincular":
             if($bot->existUser($usernameid))
             {
-                $message="Hola @".$username.". Ya este usuario se encuentra registrado en [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)";
+                $message="Ya este usuario se encuentra registrado en 
+                [impresiones3d](https://eacb2.duckdns.org/impresiones3d/impresiones3d.php)
+                 como
+                ";
             }
             else
             {
-                $message="Hola @".$username.". Usuario no registrado. /ingresar al sistema?";
-                session_start();
-                $_SESSION['last_msg']="/vincular";
+
+                $bot->registerUser($username,$chatID,);
+                $message="";
             }
-            break;
-        case "/ingresar":
-            session_start();
-            if(isset($_SESSION['last_msg']) && $_SESSION['last_msg']=="/vincular")
-            {
-                $message="Vinculando";
-            }
-            else
-                $message= "Primero debe ser ejecutado el comando /vincular%0A%0A".get_msg_default();
             break;
         default:
-            $message= get_msg_default();
+            $message= "Hola @".$username.". Bot @eacb2_bot%0AComandos válidos:%0A/vincular";
             break;
     }
-    $bot->sendMessage($chatID,$message);
+    $LM="";
+    if(isset($_SESSION["LM"]))
+        $LM=$_SESSION["LM"];
+    $_SESSION["LM"]=$message;
+    $bot->sendMessage($chatID,$message."%0ALAST:".$LM);
 /*
 ok	true
 result	

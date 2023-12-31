@@ -32,12 +32,12 @@
 
     // ///////////////////////CREATE TABLE///////////////////////
     // try {
-    //     $sql = "CREATE TABLE users (
-    //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    //         username VARCHAR(10) NOT NULL,
-    //         password VARCHAR(255) NOT NULL,
-    //         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    //     )";
+    // $sql = "CREATE TABLE users (
+    //     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    //     username VARCHAR(10) NOT NULL,
+    //     password VARCHAR(255) NOT NULL,
+    //     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    // )";
     //     $conn->exec($sql);
     //     echo "TABLE CREATED -> OK<br>";
     // } catch(PDOException $e) {
@@ -49,19 +49,7 @@
     //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //         username VARCHAR(20) NOT NULL,
     //         chatid INT(11) NOT NULL,
-    //         user_id INT(11) UNSIGNED UNIQUE,
-    //         FOREIGN KEY (user_id) REFERENCES users(id)
-    //     )";
-    //     $conn->exec($sql);
-    //     echo "TABLE CREATED -> OK<br>";
-    // } catch(PDOException $e) {
-    //     die ("Error:" . $e->getMessage());
-    // }
-
-    // try {
-    //     $sql = "CREATE TABLE telegram_code (
-    //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    //         code VARCHAR(5) NOT NULL,
+    //         registered BOOLEAN DEFAULT FALSE,
     //         user_id INT(11) UNSIGNED UNIQUE,
     //         FOREIGN KEY (user_id) REFERENCES users(id)
     //     )";

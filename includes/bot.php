@@ -31,16 +31,49 @@ class Bot
     {
         return json_decode(file_get_contents("php://input"),true);
     }
-    public function existUser($userID)
+    public function existUser($chatID)
     {
         $conn=$this->connect();
         $sql="SELECT id FROM user_telegram WHERE chatid=:u";
         $query=$conn->prepare($sql);
-        $query->execute([":u"=> $userID]);
+        $query->execute([":u"=> $chatID]);
         if($query->rowCount()> 0)
             return true;
         return false;
         
+    }
+    // public function getUserNameByChatId($chatID)
+    // {
+    //     $conn=$this->connect();
+    //     $sql="SELECT id FROM user_telegram WHERE chatid=:u";
+    //     $query=$conn->prepare($sql);
+    //     $query->execute([":u"=> $chatID]);
+    //     if($query->rowCount()> 0)
+    //         return true;
+    //     return false;
+        
+    // }
+
+    // public function getUserNameIDByChatId($chatID)
+    // {
+    //     $conn=$this->connect();
+    //     $sql="SELECT id FROM user_telegram WHERE chatid=:u";
+    //     $query=$conn->prepare($sql);
+    //     $query->execute([":u"=> $chatID]);
+    //     if($query->rowCount()> 0)
+    //         return true;
+    //     return false;
+        
+    // }
+
+    public function registerUser($username,$chatID,$user_id)
+    {
+        $conn=$this->connect();
+        $sql="INSERT INTO user_telegram (username,chatid, user_id) VALUES (:un,:chi,:ui)";
+        $query=$conn->prepare($sql);
+        if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
+            return true;
+        return false;
     }
 }
 ?>
