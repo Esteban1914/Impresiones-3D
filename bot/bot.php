@@ -14,9 +14,9 @@
                 $uic=$bot->userIsConfirmatedUserTelegram($usernametelegram);
                 $username=$bot->getUserNameByUserNameTelegram($usernametelegram);
                 if($uic===true)
-                    $message="Usuario ".$username." ya se encuentra registrado";
+                    $message="Usuario @".$username." ya se encuentra registrado";
                 else
-                    $message="Usuario ".$username." en proceso de verificación";
+                    $message="Usuario @".$username." en proceso de verificación";
             }
             else
             {
