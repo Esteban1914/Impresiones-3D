@@ -34,7 +34,7 @@ class Bot
     public function existUser($userID)
     {
         $conn=$this->connect();
-        $sql="SELECT id FROM user_telegram WHERE usernameid=:u";
+        $sql="SELECT id FROM user_telegram WHERE chatid=:u";
         $query=$conn->prepare($sql);
         $query->execute([":u"=> $userID]);
         if($query->rowCount()> 0)
