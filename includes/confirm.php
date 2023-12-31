@@ -9,7 +9,7 @@
             if($bot->userConfirm($_SESSION['usernametelegram']))
             {
                 $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
-                $message="Has sido vinculado correctamente a la cuanta @".$_SESSION['user'];
+                $message="Has sido vinculado correctamente a la cuenta @".$_SESSION['user'];
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 
                 $bot->sendMessage($chatID,$message);
@@ -23,7 +23,7 @@
             $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
             if($bot->userDeleteConfirm($_SESSION['usernametelegram']))
             {
-                $message="Has ha cancelado la vinculación con la cuanta @".$_SESSION['user'];
+                $message="Has ha cancelado la vinculación con la cuenta @".$_SESSION['user'];
                 $message=str_replace("\n", rawurlencode("\n"), $message);
                 $bot->sendMessage($chatID,$message);
                 $_SESSION['usernametelegram']="";
