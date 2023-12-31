@@ -10,11 +10,11 @@
         case "/vincular":
             if($bot->existUserTelegam($chatID)===true)
             {
-                $uic=$bot->userIsConfirmated($_SESSION['user']);
+                $uic=$bot->userIsConfirmatedUserTelegram($_SESSION['usernametelegram']);
                 if($uic===true)
-                    $message="Usuario ".$_SESSION['user']." ya se encuentra registrado en impresiones3d\nhttps://eacb2.duckdns.org/impresiones3d/impresiones3d.php";
+                    $message="Usuario ".$_SESSION['user']." ya se encuentra registrado";
                 else
-                    $message="Usuario ".$_SESSION['user']." en proceso de verificación\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                    $message="Usuario ".$_SESSION['user']." en proceso de verificación";
             }
             else
             {
@@ -23,7 +23,7 @@
                     $username=str_replace("@", "", $array[1]);
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
-                        $message="Confirmado :)\nContinue en proceso de registro en la plataforma\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                        $message="Confirmado :)\nContinue en proceso de registro en la plataforma";
                     else if ($resp===null)
                         $message="No existe el usuario: @".$username." en la paltaforma :|";
                     else    

@@ -91,6 +91,16 @@ class Bot
             return (bool)$query->fetch(PDO::FETCH_ASSOC)["registered"];
         return null;
     }
+    public function userIsConfirmatedUserTelegram($usernametelegram)
+    {
+        $conn=$this->connect();
+        $sql="SELECT registered FROM user_telegram WHERE username=:u";
+        $query=$conn->prepare($sql);
+        $query->execute([":u"=>$usernametelegram]);    
+        if($query->rowCount()>0)        
+            return (bool)$query->fetch(PDO::FETCH_ASSOC)["registered"];
+        return null;
+    }
 
 
     public function registerUser($username,$chatID,$user_name)
