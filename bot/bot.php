@@ -6,7 +6,7 @@
     $username=$update['message']['from']['username'];
     $usernameid=$update['message']['from']['id'];
     function get_msg_default()
-    {   return "@eacb2_bot\n/vincular"; }
+    {   return "@eacb2_bot %0A /vincular"; }
     switch($update["message"]['text'])
     {
         case "/vincular":
