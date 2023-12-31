@@ -4,7 +4,7 @@
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark">
     <?php require('views/_navbar.php'); ?>
-    <div class="container mt-5 pt-5">
+    <div class="container mt-5 pt-5 opacity-translation">
         <div class="row justify-content-center">
             <div class="col-2"></div>
             <div class="col-auto">

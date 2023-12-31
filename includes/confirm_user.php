@@ -24,4 +24,5 @@
             }
         }
     }
+    header("Location: ../telegram.php");
 ?>
