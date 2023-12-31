@@ -1,5 +1,6 @@
 <?php
     include_once "../includes/bot.php";
+    session_start();
     $bot=new Bot();
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
@@ -14,7 +15,7 @@
                 if($uic===true)
                     $message="Usuario ".$_SESSION['user']." ya se encuentra registrado";
                 else
-                    $message="Usuario ".$_SESSION['user']." en proceso de verificación".$uic;
+                    $message="Usuario ".$_SESSION['user']." en proceso de verificación";
             }
             else
             {
