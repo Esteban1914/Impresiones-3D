@@ -22,7 +22,7 @@
                     if($bot->registerUser($username,$chatID,$array[1]))
                         $message="Completado :)%0AContinue en proceso de registro en la plataforma %0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
                     else
-                        $message="Ha ocurrido un error en el proceso :(";
+                        $message="Ha ocurrido un error en el proceso :(".$array[1];
                         
                 } 
                 else 
