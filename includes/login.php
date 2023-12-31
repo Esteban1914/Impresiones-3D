@@ -9,8 +9,9 @@
     {
         if($userManager->userExist($_POST['username'],$_POST['password']))
         {
-            $userManager->setCurrentUser($_POST['username']);
-            header("Location: ./home.php");
+            $usernametelegram=$userManager->getUserNameTelegram($_POST['username']);
+            $userManager->setCurrentUser($_POST['username'],$usernametelegram);
+            header("Location: ");
         }
         else
         {

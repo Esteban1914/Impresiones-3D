@@ -54,20 +54,36 @@ class Bot
         
     // }
 
-    // public function getUserNameIDByChatId($chatID)
-    // {
-    //     $conn=$this->connect();
-    //     $sql="SELECT id FROM user_telegram WHERE chatid=:u";
-    //     $query=$conn->prepare($sql);
-    //     $query->execute([":u"=> $chatID]);
-    //     if($query->rowCount()> 0)
-    //         return true;
-    //     return false;
-        
-    // }
-
-    public function registerUser($username,$chatID,$user_id)
+    public function getUserIDByName($username)
     {
+        $conn=$this->connect();
+        $sql="SELECT id FROM users WHERE username=:un";
+        $query=$conn->prepare($sql);
+        $query->execute([":un"=> $username]);
+        if($query->rowCount()> 0)
+        {
+            $row=$query->fetch(PDO::FETCH_ASSOC);
+            return $row["id"];
+        }
+        return false;
+    }
+    public function userIsConfirmated($username)
+    {
+        $conn=$this->connect();
+        $sql="SELECT registered FROM user_telegram LEFT JOIN users ON user_telegram.user_id=users.id WHERE users.username=:u";
+        $query=$conn->prepare($sql);
+        $query->execute([":u"=>$username]);    
+        if($query->rowCount()>0)        
+            return (bool)$query->fetch(PDO::FETCH_ASSOC)["registered"];
+        return null;
+    }
+
+
+    public function registerUser($username,$chatID,$user_name)
+    {
+        $user_id=$this->getUserIDByName($user_name);
+        if($user_id===false)
+            return false;
         $conn=$this->connect();
         $sql="INSERT INTO user_telegram (username,chatid, user_id) VALUES (:un,:chi,:ui)";
         $query=$conn->prepare($sql);

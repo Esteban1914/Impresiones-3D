@@ -20,29 +20,19 @@
             {
                 if (count($array)==2 && strpos($array[1], "@") !== false) 
                 {
-                    $message="OK";
-                    //$bot->registerUser($username,$chatID,);
+                    $bot->registerUser($username,$chatID,$array[1]);
+                    $message="Continue en proceso de registro en la plataforma%0Ahttps://eacb2.duckdns.org/impresiones3d/telegram.php";
                 } 
                 else 
-                {
-                    $message="Escriba el comando /vincular seguido del nombre de usuario de 
-                    impresiones3d empezando por @ %0A
-                    Ejemplo: /vincular @usuario";
-                }   
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de impresiones3d empezando por @ %0AEjemplo: /vincular @usuario";
+                  
             }
             break;
         default:
             $message= "Hola @".$username.". Bot @eacb2_bot%0AComandos válidos:%0A/vincular";
             break;
     }
-    $t="";
-    if (isset($_COOKIE["nombre_cookie"])) {
-        $t=$_COOKIE["nombre_cookie"];
-    } else {
-        setcookie("nombre_cookie", "valor_cookie", time()+3600, "/");
-    }
-    
-    $bot->sendMessage($chatID,$message."%0ALAST:".$t);
+    $bot->sendMessage($chatID,$message);
 /*
 ok	true
 result	
