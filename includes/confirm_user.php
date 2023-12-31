@@ -9,7 +9,10 @@
             if($bot->userConfirm($_SESSION['usernametelegram']))
             {
                 $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
-                $bot->sendMessage($chatID,"Has sido vinculado correctamente a la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php");
+                $message="Has sido vinculado correctamente a la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                $message=str_replace("\n", rawurlencode("\n"), $message);
+                
+                $bot->sendMessage($chatID,$message);
             }
         }
     } 
@@ -20,7 +23,9 @@
             if($bot->userNoConfirm($_SESSION['usernametelegram']))
             {
                 $chatID=$bot->getChatIDByUsernametelegram($_SESSION['usernametelegram']);
-                $bot->sendMessage($chatID,"Has ha cancelado la vinculación con la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php");
+                $message="Has ha cancelado la vinculación con la cuanta @".$_SESSION['usernametelegram']."\nhttps://eacb2.duckdns.org/impresiones3d/telegram.php";
+                $message=str_replace("\n", rawurlencode("\n"), $message);
+                $bot->sendMessage($chatID,$message);
                 $_SESSION['usernametelegram']="";
             }
         }

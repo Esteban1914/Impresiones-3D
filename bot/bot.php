@@ -34,7 +34,7 @@
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma impresiones3d\nPuede comununicarse utilizadno los comandos:\n/vincular";
+            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular";
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);

@@ -52,8 +52,8 @@
                                     </form>
                                 </div>
                                 <div class="col-auto">
-                                    <form action="includes/confirm_user.php" method="post" id="form_confirm">
-                                        <a onclick="document.getElementById('form_confirm').submit();" class="btn">
+                                    <form action="includes/confirm_user.php" method="post" id="form_cancel">
+                                        <a onclick="document.getElementById('form_cancel').submit();" class="btn">
                                             <div class="badge bg-danger">
                                             <i class="bi bi-x-circle h3"></i>
                                             </div>
