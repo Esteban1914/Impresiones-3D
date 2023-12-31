@@ -6,7 +6,7 @@
     $username=$update['message']['from']['username'];
     $usernameid=$update['message']['from']['id'];
     function get_msg_default()
-    {   return "Bot @eacb2_bot %0AComandos válidos:%0A/vincular%0A/ingresar"; }
+    {   return "Bot @eacb2_bot%0AComandos válidos:%0A/vincular%0A/ingresar"; }
     switch($update["message"]['text'])
     {
         case "/vincular":
@@ -28,7 +28,7 @@
                 $message="Vinculando";
             }
             else
-                $message= get_msg_default();
+                $message= "Primero debe ser ejecutado el comando /vincular%0A%0A".get_msg_default();
             break;
         default:
             $message= get_msg_default();
