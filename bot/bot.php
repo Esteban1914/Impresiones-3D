@@ -41,20 +41,17 @@
                 else if(isset($reply) && count(explode(" ",$reply['text']))===1)
                     $message=regAndMess($bot,$usernametelegram,$chatID,$reply['text']);
                 else 
-                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo \nEjemplo: /vincular usuario";
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo en el chat \nEjemplo: /vincular usuario";
             }
             break;
         case "/stl":
-            if(isset($update['message']['document']))
-            {
-                $message="Documento STL Recibido";
-            }
-            else if(isset($reply) && isset($reply['document']))
+            if(isset($update['message']['document']) || isset($reply) && isset($reply['document']))
             {
                 $message="Documento STL Recibido";
             }
             else
-                $message="Suba el fichero STL o referencielo en un mensaje usando /stl";
+                $message="Suba el fichero STL o haga referencia al mismo en el chat /stl";
+            break;
         default:
             if (isset($update['message']['text'])) 
                 $message="Mensaje Recibido";
