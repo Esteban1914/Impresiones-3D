@@ -53,10 +53,10 @@
                     $file_id=$update['message']['document']['file_id'];
                     $message="Documento STL Recibido ".$file_id;
                 }
-                $message="Documento no recibido, utilize extensión STL";
+                $message="Documento no recibido, utilize extensión STL".pathinfo($update['message']['document']['file_name']);
             }
             else
-                $message="Use el comando /stl cuando suba el fichero STL y   haga referencia al mismo en el chat";
+                $message="Use el comando /stl cuando suba el fichero STL y haga referencia al mismo en el chat";
             break;
         default:
             if (isset($update['message']['text'])) 
