@@ -5,7 +5,8 @@
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
-    $reply_to_message=json_encode($update['message']['reply_to_message']);
+    $reply_to_message=$update['message']['reply_to_message']['text'];
+    $_json=json_decode($update);
     $array=explode(" ", $update["message"]['text']);
     $message="...";
     switch($array[0])
@@ -25,9 +26,13 @@
             }
             else
             {
-                if(count($array)==2)
+                if(count($array)==2 || count(explode(" ",$reply_to_message))==1)
                 {
-                    $username=$array[1];
+                    if(count($array)==2)
+                        $username=$array[1];
+                    else
+                        $username=$reply_to_message;
+
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
                         $message="Confirmada vinculación. Continue en proceso de registro en la plataforma";
@@ -41,7 +46,7 @@
             }
             break;
         default:
-            $message="Recibido ".$reply_to_message;
+            $message="Recibido ".$_json;
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);

@@ -1,0 +1,20 @@
+{
+    "message_id": 258,
+    "from": {
+        "id": 1033479354,
+        "is_bot": false,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "language_code": "es"
+    },
+    "chat": {
+        "id": 1033479354,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "type": "private"
+    },
+    "date": 1704139889,
+    "text": "aaa"
+}
