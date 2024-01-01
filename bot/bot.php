@@ -9,6 +9,9 @@
     $array=explode(" ", $update["message"]['text']);
     switch($array[0])
     {
+        case "/start":
+            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular";
+            break;
         case "/vincular":
             if($bot->existUserTelegam($chatID)===true)
             {
@@ -37,7 +40,7 @@
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular\n$aa";
+            $menssage="Recibido ".$aa;
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);
