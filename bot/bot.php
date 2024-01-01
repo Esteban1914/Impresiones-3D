@@ -3,10 +3,10 @@
     session_start();
     $bot=new Bot();
     $update=$bot->reciveMessage();
-    $chatID = $update["message"]["chat"]["id"];
+    $chatID = $update[" "]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
-    $reply_to_message=$update['message']['reply_to_message']['text'];
-    $_json=json_decode([$update]);
+    $reply=$update['message']['reply_to_message'];
+    $_json=json_encode([$update]);
     $array=explode(" ", $update["message"]['text']);
     $message="...";
     switch($array[0])
@@ -26,25 +26,30 @@
             }
             else
             {
-                $rm=!empty($reply_to_message) && count(explode(" ",$reply_to_message))===1;
-                if(count($array)==2 || $rm)
+                function regAndMess($bot,$usernametelegram,$chatID,$username)
                 {
-                    if($rm)
-                        $username=$reply_to_message;
-                    else                       
-                        $username=$array[1];
-
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
                         $message="Confirmada vinculación. Continue en proceso de registro en la plataforma";
                     else if ($resp===null)
-                        $message="No existe el usuario: ".$username." en la paltaforma :|";
+                        $message="No existe el usuario: ".$username." en la paltaforma";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
-                } 
+                }
+                if(count($array)==2)
+                    regAndMess($bot,$usernametelegram,$chatID,$array[1]);   
+                else if(!empty($replay) && count(explode(" ",$reply['text']))===1)
+                    regAndMess($bot,$usernametelegram,$chatID,$reply_to_message);
                 else 
                     $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo \nEjemplo: /vincular usuario";
             }
+            break;
+        case "/stl":
+            if(isset($update['message']['document']))
+            {
+
+            }
+            else if(!empty($replay) && count(explode(" ",$reply['text']))===1)
             break;
         default:
             $message="Recibido ".$_json;
