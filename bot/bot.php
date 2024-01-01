@@ -48,6 +48,7 @@
             if(isset($update['message']['document']) || isset($reply) && isset($reply['document']))
             {
                 $message="Documento STL Recibido";
+                
             }
             else
                 $message="Use el comando /stl cuando suba el fichero STL y   haga referencia al mismo en el chat";
@@ -67,7 +68,7 @@
     $message=str_replace("]", rawurlencode("]"), $message);
     $message=str_replace("(", rawurlencode("("), $message);
     $message=str_replace(")", rawurlencode(")"), $message);
-    $bot->sendMessage($chatID,$message.$_json);
+    $bot->sendMessage($chatID,$message);
 /*
 ok	true
 result	
