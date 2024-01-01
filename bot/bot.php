@@ -6,7 +6,7 @@
     $chatID = $update[" "]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
     $reply=$update['message']['reply_to_message'];
-    $_json=json_encode([$update]);
+    $_json=json_encode($update);
     $array=explode(" ", $update["message"]['text']);
     $message="...";
     switch($array[0])
