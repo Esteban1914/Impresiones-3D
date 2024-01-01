@@ -26,12 +26,13 @@
             }
             else
             {
-                if(count($array)==2 || count(explode(" ",$reply_to_message))==1)
+                $rm=!empty($reply_to_message) && count(explode(" ",$reply_to_message))===1;
+                if(count($array)==2 || $rm)
                 {
-                    if(count($array)==2)
-                        $username=$array[1];
-                    else
+                    if($rm)
                         $username=$reply_to_message;
+                    else                       
+                        $username=$array[1];
 
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
