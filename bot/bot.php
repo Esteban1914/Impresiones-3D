@@ -3,7 +3,7 @@
     session_start();
     $bot=new Bot();
     $update=$bot->reciveMessage();
-    $chatID = $update[" "]["chat"]["id"];
+    $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
     $reply=$update['message']['reply_to_message'];
     $_json=json_encode($update);
