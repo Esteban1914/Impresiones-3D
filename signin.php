@@ -34,7 +34,7 @@
                                         <input  autocomplete="new-password" required oninput="findUserNameExist()" name="username" type="text" class="form-control" id="inputusername" placeholder="Nombre de usuario">
                                         <label for="inputusername">Nombre de usuario</label>
                                         <div class="invalid-tooltip">
-                                            Nombre de usuario en uso, utilice otro
+                                            Nombre de usuario en uso, utilize otro
                                         </div>
                                     </div>  
                                 </div> 
