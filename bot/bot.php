@@ -5,8 +5,7 @@
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
-    $reply_to_message=$update['message']['reply_to_message'];
-    //$aa=json_encode($update);
+    $reply_to_message=json_encode($update['message']['reply_to_message']);
     $array=explode(" ", $update["message"]['text']);
     $message="...";
     switch($array[0])
