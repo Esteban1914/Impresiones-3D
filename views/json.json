@@ -96,3 +96,42 @@
     "text": "a"
 }
 }
+
+
+{
+"update_id": 481154987,
+"message": {
+    "message_id": 358,
+    "from": {
+        "id": 1033479354,
+        "is_bot": false,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "language_code": "es"
+    },
+    "chat": {
+        "id": 1033479354,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "type": "private"
+    },
+    "date": 1704144513,
+    "document": {
+        "file_name": "doc.txt",
+        "mime_type": "text\/plain",
+        "file_id": "BQACAgEAAxkBAAIBZmWTLoFLRbl0hkU26T8-MWCYeXOtAAK4AwACiiCYRNdMF-TNv05DNAQ",
+        "file_unique_id": "AgADuAMAAoogmEQ",
+        "file_size": 5
+    },
+    "caption": "\/stl",
+    "caption_entities": [
+        {
+            "offset": 0,
+            "length": 4,
+            "type": "bot_command"
+        }
+    ]
+}
+}

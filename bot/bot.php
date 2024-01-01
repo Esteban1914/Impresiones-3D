@@ -50,7 +50,7 @@
                 $message="Documento STL Recibido";
             }
             else
-                $message="Use el comando /stl cuando suba el fichero STL o haga referencia al mismo en el chat";
+                $message="Use el comando /stl cuando suba el fichero STL y   haga referencia al mismo en el chat";
             break;
         default:
             if (isset($update['message']['text'])) 
