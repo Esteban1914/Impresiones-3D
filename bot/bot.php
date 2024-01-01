@@ -47,8 +47,13 @@
         case "/stl":
             if(isset($update['message']['document']) || isset($reply) && isset($reply['document']))
             {
-                $message="Documento STL Recibido";
                 
+                if(pathinfo($update['message']['document']['file_name'])==="stl")
+                {
+                    $file_id=$update['message']['document']['file_id'];
+                    $message="Documento STL Recibido ".$file_id;
+                }
+                $message="Documento no recibido, utilize extensión STL";
             }
             else
                 $message="Use el comando /stl cuando suba el fichero STL y   haga referencia al mismo en el chat";
