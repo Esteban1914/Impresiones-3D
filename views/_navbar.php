@@ -5,17 +5,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-start" id="navbarScroll">
-            <div class="mx-5"></div>
-            <ul class='navbar-nav'>
-                <?php if(isset($_SESSION['user'])):?>
-                    <li class='nav-item mx-3'>
-                        <a class='nav-link active p-0' aria-current='page' href='home.php'><i class='bi bi-house-door h2'></i></a>
-                    </li>
-                <?php endif ?>
-                <li class="nav-item mx-3">
-                    <a class="nav-link active p-0" aria-current="page" href="#"><i class="bi bi-envelope-at h2"></i></a>
+        <div class="mx-5"></div>
+        <ul class='navbar-nav'>
+            <?php if(isset($_SESSION['user'])):?>
+                <li class='nav-item mx-3'>
+                    <a class='nav-link active p-0' aria-current='page' href='home.php'><i class='bi bi-house-door h2'></i></a>
                 </li>
-            </ul>
+            <?php endif ?>
+            <li class="nav-item mx-3">
+                <a class="nav-link active p-0" aria-current="page" href="#"><i class="bi bi-envelope-at h2"></i></a>
+            </li>
+        </ul>
         
         <ul class="navbar-nav justify-content-end w-100">
         <?php if(isset($_SESSION['user'])):?>
@@ -28,7 +28,7 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" ><?php echo "@".$_SESSION['user'] ?></a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
                     <li>
                         <form action="./includes/logout.php" method="post">
                             <button class="dropdown-item" type="submit">Desconectar</button>

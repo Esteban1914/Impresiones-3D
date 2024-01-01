@@ -2,18 +2,34 @@
 include_once 'db.php';
 class User extends DB
 {
-    private $username,$password;
+    //private $username,$password;
  
     public function __construct()
     {
         parent::__construct();
-        session_start();
+        if(session_status() === PHP_SESSION_NONE) 
+            session_start();
     }
-    public function userExist($u,$p)
+    public function registerUser($username, $password)
+    {
+        $query=$this->connect()->prepare('INSERT INTO users (username,password) VALUES (:u,:p)');
+        if($query->execute(['u'=> $username , 'p' => md5($password)]))
+            return true;
+        return false;
+    }
+    public function userExistForLogin($u,$p)
     {
         
         $query=$this->connect()->prepare('SELECT * FROM users WHERE username=:u AND password=:p');
-        $query->execute(['u'=> $u , 'p' => $p]);
+        $query->execute(['u'=> $u , 'p' => md5($p)]);
+        if($query->rowCount())
+            return true;
+        return false;
+    }
+    public function userExist($u)
+    { 
+        $query=$this->connect()->prepare('SELECT id FROM users WHERE username=:u');
+        $query->execute(['u'=> $u]);
         if($query->rowCount())
             return true;
         return false;
@@ -27,7 +43,7 @@ class User extends DB
             return $query->fetch(PDO::FETCH_ASSOC)["username"];
         return "";
     }
-    public function setCurrentUser($un,$unt)
+    public function setUserSession($un,$unt="")
     {
         $_SESSION['user']=$un;
         $_SESSION['usernametelegram']=$unt;

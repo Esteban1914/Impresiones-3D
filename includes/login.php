@@ -7,11 +7,12 @@
     }
     else if(isset($_POST['username']) && isset($_POST['password']))
     {
-        if($userManager->userExist($_POST['username'],$_POST['password']))
+        if($userManager->userExistForLogin($_POST['username'],$_POST['password']))
         {
             $usernametelegram=$userManager->getUserNameTelegram($_POST['username']);
-            $userManager->setCurrentUser($_POST['username'],$usernametelegram);
+            $userManager->setUserSession($_POST['username'],$usernametelegram);
             header("Location: ");
+            return;
         }
         else
         {
@@ -20,5 +21,4 @@
     }
     include_once "views/_login.php";
     exit;
-    
 ?>
