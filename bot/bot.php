@@ -7,6 +7,7 @@
     $usernametelegram=$update['message']['from']['username'];
     $aa=json_encode($update);
     $array=explode(" ", $update["message"]['text']);
+    $message="...";
     switch($array[0])
     {
         case "/start":
@@ -40,7 +41,7 @@
             }
             break;
         default:
-            $menssage="Recibido ".$aa;
+            $message="Recibido ".$aa;
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);
