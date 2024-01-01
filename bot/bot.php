@@ -5,7 +5,8 @@
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
-    $aa=json_encode($update);
+    $reply_to_message=$update['message']['chat']['$reply_to_message'];
+    //$aa=json_encode($update);
     $array=explode(" ", $update["message"]['text']);
     $message="...";
     switch($array[0])
@@ -41,7 +42,7 @@
             }
             break;
         default:
-            $message="Recibido ".$aa;
+            $message="Recibido ".$reply_to_message;
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);
