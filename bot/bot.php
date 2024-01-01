@@ -30,11 +30,12 @@
                 {
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
-                        $message="Confirmada vinculación. Continue en proceso de registro en la plataforma";
+                        $message="Usuario confirmado. Continue en proceso de registro en la plataforma";
                     else if ($resp===null)
                         $message="No existe el usuario: ".$username." en la paltaforma";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
+                    return $message;
                 }
                 if(count($array)==2)
                     regAndMess($bot,$usernametelegram,$chatID,$array[1]);   

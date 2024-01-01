@@ -18,3 +18,33 @@
     "date": 1704139889,
     "text": "aaa"
 }
+
+{
+    "update_id": 481154953,
+    "message": {
+        "message_id": 290,
+        "from": {
+            "id": 1033479354,
+            "is_bot": false,
+            "first_name": "Esteban",
+            "last_name": "Acevedo",
+            "username": "EstebanACB2",
+            "language_code": "es"
+        },
+        "chat": {
+            "id": 1033479354,
+            "first_name": "Esteban",
+            "last_name": "Acevedo",
+            "username": "EstebanACB2",
+            "type": "private"
+        },
+        "date": 1704142632,
+        "document": {
+            "file_name": "doc.txt",
+            "mime_type": "text\/plain",
+            "file_id": "BQACAgEAAxkBAAIBImWTJyg9LnlEkDjjiliAxnxKrjejAAK1AwACiiCYRHSfR_J6prBUNAQ",
+            "file_unique_id": "AgADtQMAAoogmEQ",
+            "file_size": 5
+        }
+    }
+}
