@@ -45,19 +45,38 @@
             }
             break;
         case "/stl":
-            if(isset($reply) && isset($reply['document']))
+            if($bot->existUserTelegam($chatID)===true)
             {
-                
-                if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION ) == "stl")
+                if(isset($reply) && isset($reply['document']))
                 {
-                    $file_id=$reply['document']['file_id'];
-                    $message="Documento STL Recibido ".$file_id;
+                    
+                    if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION ) == "stl")
+                    {
+                        $message="Documento STL Recibido ";
+                        $count_files=$bot->getCountFiles($chatID);
+                        if($count_files!== false)
+                        {
+                            if($count_files<3)
+                            {
+                                if($bot->setFile($chatID,$reply['document']['file_id']))
+                                    $message="Agregado STL Correctamente";
+                                else
+                                    $message="No se ha agregado el fichero";
+                            }
+                            else
+                                $message="Ha superado el máximo de ficheros, libere alguno\n\n /eliminar_stl";
+                        }
+                    }
+                    else
+                        $message="Documento no recibido, utilize extensión STL";
                 }
                 else
-                    $message="Documento no recibido, utilize extensión STL";
+                    $message="Use el comando /stl cuando suba el fichero STL y haga referencia al mismo en el chat";
             }
             else
-                $message="Use el comando /stl cuando suba el fichero STL y haga referencia al mismo en el chat";
+            {
+                $message="Primero debe vincular la cuenta \n\n/vincular";
+            }
             break;
         default:
             if (isset($update['message']['text'])) 

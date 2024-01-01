@@ -1,6 +1,6 @@
 <?php
 include_once 'db.php';
-class User extends DB
+class DB_Manager extends DB
 {
     //private $username,$password;
  

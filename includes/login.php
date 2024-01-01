@@ -1,6 +1,6 @@
 <?php
-    include_once 'user.php';
-    $userManager=new User();
+    include_once 'db_manager';
+    $userManager=new DB_Manager();
     if(isset($_SESSION['user']))
     {
         return; 
