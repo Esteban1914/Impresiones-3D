@@ -10,7 +10,7 @@ class Bot
         if($this->password==" ")
             $this->password="";
         $this->token = getenv("DB_TELEGRAM_TOKEN");
-        $this->path = "https://api.telegram.org/bot".$this->token;
+        $this->path = "https://api.telegram.org/bot".$this->token."/";
     }
     public function connect()
     {
@@ -23,9 +23,18 @@ class Bot
         $conn->exec("USE impresiones3D");
         return $conn;
     }
+    public function sendCommand($command)
+    {
+        return file_get_contents($this->path.$command);
+    }
+    public function sendCommandJson($command,$context)
+    {
+        return file_get_contents($this->path.$command,false,$context);
+    }
     public function sendMessage($chatID,$msg)
     {
-        file_get_contents($this->path."/sendmessage?chat_id=".$chatID."&text=".$msg);
+        $this->sendCommand("sendmessage?chat_id=".$chatID."&text=".$msg);
+        //file_get_contents($this->path."/sendmessage?chat_id=".$chatID."&text=".$msg);
     }
     public function reciveMessage()
     {

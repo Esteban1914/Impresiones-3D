@@ -5,6 +5,7 @@
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
+    $aa=json_encode($update);
     $array=explode(" ", $update["message"]['text']);
     switch($array[0])
     {
@@ -20,23 +21,23 @@
             }
             else
             {
-                if(count($array)==2 && strpos($array[1], "@") !== false) 
+                if(count($array)==2)
                 {
-                    $username=str_replace("@", "", $array[1]);
+                    $username=$array[1];
                     $resp=$bot->registerUser($usernametelegram,$chatID,$username);
                     if($resp===true)
                         $message="Confirmada vinculación. Continue en proceso de registro en la plataforma";
                     else if ($resp===null)
-                        $message="No existe el usuario: @".$username." en la paltaforma :|";
+                        $message="No existe el usuario: ".$username." en la paltaforma :|";
                     else    
                         $message="Ha ocurrido un error en el proceso :(";
                 } 
                 else 
-                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma empezando por @ \nEjemplo: /vincular @usuario";
+                    $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo \nEjemplo: /vincular usuario";
             }
             break;
         default:
-            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular";
+            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular\n$aa";
             break;
     }
     $message=str_replace("\n", rawurlencode("\n"), $message);
