@@ -53,7 +53,8 @@
             {
                 $message="Documento STL Recibido";
             }
-            break;
+            else
+                $message="Suba el fichero STL o referencielo en un mensaje usando /stl";
         default:
             if (isset($update['message']['text'])) 
                 $message="Mensaje Recibido";
