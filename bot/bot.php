@@ -48,7 +48,7 @@
             if(isset($reply) && isset($reply['document']))
             {
                 
-                if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION )==="stl")
+                if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION ) == "stl")
                 {
                     $file_id=$reply['document']['file_id'];
                     $message="Documento STL Recibido ".$file_id;
