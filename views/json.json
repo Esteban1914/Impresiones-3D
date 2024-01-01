@@ -48,3 +48,51 @@
         }
     }
 }
+"update_id": 481154971,
+"message": {
+    "message_id": 326,
+    "from": {
+        "id": 1033479354,
+        "is_bot": false,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "language_code": "es"
+    },
+    "chat": {
+        "id": 1033479354,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "type": "private"
+    },
+    "date": 1704143893,
+    "reply_to_message": {
+        "message_id": 290,
+        "from": {
+            "id": 1033479354,
+            "is_bot": false,
+            "first_name": "Esteban",
+            "last_name": "Acevedo",
+            "username": "EstebanACB2",
+            "language_code": "es"
+        },
+        "chat": {
+            "id": 1033479354,
+            "first_name": "Esteban",
+            "last_name": "Acevedo",
+            "username": "EstebanACB2",
+            "type": "private"
+        },
+        "date": 1704142632,
+        "document": {
+            "file_name": "doc.txt",
+            "mime_type": "text\/plain",
+            "file_id": "BQACAgEAAxkBAAIBImWTJyg9LnlEkDjjiliAxnxKrjejAAK1AwACiiCYRHSfR_J6prBUNAQ",
+            "file_unique_id": "AgADtQMAAoogmEQ",
+            "file_size": 5
+        }
+    },
+    "text": "a"
+}
+}
