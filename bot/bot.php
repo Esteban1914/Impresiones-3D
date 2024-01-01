@@ -39,7 +39,7 @@
                 if(count($array)==2)
                     $message=regAndMess($bot,$usernametelegram,$chatID,$array[1]);   
                 else if(!empty($replay) && count(explode(" ",$reply['text']))===1)
-                    $message=regAndMess($bot,$usernametelegram,$chatID,$reply_to_message);
+                    $message=regAndMess($bot,$usernametelegram,$chatID,$reply['text']);
                 else 
                     $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo \nEjemplo: /vincular usuario";
             }
