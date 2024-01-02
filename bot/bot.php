@@ -52,7 +52,7 @@
                     
                     if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION ) == "stl")
                     {
-                        if($bot->userIsFullFilesByChatID($chatID))
+                        if(!$bot->userIsFullFilesByChatID($chatID))
                         {
                             if($bot->existFile($reply['document']['file_id']))
                                 $message="Ya este fichero ha sido vinculado a una cuenta";
