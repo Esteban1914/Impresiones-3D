@@ -80,9 +80,9 @@
                 $message="Ficheros STL\n";
                 $files=$bot->getFilesNamesByChatID($chatID);
                 foreach ($files as $row) {
-                    $message=$bot->getFileData($row['file_id']);
+                    $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_EXTENSION )."\n";
                 }
-                error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
+                //error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
             }
             else
                 $message="Primero debe vincular la cuenta \n\n/vincular";

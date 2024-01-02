@@ -135,3 +135,13 @@
     ]
 }
 }
+
+{
+"ok": true,
+"result": {
+    "file_id": "BQACAgEAAxkBAAIBo2WTlUxuMFy4I2yPnHqeiijLqVUiAALNAwACiiCYRBr1jVJviD0MNAQ",
+    "file_unique_id": "AgADzQMAAoogmEQ",
+    "file_size": 5,
+    "file_path": "documents\/file_1.stl"
+}
+}
