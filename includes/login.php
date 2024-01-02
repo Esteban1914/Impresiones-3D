@@ -1,5 +1,5 @@
 <?php
-    include_once 'db_manager';
+    include_once 'db_manager.php';
     $userManager=new DB_Manager();
     if(isset($_SESSION['user']))
     {
