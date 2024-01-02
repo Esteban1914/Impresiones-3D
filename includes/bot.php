@@ -8,7 +8,7 @@
         public function __construct()
         {
             parent::__construct();
-            $MAX_COUNT_FILES=3;
+            $this->MAX_COUNT_FILES=3;
             // $this->servername = getenv('DB_HOST');
             // $this->username = getenv('DB_USER');
             // $this->password=getenv('DB_PASSWORD');
@@ -187,7 +187,6 @@
             $count_files=$this->getCountFiles($chatID);
             if($count_files >= $this->MAX_COUNT_FILES)
                 return false;
-            throw new Exception($count_files);
             $conn=$this->connect();
             $user_id=$this->getUserIDByChatID($chatID);
             $sql="INSERT INTO files_telegram (file_id,user_id) VALUES (:fi,:ui)";
