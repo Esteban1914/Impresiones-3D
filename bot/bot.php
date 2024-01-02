@@ -82,9 +82,9 @@
             {
                 $message="Ficheros STL\n";
                 $files=$bot->getFileIDsByChatID($chatID);
-                foreach ($files as $row) {
+                foreach ($files as $row)
                     $message .= pathinfo($bot->getFileInfo($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."\n";
-                }
+                
                 
             }
             else

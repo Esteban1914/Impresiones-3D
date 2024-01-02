@@ -216,7 +216,6 @@
         public function getFileIDsByChatID($chatID)
         {
             $conn=$this->connect();
-            //$user_id=$this->getUserIDByChatID($chatID);
             $sql="SELECT file_id,files_telegram.id FROM files_telegram 
                     JOIN users ON files_telegram.user_id = users.id 
                     JOIN user_telegram ON users.id = user_telegram.user_id 
