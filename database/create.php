@@ -1,16 +1,16 @@
 <?php
-    // $servername="localhost";
-    // $username="Esteban";
-    // $password= "MyContra123_*123";
+    $servername="localhost";
+    $username="root";
+    $password= "";
 
-    // ///////////////////////CONNECT///////////////////////
-    // try {
-    //     $conn = new PDO("mysql:host=$servername;", $username, $password);
-    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //     echo "CONNECTED -> OK<br>";
-    // } catch(PDOException $e) {
-    //     die ("Error:" . $e->getMessage());
-    // }
+    ///////////////////////CONNECT///////////////////////
+    try {
+        $conn = new PDO("mysql:host=$servername;", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "CONNECTED -> OK<br>";
+    } catch(PDOException $e) {
+        die ("Error:" . $e->getMessage());
+    }
 
     // ///////////////////////CREATE DB///////////////////////
     // try {
@@ -23,8 +23,8 @@
     
 
     // ///////////////////////CONNECT DB///////////////////////
-    // $conn->exec("USE impresiones3D");
-    // echo "SELECT -> OK<br>";
+    $conn->exec("USE impresiones3D");
+    echo "SELECT -> OK<br>";
     
     // ///////////////////////ALTER DB///////////////////////
     // $conn->exec("ALTER TABLE users CHANGE user_name username VARCHAR(50)");
@@ -36,10 +36,11 @@
     //     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //     username VARCHAR(10) NOT NULL,
     //     password VARCHAR(255) NOT NULL,
+    //     count_files INT UNSIGNED DEFAULT 0,
     //     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     // )";
     //     $conn->exec($sql);
-    //     echo "TABLE CREATED -> OK<br>";
+    //     echo "TABLE users CREATED -> OK<br>";
     // } catch(PDOException $e) {
     //     die ("Error:" . $e->getMessage());
     // }
@@ -54,10 +55,23 @@
     //         FOREIGN KEY (user_id) REFERENCES users(id)
     //     )";
     //     $conn->exec($sql);
-    //     echo "TABLE CREATED -> OK<br>";
+    //     echo "TABLE user_telegram CREATED -> OK<br>";
     // } catch(PDOException $e) {
     //     die ("Error:" . $e->getMessage());
     // }
+
+    // try {
+    //         $sql = "CREATE TABLE files_telegram (
+    //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    //             file_id CHAR(100) NOT NULL,
+    //             user_id INT(11) UNSIGNED,
+    //             FOREIGN KEY (user_id) REFERENCES users(id)
+    //         )";
+    //         $conn->exec($sql);
+    //         echo "TABLE files_telegram CREATED -> OK<br>";
+    //     } catch(PDOException $e) {
+    //         die ("Error:" . $e->getMessage());
+    //     }
 
     // ///////////////////////INSERT TABLE///////////////////////
     // $sql="INSERT INTO users (username,password) VALUES (:u,:p)";
@@ -100,5 +114,25 @@
     // else
     //     echo "NO DELETE TELEGRAM CODE -> X<br>";
     
+    ///////////////////////UPDATE///////////////////////
+    // $sql="UPDATE users SET count = 0 WHERE id=:i";
+    // $query=$conn->prepare($sql);
+    // if($query->execute([":i"=> $file_id]))
+    //     echo "UPDATE  -> OK<br>";
+    // else
+    //     echo "NO UPDATE  -> X<br>";
 
+    ///////////////////////ALLTER///////////////////////
+    // $sql="ALTER TABLE users ADD count_files INT UNSIGNED DEFAULT 0";
+    // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
+    // $sql="ALTER TABLE mi_tabla DROP COLUMN campo_antiguo;";
+    // $query=$conn->prepare($sql);
+    // if($query->execute())
+    //     echo "ALLTER -> OK<br>";
+    // else
+    //     echo "NO ALLTER -> X<br>";
+
+
+
+    
 ?>

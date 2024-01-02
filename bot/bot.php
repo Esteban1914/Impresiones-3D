@@ -52,20 +52,16 @@
                     
                     if(pathinfo($reply['document']['file_name'], PATHINFO_EXTENSION ) == "stl")
                     {
-                        $message="Documento STL Recibido ";
-                        $count_files=$bot->getCountFiles($chatID);
-                        if($count_files!== false)
+                        if($bot->userIsFullFilesByChatID($chatID))
                         {
-                            if($count_files<3)
-                            {
-                                if($bot->setFile($chatID,$reply['document']['file_id']))
-                                    $message="Agregado STL Correctamente";
-                                else
-                                    $message="No se ha agregado el fichero";
-                            }
+                            if($bot->setFile($chatID,$reply['document']['file_id']))
+                                $message="Agregado STL Correctamente";
                             else
-                                $message="Ha superado el máximo de ficheros, libere alguno\n\n /eliminar_stl";
+                                $message="No se ha agregado el fichero";
                         }
+                        else
+                            $message="Ha superado el máximo de ficheros, libere alguno\n\n /eliminar_stl";
+                        
                     }
                     else
                         $message="Documento no recibido, utilize extensión STL";
