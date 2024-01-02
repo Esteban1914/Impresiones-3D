@@ -209,6 +209,15 @@
                 return true;
             return false;
         }
+        public function getFilesNamesByChatID($chatID)
+        {
+            $conn=$this->connect();
+            $user_id=$this->getUserIDByChatID($chatID);
+            $sql= "SELECT file_id FROM files_telegram WHERE user_id=:ui";
+            $query=$conn->prepare($sql);
+            $query->execute([":ui"=> $user_id]);
+            return $query->fetchAll(PDO::FETCH_ASSOC)['file_id'];
+        }
         
     }
 ?>

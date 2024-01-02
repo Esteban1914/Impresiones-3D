@@ -72,9 +72,19 @@
                     $message="Use el comando /add_stl cuando suba el fichero STL y haga referencia al mismo en el chat";
             }
             else
-            {
                 $message="Primero debe vincular la cuenta \n\n/vincular";
+            break;
+        case "/show_stl":
+            if($bot->existUserTelegam($chatID)===true)
+            {
+                $message="Ficheros STL\n";
+                $files=$bot->getFilesNamesByChatID($chatID);
+                foreach ($files as $row) {
+                    $message = $message.$row['file_id']."\n";
+                }
             }
+            else
+                $message="Primero debe vincular la cuenta \n\n/vincular";
             break;
         default:
             if (isset($update['message']['text'])) 
