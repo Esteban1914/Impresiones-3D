@@ -13,7 +13,7 @@
                 </li>
             <?php endif ?>
             <li class="nav-item mx-3">
-                <a class="nav-link active p-0" aria-current="page" href="#"><i class="bi bi-envelope-at h2"></i></a>
+                <a class="nav-link active p-0" aria-current="page" href="contact.php"><i class="bi bi-envelope-at h2"></i></a>
             </li>
         </ul>
         
@@ -28,7 +28,7 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" ><?php echo "@".$_SESSION['user'] ?></a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
+                    <li><a class="dropdown-item" href="profile.php">Perfil</a></li>
                     <li>
                         <form action="./includes/logout.php" method="post">
                             <button class="dropdown-item" type="submit">Desconectar</button>

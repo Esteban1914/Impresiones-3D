@@ -4,55 +4,141 @@
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark">
     <?php require('views/_navbar.php'); ?>
-    <div class="container text-light mt-5 pt-5">
-        <?php 
-            include_once 'includes/bot.php';
-            $bot=new Bot();
-            $files=$bot->getFileIDsByUser($_SESSION['user']);
-        ?>
-        <?php if (!empty($files)): ?>
-            <hr>
-            <?php foreach ($files as $row): ?>
-                <div class="row m-2 align-items-center">
-                    <div class="col-8">
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-10">
-                                <div class="card card-secondary text-light bg-secondary py-2">
-                                    <p class="card-text h4">
-                                        <?php echo pathinfo($bot->getFileInfo($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)
-                                        ?>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-2 my-md-0 my-2">
-                                <div class="card text-white bg-success "> 
-                                    <p class="card-text">OK</p>
-                                </div>
-                            </div>
-                        </div>
-                            
-                    </div>
-                    <div class="col-4">
-                        <div class="row justify-content-center">
-                            <div class="col-auto my-2 m-md-0">
-                                <a href="" class="btn btn-outline-warning">Visualizar</a>
-                            </div>
-                            <div class="col-auto">
-                                <a href="" class="btn btn-outline-danger"> Eliminar <?php $row['id']; ?></a>                
-                            </div>
-                        </div>
+    <div class="contanier opacity-translation m-3 p-3">
+        <div class="row justify-content-start">
+            <div class="col-auto">
+                <div class="card bg-dark text-light border border-0">
+                    <div class="card-body">
+                        <h4 class="display-4">Impresiones 3D</h4>
+                        <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="learn.php">Aprende aquí!</a></small></p>
                     </div>
                 </div>
-                <hr>
-            <?php endforeach;?>
-        <?php else:?>
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    Aún no exiten ficheros STL vinculados
+                
+            </div>
+        </div>
+    </div>
+    
+    <div id="id_placeholder opacity-translation">
+        <div class="row justify-content-center text-light opacity-translation">
+            <hr>
+            <span class="h3 text-center ">Cargando Datos</span>
+            <br>
+            <div class="m-3 spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            
+        </div>
+        
+        <div class="contanier opacity-translation">
+            <div class="row m-2 align-items-center">
+                <div class="col-8">
+                    
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-10">
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-12 bg-secondary"></span>
+                            </p>
+                            
+                        </div>
+                        <div class="col-8 col-md-2 mt-md-0 mt-2">
+                                <p class="placeholder-glow">
+                                    <span class="placeholder col-12 bg-secondary"></span>
+                                </p>
+                        </div>
+                    </div>
+                        
+                </div>
+                <div class="col-4">
+                    <div class="row justify-content-around">
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-info  text-info disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2   ">
+                            <a href="" class="btn btn-warning text-warning disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-danger text-danger disabled placeholder"> NULL</a>                
+                        </div>
+                    </div>
                 </div>
             </div>
-        <?php endif;?>
-        
+        </div>
+        <div class="contanier opacity-translation">
+            <div class="row m-2 align-items-center">
+                <div class="col-8">
+                    
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-10">
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-12 bg-secondary"></span>
+                            </p>
+                            
+                        </div>
+                        <div class="col-8 col-md-2 mt-md-0 mt-2">
+                                <p class="placeholder-glow">
+                                    <span class="placeholder col-12 bg-warning"></span>
+                                </p>
+                        </div>
+                    </div>
+                        
+                </div>
+                <div class="col-4">
+                    <div class="row justify-content-around">
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-info  text-info disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2   ">
+                            <a href="" class="btn btn-warning text-warning disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-danger text-danger disabled placeholder"> NULL</a>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contanier opacity-translation">
+            <div class="row m-2 align-items-center">
+                <div class="col-8">
+                    
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-10">
+                            <p class="placeholder-glow">
+                                <span class="placeholder col-12 bg-secondary"></span>
+                            </p>
+                            
+                        </div>
+                        <div class="col-8 col-md-2 mt-md-0 mt-2">
+                                <p class="placeholder-glow">
+                                    <span class="placeholder col-12 bg-success"></span>
+                                </p>
+                        </div>
+                    </div>
+                        
+                </div>
+                <div class="col-4">
+                    <div class="row justify-content-around">
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-info  text-info disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2   ">
+                            <a href="" class="btn btn-warning text-warning disabled placeholder">NULL</a>
+                        </div>
+                        <div class="col-auto mb-2">
+                            <a href="" class="btn btn-danger text-danger disabled placeholder"> NULL</a>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        fetch('./views/_files.php')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('id_placeholder').innerHTML = html;
+        })
+        .catch(error => console.warn(error));
+    </script>    
 </body>
 <?php require 'views/_footer.html'; ?>
