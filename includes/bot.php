@@ -17,6 +17,10 @@
             $this->token = getenv("DB_TELEGRAM_TOKEN");
             $this->path = "https://api.telegram.org/bot".$this->token."/";
         }
+        public static function log($message)
+        {
+            error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
+        }
         // public function connect()
         // {
         //     try {

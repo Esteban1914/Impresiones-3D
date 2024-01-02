@@ -82,12 +82,19 @@
                 foreach ($files as $row) {
                     $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."     /del_".$row['id']."\n";
                 }
-                //error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
+                
             }
             else
                 $message="Primero debe vincular la cuenta \n\n/vincular";
             break;
         default:
+            if(strpos($array[0],"del"))
+            {
+                $id=explode("del_", $array[0]);
+                $bot->log($id);
+                $message="Eliminando fichero ".$id;
+                break;
+            }
             if (isset($update['message']['text'])) 
                 $message="Mensaje Recibido";
             elseif (isset($update['message']['document']))
