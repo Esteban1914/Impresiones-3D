@@ -19,7 +19,7 @@
         }
         public static function log($message)
         {
-            error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
+            error_log("\n".$message,3,"/var/log/apache2/myerror.log");
         }
         // public function connect()
         // {
