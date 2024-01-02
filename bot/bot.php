@@ -12,7 +12,7 @@
     switch($array[0])
     {
         case "/start":
-            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular";
+            $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular\n/stl\n";
             break;
         case "/vincular":
             if($bot->existUserTelegam($chatID)===true)
@@ -73,6 +73,9 @@
             }
             else
                 $message="Primero debe vincular la cuenta \n\n/vincular";
+            break;
+        case "/stl":
+            $message= "Comandos para trabajar con ficheros STL\n/add_stl\n/show_stl\n";
             break;
         case "/show_stl":
             if($bot->existUserTelegam($chatID)===true)
