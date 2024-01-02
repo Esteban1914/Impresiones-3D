@@ -88,7 +88,7 @@
                 $message="Primero debe vincular la cuenta \n\n/vincular";
             break;
         default:
-            if(strpos($array[0],"/del")!==)false
+            if(strpos($array[0],"/del")!==false)
             {
                 $id=explode("/del_", $array[0]);
                 $message="Eliminando fichero ".$id;
