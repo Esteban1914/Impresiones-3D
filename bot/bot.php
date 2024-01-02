@@ -80,7 +80,7 @@
                 $message="Ficheros STL\n";
                 $files=$bot->getFilesNamesByChatID($chatID);
                 foreach ($files as $row) {
-                    $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."     /del_".$row['id']."\n";
+                    $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."\n";
                 }
                 
             }
@@ -88,15 +88,15 @@
                 $message="Primero debe vincular la cuenta \n\n/vincular";
             break;
         default:
-            if(strpos($array[0],"/del")!==false)
-            {
-                $id=explode("/del_", $array[0])[0];
-                if(is_numeric($id) && $bot->deleteFile($id))
-                {
-                    $message="Eliminando fichero correctamente";
-                    break;
-                }
-            }
+            // if(strpos($array[0],"/del")!==false)
+            // {
+            //     $id=explode("/del_", $array[0])[0];
+            //     if(is_numeric($id) && $bot->deleteFile($id))
+            //     {
+            //         $message="Eliminando fichero correctamente";
+            //         break;
+            //     }
+            // }
             if (isset($update['message']['text'])) 
                 $message="Mensaje Recibido";
             elseif (isset($update['message']['document']))
