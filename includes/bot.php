@@ -218,6 +218,10 @@
             $query->execute([":ui"=> $user_id]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
-        
+        public function getFileData($file_id)
+        {
+            $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
+            return json_decode($response,true);  
+        }
     }
 ?>
