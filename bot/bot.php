@@ -82,7 +82,7 @@
                 foreach ($files as $row) {
                     $message=$bot->getFileData($row['file_id']);
                 }
-                error_log($message,3,"/var/log/apache2/myerror.txt");
+                error_log($message,3,"/var/log/apache2/error.log");
             }
             else
                 $message="Primero debe vincular la cuenta \n\n/vincular";
