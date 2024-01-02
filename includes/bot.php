@@ -185,6 +185,7 @@
         public function setFile($chatID, $file_id)
         {
             $count_files=$this->getCountFiles($chatID);
+            throw new Exception($count_files);
             if($count_files > $this->MAX_COUNT_FILES)
                 return false;
             $conn=$this->connect();
@@ -192,13 +193,11 @@
             $sql="INSERT INTO files_telegram (file_id,user_id) VALUES (:fi,:ui)";
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id]))
-            {      
-                
+            {        
                 $sql="UPDATE users SET count_files = :c WHERE id=:ui";
                 $query=$conn->prepare($sql);
                 return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
             }
-            throw new Exception("OK");
             return false;
         }
         public function existFile($file_id)
