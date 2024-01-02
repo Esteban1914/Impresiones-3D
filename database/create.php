@@ -60,7 +60,7 @@
     // try {
     //         $sql = "CREATE TABLE files_telegram (
     //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    //             file_id CHAR(100) NOT NULL,
+    //             file_id CHAR(100) UNIQUE NOT NULL,
     //             user_id INT(11) UNSIGNED,
     //             FOREIGN KEY (user_id) REFERENCES users(id)
     //         )";
@@ -122,6 +122,7 @@
     // ///////////////////////ALLTER///////////////////////
     // $sql="ALTER TABLE users ADD count_files INT UNSIGNED DEFAULT 0";
     // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
+    // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE mi_tabla DROP COLUMN campo_antiguo;";
     // $query=$conn->prepare($sql);
     // if($query->execute())

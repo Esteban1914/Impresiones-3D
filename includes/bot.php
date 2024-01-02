@@ -28,6 +28,10 @@
         //     $conn->exec("USE impresiones3D");
         //     return $conn;
         // }
+        public function getMaxCountFiles()
+        {
+            return $this->MAX_COUNT_FILES;
+        }
         public function sendCommand($command)
         {
             return file_get_contents($this->path.$command);
@@ -189,10 +193,13 @@
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id]))
             {      
+                
                 $sql="UPDATE users SET count_files = :c WHERE id=:ui";
                 $query=$conn->prepare($sql);
                 return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
             }
+            throw new Exception("OK");
+            return false;
         }
         public function existFile($file_id)
         {

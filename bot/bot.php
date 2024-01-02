@@ -20,9 +20,9 @@
                 $uic=$bot->userIsConfirmatedUserTelegram($usernametelegram);
                 $username=$bot->getUserNameByUserNameTelegram($usernametelegram);
                 if($uic===true)
-                    $message="Ya se encuentra registrado con el usuario @".$username;
+                    $message="Ya se encuentra registrado con el usuario ".$username;
                 else
-                    $message="Ya se encuentra en proceso de verificación el usuario @".$username;
+                    $message="Ya se encuentra en proceso de verificación el usuario ".$username;
             }
             else
             {
@@ -57,7 +57,7 @@
                             if($bot->existFile($reply['document']['file_id']))
                                 $message="Ya este fichero ha sido vinculado a una cuenta";
                             else if($bot->setFile($chatID,$reply['document']['file_id']))
-                                $message="Agregado fichero STL Correctamente";
+                                $message="Agregado fichero STL Correctamente\n".$bot->getCountFiles($chatID)."/".$bot->getMaxCountFiles();
                             else
                                 $message="No se ha agregado el fichero";
                         }
