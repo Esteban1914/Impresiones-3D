@@ -185,9 +185,9 @@
         public function setFile($chatID, $file_id)
         {
             $count_files=$this->getCountFiles($chatID);
-            throw new Exception($count_files);
-            if($count_files > $this->MAX_COUNT_FILES)
+            if($count_files >= $this->MAX_COUNT_FILES)
                 return false;
+            throw new Exception($count_files);
             $conn=$this->connect();
             $user_id=$this->getUserIDByChatID($chatID);
             $sql="INSERT INTO files_telegram (file_id,user_id) VALUES (:fi,:ui)";
