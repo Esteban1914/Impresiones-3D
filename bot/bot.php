@@ -90,9 +90,12 @@
         default:
             if(strpos($array[0],"/del")!==false)
             {
-                $id=explode("/del_", $array[0]);
-                $message="Eliminando fichero ".$id;
-                break;
+                $id=explode("/del_", $array[0])[0];
+                if(is_numeric($id) && $bot->deleteFile($id))
+                {
+                    $message="Eliminando fichero correctamente";
+                    break;
+                }
             }
             if (isset($update['message']['text'])) 
                 $message="Mensaje Recibido";

@@ -227,5 +227,26 @@
             $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
             return json_decode($response,true);  
         }
+        public function deleteFile($id)
+        {
+            $conn=$this->connect();
+            
+            $sql= "SELECT user_id FROM files_telegram WHERE id=:i";
+            $query=$conn->prepare($sql);
+            $query->execute(["i"=> $id]);
+            if($query->rowCount()>0)
+            {
+                $user_id=$query->fetch(PDO::FETCH_ASSOC)['user_id'];
+                $sql= "DELETE FROM files_telegram WHERE id=:i";
+                $query=$conn->prepare($sql);
+                if($query->execute(["i"=> $id]))
+                {
+                    $sql="UPDATE users SET count_files = :c WHERE id=:ui";
+                    $query=$conn->prepare($sql);
+                    return $query->execute([":c"=> $count_files-1,":ui"=> $user_id]);
+                }
+            }
+            
+        }
     }
 ?>
