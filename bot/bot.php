@@ -44,7 +44,7 @@
                     $message="Escriba el comando /vincular seguido del nombre de usuario de la paltaforma, o haga referencia al mismo en el chat \nEjemplo: /vincular usuario";
             }
             break;
-        case "/stl":
+        case "/add_stl":
             if($bot->existUserTelegam($chatID)===true)
             {
                 if(isset($reply) && isset($reply['document']))
@@ -54,8 +54,10 @@
                     {
                         if($bot->userIsFullFilesByChatID($chatID))
                         {
-                            if($bot->setFile($chatID,$reply['document']['file_id']))
-                                $message="Agregado STL Correctamente";
+                            if($bot->existFile($reply['document']['file_id']))
+                                $message="Ya este fichero ha sido vinculado a una cuenta";
+                            else if($bot->setFile($chatID,$reply['document']['file_id']))
+                                $message="Agregado fichero STL Correctamente";
                             else
                                 $message="No se ha agregado el fichero";
                         }
@@ -67,7 +69,7 @@
                         $message="Documento no recibido, utilize extensión STL";
                 }
                 else
-                    $message="Use el comando /stl cuando suba el fichero STL y haga referencia al mismo en el chat";
+                    $message="Use el comando /add_stl cuando suba el fichero STL y haga referencia al mismo en el chat";
             }
             else
             {

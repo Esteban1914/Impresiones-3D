@@ -2,17 +2,17 @@
     $servername="localhost";
     $username="root";
     $password= "";
-
+    exit;
     ///////////////////////CONNECT///////////////////////
-    try {
-        $conn = new PDO("mysql:host=$servername;", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "CONNECTED -> OK<br>";
-    } catch(PDOException $e) {
-        die ("Error:" . $e->getMessage());
-    }
-
-    // ///////////////////////CREATE DB///////////////////////
+    // try {
+    //     $conn = new PDO("mysql:host=$servername;", $username, $password);
+    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     echo "CONNECTED -> OK<br>";
+    // } catch(PDOException $e) {
+    //     die ("Error:" . $e->getMessage());
+    // }
+    
+    // // ///////////////////////CREATE DB///////////////////////
     // try {
     //     $sql = "CREATE DATABASE impresiones3D";
     //     $conn->exec($sql);
@@ -22,15 +22,12 @@
     // }
     
 
-    // ///////////////////////CONNECT DB///////////////////////
-    $conn->exec("USE impresiones3D");
-    echo "SELECT -> OK<br>";
+    // // ///////////////////////CONNECT DB///////////////////////
+    // $conn->exec("USE impresiones3D");
+    // echo "SELECT -> OK<br>";
     
-    // ///////////////////////ALTER DB///////////////////////
-    // $conn->exec("ALTER TABLE users CHANGE user_name username VARCHAR(50)");
-    // echo "ALTER -> OK<br>";
-
-    // ///////////////////////CREATE TABLE///////////////////////
+    
+    // // ///////////////////////CREATE TABLE///////////////////////
     // try {
     // $sql = "CREATE TABLE users (
     //     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -73,7 +70,7 @@
     //         die ("Error:" . $e->getMessage());
     //     }
 
-    // ///////////////////////INSERT TABLE///////////////////////
+    // // ///////////////////////INSERT TABLE///////////////////////
     // $sql="INSERT INTO users (username,password) VALUES (:u,:p)";
     // $query=$conn->prepare($sql);
     // if($query->execute([":u"=> "ernesto","p"=> "12345678"]))
@@ -95,7 +92,7 @@
     // else
     //     echo "NO INSERT CODE -> X<br>";
 
-    ///////////////////////SELECT///////////////////////
+    // ///////////////////////SELECT///////////////////////
     // $sql="SELECT id,username FROM users ";
     // $query=$conn->prepare($sql);
     // $query->execute([":u"=> "esteban"]);
@@ -106,7 +103,7 @@
     //     }
     // }
 
-    ///////////////////////DELETE///////////////////////
+    // ///////////////////////DELETE///////////////////////
     // $sql="DELETE FROM telegram_code WHERE user_id=:ui";
     // $query=$conn->prepare($sql);
     // if($query->execute(["ui"=> 1]))
@@ -114,7 +111,7 @@
     // else
     //     echo "NO DELETE TELEGRAM CODE -> X<br>";
     
-    ///////////////////////UPDATE///////////////////////
+    // ///////////////////////UPDATE///////////////////////
     // $sql="UPDATE users SET count = 0 WHERE id=:i";
     // $query=$conn->prepare($sql);
     // if($query->execute([":i"=> $file_id]))
@@ -122,7 +119,7 @@
     // else
     //     echo "NO UPDATE  -> X<br>";
 
-    ///////////////////////ALLTER///////////////////////
+    // ///////////////////////ALLTER///////////////////////
     // $sql="ALTER TABLE users ADD count_files INT UNSIGNED DEFAULT 0";
     // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
     // $sql="ALTER TABLE mi_tabla DROP COLUMN campo_antiguo;";

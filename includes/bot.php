@@ -177,7 +177,7 @@
         {
             return $this->getCountFiles($chatID) >= $this->MAX_COUNT_FILES;
         }
-        
+
         public function setFile($chatID, $file_id)
         {
             $count_files=$this->getCountFiles($chatID);
@@ -193,6 +193,16 @@
                 $query=$conn->prepare($sql);
                 return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
             }
+        }
+        public function existFile($file_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id FROM files_telegram  WHERE file_id=:fi";
+            $query=$conn->prepare($sql);
+            $query->execute([":fi"=> $file_id]);
+            if($query->rowCount()>0)
+                return true;
+            return false;
         }
         
     }
