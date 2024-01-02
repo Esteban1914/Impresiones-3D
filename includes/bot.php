@@ -217,7 +217,7 @@
         {
             $conn=$this->connect();
             //$user_id=$this->getUserIDByChatID($chatID);
-            $sql="SELECT file_id,id FROM files_telegram 
+            $sql="SELECT file_id,files_telegram.id FROM files_telegram 
                     JOIN users ON files_telegram.id = users.user_id 
                     JOIN user_telegram ON users.id = user_telegram.user_id 
                     WHERE chat_id=:chi";
