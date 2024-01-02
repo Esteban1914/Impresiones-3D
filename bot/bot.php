@@ -80,7 +80,7 @@
                 $message="Ficheros STL\n";
                 $files=$bot->getFilesNamesByChatID($chatID);
                 foreach ($files as $row) {
-                    $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_EXTENSION )."\n";
+                    $message .= pathinfo($bot->getFileData($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."     /del_".$row['id']."\n";
                 }
                 //error_log(json_encode($message),3,"/var/log/apache2/myerror.log");
             }

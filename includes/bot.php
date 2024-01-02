@@ -213,7 +213,7 @@
         {
             $conn=$this->connect();
             $user_id=$this->getUserIDByChatID($chatID);
-            $sql= "SELECT file_id FROM files_telegram WHERE user_id=:ui";
+            $sql= "SELECT file_id,id FROM files_telegram WHERE user_id=:ui";
             $query=$conn->prepare($sql);
             $query->execute([":ui"=> $user_id]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
