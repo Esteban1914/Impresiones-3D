@@ -216,7 +216,7 @@
             $sql= "SELECT file_id FROM files_telegram WHERE user_id=:ui";
             $query=$conn->prepare($sql);
             $query->execute([":ui"=> $user_id]);
-            return $query->fetchAll(PDO::FETCH_ASSOC)['file_id'];
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
         
     }
