@@ -5,13 +5,16 @@
 <body class="text-center bg-dark">
     <?php require('views/_navbar.php'); ?>
     <div class="container text-light mt-5 pt-5">
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <div class="display-4">
-                    Hola @<?php echo $_SESSION['user'];?>
-                </div>
-            </div>
-        </div>
+        <?php 
+            include_once 'includes/bot.php';
+            $bot=new Bot();
+            $files=$bot->getFileIDsByUserTelegram($_SESSION['usertelegram']);
+            foreach ($files as $row) {
+                $message .= pathinfo($bot->getFileInfo($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."\n";
+            }
+        ?>
+        
+        
     </div>
 </body>
 <?php require 'views/_footer.html'; ?>

@@ -2,15 +2,15 @@
     $servername="localhost";
     $username="root";
     $password= "";
-    exit;
+
     ///////////////////////CONNECT///////////////////////
-    // try {
-    //     $conn = new PDO("mysql:host=$servername;", $username, $password);
-    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //     echo "CONNECTED -> OK<br>";
-    // } catch(PDOException $e) {
-    //     die ("Error:" . $e->getMessage());
-    // }
+    try {
+        $conn = new PDO("mysql:host=$servername;", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "CONNECTED -> OK<br>";
+    } catch(PDOException $e) {
+        die ("Error:" . $e->getMessage());
+    }
     
     // // ///////////////////////CREATE DB///////////////////////
     // try {
@@ -23,8 +23,8 @@
     
 
     // // ///////////////////////CONNECT DB///////////////////////
-    // $conn->exec("USE impresiones3D");
-    // echo "SELECT -> OK<br>";
+    $conn->exec("USE impresiones3D");
+    echo "SELECT -> OK<br>";
     
     
     // // ///////////////////////CREATE TABLE///////////////////////
@@ -48,6 +48,7 @@
     //         username VARCHAR(20) NOT NULL,
     //         chatid INT(11) NOT NULL,
     //         registered BOOLEAN DEFAULT FALSE,
+    //         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     //         user_id INT(11) UNSIGNED UNIQUE,
     //         FOREIGN KEY (user_id) REFERENCES users(id)
     //     )";
@@ -61,6 +62,7 @@
     //         $sql = "CREATE TABLE files_telegram (
     //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //             file_id CHAR(100) UNIQUE NOT NULL,
+    //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     //             user_id INT(11) UNSIGNED,
     //             FOREIGN KEY (user_id) REFERENCES users(id)
     //         )";
@@ -123,7 +125,7 @@
     // $sql="ALTER TABLE users ADD count_files INT UNSIGNED DEFAULT 0";
     // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
     // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
-    // $sql="ALTER TABLE mi_tabla DROP COLUMN campo_antiguo;";
+    // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";
     // $query=$conn->prepare($sql);
     // if($query->execute())
     //     echo "ALLTER -> OK<br>";

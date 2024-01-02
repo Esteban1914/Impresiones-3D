@@ -213,19 +213,34 @@
                 return true;
             return false;
         }
-        public function getFilesNamesByChatID($chatID)
+        public function getFileIDsByChatID($chatID)
         {
             $conn=$this->connect();
-            $user_id=$this->getUserIDByChatID($chatID);
-            $sql= "SELECT file_id,id FROM files_telegram WHERE user_id=:ui";
+            //$user_id=$this->getUserIDByChatID($chatID);
+            $sql="SELECT file_id,id FROM files_telegram 
+                    JOIN users ON files_telegram.id = users.user_id 
+                    JOIN user_telegram ON users.id = user_telegram.user_id 
+                    WHERE chat_id=:chi";
             $query=$conn->prepare($sql);
-            $query->execute([":ui"=> $user_id]);
+            $query->execute([":ui"=> $chatID]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
-        public function getFileData($file_id)
+        public function getFileInfo($file_id)
         {
             $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
             return json_decode($response,true);  
+        }
+        public function getFileIDsByUserTelegram($usertelegram)
+        {
+            $conn=$this->connect();
+            $sql= "SELECT chat_id FROM files_telegram WHERE username=:ut";
+            $query=$conn->prepare($sql);
+            $query->execute([":ut"=> $usertelegram]);
+            if($query->rowCount()>0)
+            {
+                $chatID=$query->fetch(PDO::FETCH_ASSOC)["chat_id"];
+                return $this->getFileInfo($chatID);
+            }
         }
         // public function deleteFile($id)
         // {
