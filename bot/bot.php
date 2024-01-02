@@ -79,6 +79,7 @@
             {
                 $message="Ficheros STL\n";
                 $files=$bot->getFilesNamesByChatID($chatID);
+                $meessge=$message.json_encode($files);
                 foreach ($files as $row) {
                     $message = $message.$row['file_id']."\n";
                 }
