@@ -88,11 +88,9 @@
                 $message="Primero debe vincular la cuenta \n\n/vincular";
             break;
         default:
-            $bot->log($array[0]);
-            if(strpos($array[0],"/del"))
+            if(strpos($array[0],"/del")!==)false
             {
                 $id=explode("/del_", $array[0]);
-                
                 $message="Eliminando fichero ".$id;
                 break;
             }
