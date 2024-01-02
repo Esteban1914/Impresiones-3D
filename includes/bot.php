@@ -221,7 +221,7 @@
                     JOIN user_telegram ON users.id = user_telegram.user_id 
                     WHERE chatid=:chi";
             $query=$conn->prepare($sql);
-            $query->execute([":ui"=> $chatID]);
+            $query->execute([":chi"=> $chatID]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
         public function getFileInfo($file_id)
