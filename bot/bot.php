@@ -83,8 +83,9 @@
                 {
                     $message="Ficheros STL\n";
                     $files=$bot->getFilesNameByChatID($chatID);
-                    foreach ($files as $row)
-                        $message .= $row."\n";
+                    $message.=$files;
+                    //foreach ($files as $row)
+                    //    $message .= $row."\n";
                     
                     
                 }
