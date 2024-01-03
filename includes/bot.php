@@ -290,7 +290,7 @@
                     WHERE chatid=:chi";
             $query=$conn->prepare($sql);
             $query->execute([":chi"=> $chatID]);
-            return $query->fetch(PDO::FETCH_ASSOC);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
         // public function getFilesInfo($chatID)
         // {
