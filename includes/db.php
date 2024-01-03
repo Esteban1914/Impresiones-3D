@@ -14,7 +14,10 @@ class DB
         $this->charset='utf8mb4';
 
     }
-
+    public static function log($message)
+    {
+        error_log("\n".$message,3,"/var/log/apache2/myerror.log");
+    }
     public function connect()
     {
         try{

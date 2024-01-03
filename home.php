@@ -18,7 +18,7 @@
         </div>
     </div>
     
-    <div id="id_placeholder opacity-translation">
+    <div id="id_placeholder">
         <div class="row justify-content-center text-light opacity-translation">
             <hr>
             <span class="h3 text-center ">Cargando Datos</span>

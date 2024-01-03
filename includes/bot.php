@@ -17,10 +17,7 @@
             $this->token = getenv("DB_TELEGRAM_TOKEN");
             $this->path = "https://api.telegram.org/bot".$this->token."/";
         }
-        public static function log($message)
-        {
-            error_log("\n".$message,3,"/var/log/apache2/myerror.log");
-        }
+        
         // public function connect()
         // {
         //     try {
@@ -183,7 +180,7 @@
                 return true;
             return false;
         } 
-        public function getCountFiles($chatID)
+        public function getCountFilesByChatID($chatID)
         {
             $conn=$this->connect();
             $sql="SELECT count_files FROM users 
@@ -194,14 +191,27 @@
                 return $query->fetch(PDO::FETCH_ASSOC)["count_files"];
             return false;
         }
+        public function getCountFilesByUserName($username)
+        {
+            $conn=$this->connect();
+            $sql="SELECT count_files FROM users 
+                    WHERE username=:un";
+            $query=$conn->prepare($sql);
+            if($query->execute([":un"=> $username]))
+                return $query->fetch(PDO::FETCH_ASSOC)["count_files"];
+            return false;
+        }
         public function userIsFullFilesByChatID($chatID)
         {
-            return $this->getCountFiles($chatID) >= $this->MAX_COUNT_FILES;
+            return $this->getCountFilesByChatID($chatID) >= $this->MAX_COUNT_FILES;
         }
-
+        public function userIsFullFilesByUserName($username)
+        {
+            return $this->getCountFilesByUserName($username) >= $this->MAX_COUNT_FILES;
+        }
         public function setFile($chatID, $file_id)
         {
-            $count_files=$this->getCountFiles($chatID);
+            $count_files=$this->getCountFilesByChatID($chatID);
             if($count_files >= $this->MAX_COUNT_FILES)
                 return false;
             $conn=$this->connect();
