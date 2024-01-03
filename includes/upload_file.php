@@ -3,7 +3,7 @@
     {
         include_once "bot.php";
         $bot= new Bot();
-        $target_dir = "./temp_data/";
+        $target_dir = "./";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
 
