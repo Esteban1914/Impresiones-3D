@@ -4,11 +4,12 @@
     class Bot extends DB
     {
         private $token,$path;
-        private $MAX_COUNT_FILES;
+        private $MAX_COUNT_FILES,$GROUP_UPLOAD_FILES;
         public function __construct()
         {
             parent::__construct();
             $this->MAX_COUNT_FILES=5;
+            $this->GROUP_UPLOAD_FILES="-4000258594";
             // $this->servername = getenv('DB_HOST');
             // $this->username = getenv('DB_USER');
             // $this->password=getenv('DB_PASSWORD');
@@ -33,13 +34,24 @@
         {
             return $this->MAX_COUNT_FILES;
         }
+        public function getGroupUploadFiles()
+        {
+            return $this->GROUP_UPLOAD_FILES;
+        }
         public function sendCommand($command)
         {
             return file_get_contents($this->path.$command);
         }
-        public function sendCommandJson($command,$context)
+        public function sendCommnadPOSTFile($command,$data)
         {
-            return file_get_contents($this->path.$command,false,$context);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,  $this->path.$command);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $response = curl_exec($ch);
+            curl_close ($ch);
+            return json_decode($response, true);
         }
         public function sendMessage($chatID,$msg)
         {
@@ -147,19 +159,19 @@
         }
 
         
-        public function registerUser($username,$chatID,$user_name)
-        {
-            $user_id=$this->getUserIDByName($user_name);
-            if($user_id===false)
-                return null;
-            $conn=$this->connect();
-            $sql="INSERT INTO user_telegram (username,chatid, user_id) 
-                    VALUES (:un,:chi,:ui)";
-            $query=$conn->prepare($sql);
-            if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
-                return true;
-            return false;
-        }
+        // public function registerUser($username,$chatID,$user_name)
+        // {
+        //     $user_id=$this->getUserIDByName($user_name);
+        //     if($user_id===false)
+        //         return null;
+        //     $conn=$this->connect();
+        //     $sql="INSERT INTO user_telegram (username,chatid, user_id) 
+        //             VALUES (:un,:chi,:ui)";
+        //     $query=$conn->prepare($sql);
+        //     if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
+        //         return true;
+        //     return false;
+        // }
         public function userConfirm($usernametelegram)
         {
             $conn=$this->connect();
@@ -209,17 +221,36 @@
         {
             return $this->getCountFilesByUserName($username) >= $this->MAX_COUNT_FILES;
         }
-        public function setFile($chatID, $file_id)
+        public function setFileByChatID($chatID, $file_id , $file_name)
         {
             $count_files=$this->getCountFilesByChatID($chatID);
             if($count_files >= $this->MAX_COUNT_FILES)
                 return false;
             $conn=$this->connect();
             $user_id=$this->getUserIDByChatID($chatID);
-            $sql="INSERT INTO files_telegram (file_id,user_id) 
-                    VALUES (:fi,:ui)";
+            $sql="INSERT INTO files_telegram (file_id,user_id,file_name) 
+                    VALUES (:fi,:ui,:fn)";
             $query=$conn->prepare($sql);
-            if($query->execute([":fi"=> $file_id,":ui"=> $user_id]))
+            if($query->execute([":fi"=> $file_id,":ui"=> $user_id, ":fn"=>$file_name ]))
+            {        
+                $sql="UPDATE users SET count_files = :c
+                        WHERE id=:ui";
+                $query=$conn->prepare($sql);
+                return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
+            }
+            return false;
+        }
+        public function setFileByUserName($username, $file_id,$file_name)
+        {
+            $count_files=$this->getCountFilesByUserName($username);
+            if($count_files >= $this->MAX_COUNT_FILES)
+                return false;
+            $conn=$this->connect();
+            $user_id=$this->getUserIDByName($username);
+            $sql="INSERT INTO files_telegram (file_id,user_id,file_name) 
+                    VALUES (:fi,:ui,:fn)";
+            $query=$conn->prepare($sql);
+            if($query->execute([":fi"=> $file_id,":ui"=> $user_id,":fn"=>$file_name]))
             {        
                 $sql="UPDATE users SET count_files = :c
                         WHERE id=:ui";
@@ -239,32 +270,73 @@
                 return true;
             return false;
         }
-        public function getFileIDsByChatID($chatID)
+        // public function getIDFileByChatID($chatID)
+        // {
+        //     $conn=$this->connect();
+        //     $sql="SELECT files_telegram.id FROM files_telegram 
+        //             JOIN users ON files_telegram.user_id = users.id 
+        //             JOIN user_telegram ON users.id = user_telegram.user_id 
+        //             WHERE chatid=:chi";
+        //     $query=$conn->prepare($sql);
+        //     $query->execute([":chi"=> $chatID]);
+        //     return $query->fetch(PDO::FETCH_ASSOC)['id'];
+        // }
+        public function getFilesNameByChatID($chatID)
         {
             $conn=$this->connect();
-            $sql="SELECT file_id,files_telegram.id FROM files_telegram 
+            $sql="SELECT files_telegram.file_name FROM files_telegram 
                     JOIN users ON files_telegram.user_id = users.id 
                     JOIN user_telegram ON users.id = user_telegram.user_id 
                     WHERE chatid=:chi";
             $query=$conn->prepare($sql);
             $query->execute([":chi"=> $chatID]);
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
         }
-        public function getFileInfo($file_id)
-        {
-            $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
-            return json_decode($response,true);  
-        }
-        public function getFileIDsByUser($username)
+        // public function getFilesInfo($chatID)
+        // {
+        //     $conn=$this->connect();
+        //     $sql="SELECT file_id,files_telegram.id FROM files_telegram 
+        //             JOIN users ON files_telegram.user_id = users.id 
+        //             JOIN user_telegram ON users.id = user_telegram.user_id 
+        //             WHERE chatid=:chi";
+        //     $query=$conn->prepare($sql);
+        //     $query->execute([":chi"=> $chatID]);
+        //     return $query->fetchAll(PDO::FETCH_ASSOC);
+        // }
+        // public function getFileInfo($file_id)
+        // {
+        //     $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
+        //     return json_decode($response,true);  
+        // }
+        public function getFileNameByID($id)
         {
             $conn=$this->connect();
-            $sql="SELECT file_id,files_telegram.id FROM files_telegram 
+            $sql="SELECT file_name FROM files_telegram 
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id]);
+            return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
+        }
+        public function getFilesIDNameByUser($username)
+        {
+            $conn=$this->connect();
+            $sql="SELECT file_name,files_telegram.id FROM files_telegram 
                     JOIN users ON files_telegram.user_id = users.id 
                     WHERE username=:un";
             $query=$conn->prepare($sql);
             $query->execute([":un"=> $username]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
+        // public function getFileIDsByUser($username)
+        // {
+        //     $conn=$this->connect();
+        //     $sql="SELECT file_id,files_telegram.id FROM files_telegram 
+        //             JOIN users ON files_telegram.user_id = users.id 
+        //             WHERE username=:un";
+        //     $query=$conn->prepare($sql);
+        //     $query->execute([":un"=> $username]);
+        //     return $query->fetchAll(PDO::FETCH_ASSOC);
+        // }
         // public function deleteFile($id)
         // {
         //     $conn=$this->connect();

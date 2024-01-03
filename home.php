@@ -5,6 +5,21 @@
 <body class="text-center bg-dark">
     <?php require('views/_navbar.php'); ?>
     <div class="contanier opacity-translation m-3 p-3">
+        <div class="row justify-content-center ">
+            <div class="col-auto ">
+                <?php if (isset($_GET['upload_file']) && $_GET['upload_file']=="OK" ): ?>
+                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
+                        Fichero STL agregado
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php elseif(isset($_GET['upload_file']) && $_GET['upload_file']=="BAD" ):?>
+                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        Error al agregar el fichero STL
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif;?>
+            </div>
+        </div>
         <div class="row justify-content-start">
             <div class="col-auto">
                 <div class="card bg-dark text-light border border-0">

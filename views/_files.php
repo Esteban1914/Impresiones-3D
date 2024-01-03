@@ -2,10 +2,10 @@
     <?php 
         include_once '../includes/bot.php';
         $bot=new Bot();
-        session_start();
+       
         if(!isset($_SESSION['user']))
             die("Session Error");
-        $files=$bot->getFileIDsByUser($_SESSION['user']);
+        $files=$bot->getFilesIDNameByUser($_SESSION['user']);
     ?>
     <?php if (!empty($files)): ?>
         <hr>
@@ -16,7 +16,7 @@
                         <div class="col-10">
                             <div class="card card-secondary text-light bg-secondary py-2">
                                 <p class="card-text h4">
-                                    <?php echo pathinfo($bot->getFileInfo($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)
+                                    <?php echo $row['file_name']
                                     ?>
                                 </p>
                             </div>
@@ -38,7 +38,32 @@
                             <a href="" class="btn btn-outline-warning">Visualizar</a>
                         </div>
                         <div class="col-auto">
-                            <a href="" class="btn btn-outline-danger"> Eliminar <?php $row['id']; ?></a>                
+                            <a href=""  data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn btn-outline-danger"> Eliminar <?php echo $row['id']; ?></a>                
+                        </div>
+                       
+                        <div class="modal fade" id="modalDelete" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body  text-dark">
+                                        <h3 class="m-3">Eliminar fichero <?php echo $row['file_name'] ?></h3>
+                                        <hr>
+                                        <form action="/includes/delete_file" method="post">
+                                            <input type="hidden" name="delete_id" value="<?php echo $row['id']?>">
+                                            <div class="row justify-content-around">
+                                                <div class="col-auto">
+                                                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <button  type="submit" class="btn btn-danger">Eliminar</button>
+                                                </div>
+                                            </div>   
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,10 +90,29 @@
 ?>
     <div class="row justify-content-center m-2">
         <div class="col-auto">
-            <div class="btn btn-primary">Agregar Fichero STL</div>
+            <div data-bs-toggle="modal" data-bs-target="#editUploadSTLModal" class="btn btn-primary">Agregar Fichero STL</div>
         </div>
     </div>
 <?php endif;?>
+
+
+<div class="modal fade" id="editUploadSTLModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form action="includes/upload_file.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file_id">
+                    <button type="submit">ENVIAR</button>
+                </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 <!-- <div class="contanier ">
     <div class="row m-2 align-items-center">
         <div class="col-8"> 

@@ -1,4 +1,7 @@
-<?php if(session_status() === PHP_SESSION_NONE) session_start();?>
+<?php 
+    if(session_status() === PHP_SESSION_NONE) 
+        session_start();
+?>
 <nav class="navbar navbar-dark navbar-expand bg-dark p-0">
     <a class="navbar-brand p-0 mx-3" href="./impresiones3d.php"><i class="bi bi-badge-3d h1"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">

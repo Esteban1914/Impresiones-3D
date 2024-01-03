@@ -7,12 +7,12 @@
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center ">
             <div class="col-auto ">
-                <?php if (isset($_GET['s']) && $_GET['s']=="OK" ): ?>
+                <?php if (isset($_GET['edit_user']) && $_GET['edit_user']=="OK" ): ?>
                     <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
                         Usuario actualizado
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php elseif(isset($_GET['s']) && $_GET['s']=="BAD" ):?>
+                <?php elseif(isset($_GET['edit_user']) && $_GET['edit_user']=="BAD" ):?>
                     <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
                         Error al actualizar el usuario
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

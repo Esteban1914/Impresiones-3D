@@ -25,7 +25,7 @@
                 <br>
                 <h1>Telegram <i class="bi bi-telegram h3 mx-3"></i></h1>
                 <br>
-                <p>Poseemos un <a target="_blank" href="https://t.me/eacb2_bot" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Bot de telegram</a>
+                <p>Poseemos un <a target="_blank" href="https://t.me/impresiones3d_bot" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Bot de telegram</a>
                 donde se podrá vincular la cuenta de esta plataforma a la cuenta de Telegram y asi poder mantener una comunicación directa con los clientes.
                 <a href="telegram.php" class="badge bg-info text-dark">Donde vincular con Telegram?</a> 
             </p>

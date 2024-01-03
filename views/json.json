@@ -145,3 +145,60 @@
     "file_path": "documents\/file_1.stl"
 }
 }
+
+{
+"update_id": 481155079,
+"message": {
+    "message_id": 542,
+    "from": {
+        "id": 1033479354,
+        "is_bot": false,
+        "first_name": "Esteban",
+        "last_name": "Acevedo",
+        "username": "EstebanACB2",
+        "language_code": "es"
+    },
+    "chat": {
+        "id": -4000258594,
+        "title": "esacb2_bot_files_group",
+        "type": "group",
+        "all_members_are_administrators": true
+    },
+    "date": 1704254952,
+    "text": "\/vincular esteban123",
+    "entities": [
+        {
+            "offset": 0,
+            "length": 9,
+            "type": "bot_command"
+        }
+    ]
+}
+}
+
+{
+"ok": true,
+"result": {
+    "message_id": 589,
+    "from": {
+        "id": 6949146329,
+        "is_bot": true,
+        "first_name": "impresiones3d_bot",
+        "username": "misitio_bot"
+    },
+    "chat": {
+        "id": -4000258594,
+        "title": "esacb2_bot_files_group",
+        "type": "group",
+        "all_members_are_administrators": true
+    },
+    "date": 1704262034,
+    "document": {
+        "file_name": "doc.stl",
+        "mime_type": "application/vnd.ms-pki.stl",
+        "file_id": "BQACAgEAAxkDAAICTWWU-ZKGBa04IAwtxM4Lc8YzuzI3AAK1BAACsUKpRDss122p4jrpNAQ",
+        "file_unique_id": "AgADtQQAArFCqUQ",
+        "file_size": 5
+    }
+}
+}

@@ -62,6 +62,7 @@
     //         $sql = "CREATE TABLE files_telegram (
     //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //             file_id CHAR(100) UNIQUE NOT NULL,
+    //             file_name CHAR(20) NOT NULL,
     //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     //             user_id INT(11) UNSIGNED,
     //             FOREIGN KEY (user_id) REFERENCES users(id)
@@ -122,7 +123,7 @@
     //     echo "NO UPDATE  -> X<br>";
 
     // ///////////////////////ALLTER///////////////////////
-    // $sql="ALTER TABLE users ADD count_files INT UNSIGNED DEFAULT 0";
+    //$sql=" ALTER TABLE files_telegram ADD file_name CHAR(20) NOT NULL;";
     // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
     // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";

@@ -46,7 +46,7 @@
                 </p>
                 <p class="my-3">
                     Puede comunicarse mediante nuestro 
-                    <a href="https://t.me/eacb2_bot" data-bs-placement="right" data-bs-toggle="tooltip" data-bs-title="@eacb2_bot" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    <a href="https://t.me/impresiones3d_bot" data-bs-placement="right" data-bs-toggle="tooltip" data-bs-title="@impresiones3d_bot" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
                         Bot
                     </a>
                 

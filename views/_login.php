@@ -4,7 +4,7 @@
     <div class="container h-100 d-flex flex-column mt-5 pt-5">
         <div class="row justify-content-center ">
             <div class="col-auto ">
-                <?php if (isset($_GET['s'])): ?>
+                <?php if (isset($_GET['edit_user'])): ?>
                     <div class="pe-5 alert alert-warning alert-dismissible fade show" role="alert">
                         Es necesario volver a iniciar sesión para continuar
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

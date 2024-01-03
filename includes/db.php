@@ -12,6 +12,8 @@ class DB
         if($this->password==" ")
             $this->password="";
         $this->charset='utf8mb4';
+        if(session_status() === PHP_SESSION_NONE) 
+            session_start();
 
     }
     public static function log($message)

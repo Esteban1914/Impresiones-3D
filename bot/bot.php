@@ -1,6 +1,5 @@
 <?php
     include_once "../includes/bot.php";
-    session_start();
     $bot=new Bot();
     $update=$bot->reciveMessage();
     $chatID = $update["message"]["chat"]["id"];
@@ -14,7 +13,7 @@
         switch($array[0])
         {
             case "/start":
-                $message= "Hola @".$usernametelegram.". Soy el Bot @eacb2_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular\n/stl\n";
+                $message= "Hola @".$usernametelegram.". Soy el Bot @impresiones3d_bot de la plataforma \nhttps://eacb2.duckdns.org/impresiones3d/telegram.php\nPuede comununicarse utilizadno los comandos:\n/vincular\n/stl\n";
                 break;
             case "/vincular":
                 if($bot->existUserTelegam($chatID)===true)
@@ -58,7 +57,7 @@
                             {
                                 if($bot->existFile($reply['document']['file_id']))
                                     $message="Ya este fichero ha sido vinculado a una cuenta";
-                                else if($bot->setFile($chatID,$reply['document']['file_id']))
+                                else if($bot->setFileByChatID($chatID,$reply['document']['file_id'],$reply['document']["file_name"]))
                                     $message="Agregado fichero STL Correctamente\n".$bot->getCountFilesByChatID($chatID)."/".$bot->getMaxCountFiles();
                                 else
                                     $message="No se ha agregado el fichero";
@@ -83,9 +82,9 @@
                 if($bot->existUserTelegam($chatID)===true)
                 {
                     $message="Ficheros STL\n";
-                    $files=$bot->getFileIDsByChatID($chatID);
+                    $files=$bot->getFilesNameByChatID($chatID);
                     foreach ($files as $row)
-                        $message .= pathinfo($bot->getFileInfo($row['file_id'])['result']['file_path'], PATHINFO_FILENAME)."\n";
+                        $message .= $row."\n";
                     
                     
                 }
@@ -113,9 +112,7 @@
         }
     }
     else
-    {
-        $message="Solo puedo actuar en chats privados".json_encode($update);
-    }
+        $message="Solo se puede interactuar con el bot en chats privados";
     $message=str_replace("\n", rawurlencode("\n"), $message);
     $message=str_replace("[", rawurlencode("["), $message);
     $message=str_replace("]", rawurlencode("]"), $message);
