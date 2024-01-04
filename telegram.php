@@ -2,9 +2,10 @@
     include_once 'includes/login.php';
 ?>
 <?php require('views/_head.html'); ?>
-<body class="text-center bg-dark">
+<body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
-    <div class="container mt-5 pt-5 opacity-translation">
+    <div class="container pt-5 opacity-translation">
+        <div class="row p-5"></div>
         <div class="row justify-content-center">
             <div class="col-2"></div>
             <div class="col-auto">

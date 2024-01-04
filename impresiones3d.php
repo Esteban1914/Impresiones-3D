@@ -1,14 +1,15 @@
 <?php require('views/_head.html'); ?>
 
-<body class="text-center bg-dark">
+<body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
         
-    <div class="container h-100 d-flex flex-column mt-5 pt-5 opacity-translation">
+    <div class="container d-flex flex-column pt-5 opacity-translation">
+        <div class="row p-5"></div>
         <div class="row my-5 justify-content-center">
-            <div class="display-5 text-light">
+            <div class="display-5">
                 <strong>Impresiones 3D</strong>
             </div>
-            <div class="h3 text-light lead my-3 w-50">
+            <div class="h3 lead my-3 w-50">
                 Transforma tu imaginación en realidad y descubre el fascinante mundo de la impresión 3D
             </div>
         </div>
@@ -31,7 +32,7 @@
     </div>
     <div class="modal fade " id="ModalTelegram" tabindex="-1" aria-labelledby="ModalTelegramLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content bg-dark text-light">
+            <div class="modal-content bg-dark ">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="ModalTelegramLabel"><i class="bi bi-telegram h3 mx-3"></i> Telegram</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

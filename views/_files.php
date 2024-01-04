@@ -35,7 +35,7 @@
                             <a href="" class="btn btn-outline-info">Solicitar</a>
                         </div>
                         <div class="col-auto mb-2   ">
-                            <a href="" class="btn btn-outline-warning">Visualizar</a>
+                            <a href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-warning">Visualizar</a>
                         </div>
                         <div class="col-auto">
                             <a href=""  data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn btn-outline-danger"> Eliminar <?php echo $row['id']; ?></a>                

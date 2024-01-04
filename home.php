@@ -2,9 +2,10 @@
     include_once 'includes/login.php';
 ?>
 <?php require('views/_head.html'); ?>
-<body class="text-center bg-dark">
+<body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
-    <div class="contanier opacity-translation m-3 p-3">
+    <div class="contanier opacity-translation pt-5">
+        
         <div class="row justify-content-center ">
             <div class="col-auto ">
                 <?php if (isset($_GET['upload_file']) && $_GET['upload_file']=="OK" ): ?>

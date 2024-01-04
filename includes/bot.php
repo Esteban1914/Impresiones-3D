@@ -327,6 +327,23 @@
             $query->execute([":un"=> $username]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function getIDFilesByID($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT file_id FROM files_telegram 
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id]);
+            return $query->fetch(PDO::FETCH_ASSOC)['file_id'];
+        }
+
+        public function getFileURLDownload($id)
+        {
+            $file_id=$this->getIDFilesByID($id);
+            $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
+            $file_path=json_decode($response,true)['result']['file_path'];
+            return "https://api.telegram.org/file/bot".$this->token."/".$file_path;
+        }
         // public function getFileIDsByUser($username)
         // {
         //     $conn=$this->connect();
