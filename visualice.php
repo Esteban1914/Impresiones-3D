@@ -13,23 +13,7 @@
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
-    <div id="load_id" class="text-dark" style="position: fixed; top: 45%; left: 55%;">
-        <div class="container">
-            <div class="row" id="row_load_id">
-                <div class="col-auto" >
-                    <span class="h2">Cargando Modelo</span>
-                    <br>
-                    <div id="color_load_id" >
-                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <br>
-                        <span id="span_load_id" class="h5">0</span><span class="h5">%</span>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>    
+       
     <div class="container-fluid h-100 pt-5">
         <div class="row h-100">
             <div class="col-3">
@@ -60,7 +44,26 @@
                     <?php endif;?>
             </div>
             <div class="col-9 p-5">
-
+                <div style="position: relative; top: 40%;">   
+                    <div id="load_id" class="text-dark" style="position: absolute; left: 50%;transform: translateX(-50%)">
+                        <div class="container">
+                            <div class="row" id="row_load_id">
+                                <div class="col-auto" >
+                                    <span class="h2">Cargando Modelo</span>
+                                    <br>
+                                    <div id="color_load_id" >
+                                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <br>
+                                        <span id="span_load_id" class="h5">0</span><span class="h5">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>       
+                    
+                </div>
                 <div id="id_scene" class="h-100"></div>
             </div>
         </div>
@@ -124,7 +127,7 @@
         function (error) 
         {
             
-            document.getElementById("row_load_id").innerHTML="<div class='badge bg-danger'><span class='h2'>Error<br><span class='h5'>Error al cargar modelo</span></span></div>"
+            document.getElementById("row_load_id").innerHTML="<div class='badge bg-danger'><span class='h4'>Error<br><span class='h6'>Error al cargar modelo</span></span></div>";
         }
         
     );

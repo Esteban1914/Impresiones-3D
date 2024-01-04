@@ -1,7 +1,7 @@
 <?php 
-    if(session_status() === PHP_SESSION_NONE) 
-        session_start();
-    if(isset($_SESSION['user'])) 
+    include_once "includes/db_manager.php";
+    $db_manager= new DB_manager();
+    if($db_manager->existSessionUser())
         header("Location: impresiones3d.php")
 ?>
 <?php require('views/_head.html'); ?>

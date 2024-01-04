@@ -53,14 +53,21 @@ class DB_Manager extends DB
     }
     public function setUserSession($un,$unt="")
     {
-        $_SESSION['user']=$un;
-        $_SESSION['usernametelegram']=$unt;
-        
+        $this->session->setDataSession(
+            array(
+                    "user"=>$un,
+                    "usernametelegram"=>$unt
+                )
+            );
     }
-    public function getCurrentUser()
+    public function existSessionUser()
     {
-        return $_SESSION['user'];
+        return $this->session->existDataSession('user');
     }
+    // public function getCurrentUser()
+    // {
+    //     return $_SESSION['user'];
+    // }
     public function closeSession()
     {
         session_unset();

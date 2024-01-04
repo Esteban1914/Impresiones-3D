@@ -339,6 +339,19 @@
 
         public function getFileURLDownload($id)
         {
+            $url=$this->getURLFileTelegramByID($id);
+            $file_name=basename($url);
+            $url_file='./tem_data/'.$id."_".$file_name;
+            if(!file_exists($url_file))
+            {
+                $contenido = file_get_contents($url);
+                file_put_contents($url_file, $contenido);
+            }
+            return $url_file;
+        }
+
+        public function getURLFileTelegramByID($id)
+        {
             $file_id=$this->getIDFilesByID($id);
             $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
             $file_path=json_decode($response,true)['result']['file_path'];

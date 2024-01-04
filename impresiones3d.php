@@ -1,5 +1,8 @@
 <?php require('views/_head.html'); ?>
-
+<?php 
+    include_once "includes/session.php";
+    $session=new Session();
+?>
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
         
