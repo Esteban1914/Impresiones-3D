@@ -37,7 +37,7 @@
     var controls = new OrbitControls(camera, renderer.domElement);
     
    
-    fetch('https://eacb2.duckdns.org/impresiones3d/tem_data/Pieza1.stl')
+    fetch('./tem_data/Pieza1.stl')
    .then(response => response.arrayBuffer())
    .then(buffer => {
        // Aquí puedes usar el buffer para trabajar con el archivo STL
