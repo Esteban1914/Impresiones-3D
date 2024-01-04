@@ -8,6 +8,7 @@
         exit;
     }
     $model_id=$_GET['model_id'];
+    header("Access-Control-Allow-Origin: *");
 ?> 
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
@@ -98,6 +99,7 @@
     var controls = new OrbitControls(camera, renderer.domElement);
     
     var loader = new STLLoader();
+    loader.setCrossOrigin('anonymous');
     loader.load(
         '<?php echo $bot->getFileURLDownload($model_id) ?>', 
         function (geometry) 
