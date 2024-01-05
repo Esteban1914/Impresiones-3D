@@ -38,10 +38,10 @@
                             <a title="Visualizar Modelo" href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>
                         </div>
                         <div class="col-auto">
-                            <a title="Eliminar" href=""  data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn btn-outline-danger"> <i class="bi bi-trash"></i></a>                
+                            <a title="Eliminar" href=""  data-bs-toggle="modal" data-bs-target="#modalDelete<?php echo $row['id']?>" class="btn btn-outline-danger"> <i class="bi bi-trash"></i></a>                
                         </div>
                        
-                        <div class="modal fade" id="modalDelete" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal fade" id="modalDelete<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
