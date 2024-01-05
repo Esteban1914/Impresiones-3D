@@ -11,7 +11,7 @@
         <hr>
         <?php foreach ($files as $row): ?>
             <div class="row m-2 align-items-center">
-                <div class="col-8">
+                <div class="col-9">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-10">
                             <div class="card card-secondary text-light bg-secondary py-2">
@@ -29,16 +29,16 @@
                     </div>
                         
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="row justify-content-around">
                         <div class="col-auto mb-2">
-                            <a href="" class="btn btn-outline-info">Solicitar</a>
+                            <a href="" title="Solicitar" class="btn btn-outline-info"><i class="bi bi-check-lg"></i></a>
                         </div>
                         <div class="col-auto mb-2   ">
-                            <a href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-warning">Visualizar</a>
+                            <a title="Visualizar Modelo" href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>
                         </div>
                         <div class="col-auto">
-                            <a href=""  data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn btn-outline-danger"> Eliminar <?php echo $row['id']; ?></a>                
+                            <a title="Eliminar" href=""  data-bs-toggle="modal" data-bs-target="#modalDelete" class="btn btn-outline-danger"> <i class="bi bi-trash"></i></a>                
                         </div>
                        
                         <div class="modal fade" id="modalDelete" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -48,9 +48,9 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body  text-dark">
-                                        <h3 class="m-3">Eliminar fichero <?php echo $row['file_name'] ?></h3>
+                                        <h3 class="m-3">Eliminar fichero <br><?php echo $row['file_name'] ?></h3>
                                         <hr>
-                                        <form action="/includes/delete_file" method="post">
+                                        <form action="./includes/delete_file.php" method="post">
                                             <input type="hidden" name="delete_id" value="<?php echo $row['id']?>">
                                             <div class="row justify-content-around">
                                                 <div class="col-auto">
@@ -72,9 +72,9 @@
         <?php endforeach;?>
         
     <?php else:?>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-auto">
-                Aún no exiten ficheros STL vinculados
+                <span class="h3">Aún no exiten ficheros STL vinculados</span>
             </div>
         </div>
     <?php endif;?>
@@ -97,52 +97,21 @@
 
 
 <div class="modal fade" id="editUploadSTLModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <form action="includes/upload_file.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file_id">
-                    <button type="submit">ENVIAR</button>
+                    <div class="mb-3" >
+                        <label for="formFile" class="text-dark text-start form-label h4">Subir Fichero</label>
+                        <input required class="form-control" name="file" type="file" id="file_id">
+                    </div>
+                    <button class="btn btn-primary"type="submit">ENVIAR</button>
                 </form>
-                </div>
-                
             </div>
         </div>
     </div>
-<!-- <div class="contanier ">
-    <div class="row m-2 align-items-center">
-        <div class="col-8"> 
-            <div class="row justify-content-center align-items-center">
-                <div class="col-10">
-                    <p class="placeholder-glow">
-                        <span class="placeholder col-12 bg-secondary"></span>
-                    </p>
-                    
-                </div>
-                <div class="col-8 col-md-2 mt-md-0 mt-2">
-                        <p class="placeholder-glow">
-                            <span class="placeholder col-12 bg-secondary"></span>
-                        </p>
-                </div>
-            </div>
-                
-        </div>
-        <div class="col-4">
-            <div class="row justify-content-around">
-                <div class="col-auto mb-2">
-                    <a href="" class="btn btn-info  text-info disabled placeholder">NULL</a>
-                </div>
-                <div class="col-auto mb-2   ">
-                    <a href="" class="btn btn-warning text-warning disabled placeholder">NULL</a>
-                </div>
-                <div class="col-auto mb-2">
-                    <a href="" class="btn btn-danger text-danger disabled placeholder"> NULL</a>                
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+</div>

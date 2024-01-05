@@ -57,7 +57,7 @@
                             {
                                 if($bot->existFile($reply['document']['file_id']))
                                     $message="Ya este fichero ha sido vinculado a una cuenta";
-                                else if($bot->setFileByChatID($chatID,$reply['document']['file_id'],$reply['document']["file_name"]))
+                                else if($bot->addFileByChatID($chatID,$reply['document']['file_id'],$reply['document']["file_name"]))
                                     $message="Agregado fichero STL Correctamente\n".$bot->getCountFilesByChatID($chatID)."/".$bot->getMaxCountFiles();
                                 else
                                     $message="No se ha agregado el fichero";

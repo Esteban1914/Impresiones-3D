@@ -16,7 +16,7 @@
        
     <div class="container-fluid h-100 pt-5">
         <div class="row h-100">
-            <div class="col-3">
+            <!-- <div class="col-3 d-none d-md-block">
                     <?php 
                         include_once './includes/bot.php';
                         $bot=new Bot();
@@ -42,8 +42,8 @@
                     <?php else:?>
                         Nada
                     <?php endif;?>
-            </div>
-            <div class="col-9 p-5">
+            </div> -->
+            <div class="col p-5">
                 <div style="position: relative; top: 40%;">   
                     <div id="load_id" class="text-dark" style="position: absolute; left: 50%;transform: translateX(-50%)">
                         <div class="container">
@@ -95,22 +95,36 @@
 
     //var camera = new THREE.OrthographicCamera(-1000, 10000, 10000, -10000, -10000, 10000);
     var camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.x = 50;
-    camera.position.y = 50;
-    camera.position.z = 50;
+    
 
     var controls = new OrbitControls(camera, renderer.domElement);
-    
     var loader = new STLLoader();
+    var mesh,mesh_bool=false;
     loader.setCrossOrigin('anonymous');
     loader.load(
-        '<?php echo $bot->getFileURLDownload($model_id) ?>', 
+        "<?php echo $bot->getFileURLDownload($model_id) ?>", 
         function (geometry) 
         {
             document.getElementById("load_id").className="d-none";
             var material = new THREE.MeshPhongMaterial({color: 0xaaaaaa, specular: 0x111111, shininess: 200});
-            var mesh = new THREE.Mesh(geometry, material);
+            mesh = new THREE.Mesh(geometry, material);
+            mesh_bool=true;
+            
+            var box = new THREE.Box3().setFromObject(mesh);
+            var center = box.getCenter(new THREE.Vector3());
+            var size = box.getSize(new THREE.Vector3()).length();
+            camera.lookAt(center);
+            mesh.position.sub(center);
+            
+            camera.position.copy(center);
+            camera.position.x = size /1.5 ;
+            camera.position.y = size /1.5 ;
+            camera.position.z = size /1.5  ;
+            camera.lookAt(center);
+            
             scene.add(mesh);
+            
+           
         },
         function (xhr) 
         {
@@ -151,6 +165,10 @@
     {
         requestAnimationFrame(animate);
         controls.update();
+        //if(mesh_bool==true)
+            //mesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0005);
+        
+   
         renderer.render(scene, camera);
     }
     

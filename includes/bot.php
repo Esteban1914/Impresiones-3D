@@ -159,19 +159,19 @@
         }
 
         
-        // public function registerUser($username,$chatID,$user_name)
-        // {
-        //     $user_id=$this->getUserIDByName($user_name);
-        //     if($user_id===false)
-        //         return null;
-        //     $conn=$this->connect();
-        //     $sql="INSERT INTO user_telegram (username,chatid, user_id) 
-        //             VALUES (:un,:chi,:ui)";
-        //     $query=$conn->prepare($sql);
-        //     if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
-        //         return true;
-        //     return false;
-        // }
+        public function registerUser($username,$chatID,$user_name)
+        {
+            $user_id=$this->getUserIDByName($user_name);
+            if($user_id===false)
+                return null;
+            $conn=$this->connect();
+            $sql="INSERT INTO user_telegram (username,chatid, user_id) 
+                    VALUES (:un,:chi,:ui)";
+            $query=$conn->prepare($sql);
+            if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
+                return true;
+            return false;
+        }
         public function userConfirm($usernametelegram)
         {
             $conn=$this->connect();
@@ -221,7 +221,7 @@
         {
             return $this->getCountFilesByUserName($username) >= $this->MAX_COUNT_FILES;
         }
-        public function setFileByChatID($chatID, $file_id , $file_name)
+        public function addFileByChatID($chatID, $file_id , $file_name)
         {
             $count_files=$this->getCountFilesByChatID($chatID);
             if($count_files >= $this->MAX_COUNT_FILES)
@@ -233,10 +233,10 @@
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id, ":fn"=>$file_name ]))
             {        
-                $sql="UPDATE users SET count_files = :c
+                $sql="UPDATE users SET count_files = count_files + 1
                         WHERE id=:ui";
                 $query=$conn->prepare($sql);
-                return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
+                return $query->execute([":ui"=> $user_id]);
             }
             return false;
         }
@@ -356,6 +356,54 @@
             $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
             $file_path=json_decode($response,true)['result']['file_path'];
             return "https://api.telegram.org/file/bot".$this->token."/".$file_path;
+        }
+        public function fileBelongToUser($id_file,$username)
+        {
+            $conn=$this->connect();
+            $sql="SELECT username FROM users
+                    JOIN files_telegram ON files_telegram.user_id=users.id
+                    WHERE files_telegram.id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id_file]);
+            return $query->fetch(PDO::FETCH_ASSOC)['username']==$username;
+        }
+        public function deleteFile($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT users.id FROM users
+                    JOIN files_telegram ON files_telegram.user_id=users.id
+                    WHERE files_telegram.id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id]);
+            if($query->rowCount()>0)
+            {
+                $user_id=$query->fetch(PDO::FETCH_ASSOC)["id"];
+                $sql="DELETE FROM files_telegram
+                    WHERE id=:id";
+                $query=$conn->prepare($sql);
+                if($query->execute([":id"=> $id]))
+                {
+                    $sql="SELECT count_files FROM users
+                            WHERE id=:id";
+                    $query=$conn->prepare($sql);
+                    $query->execute([":id"=> $user_id]);
+                    if($query->rowCount()>0)
+                    {
+                        $count_files=$query->fetch(PDO::FETCH_ASSOC)["count_files"];
+                        if($count_files> 0)
+                        {
+                            $sql="UPDATE users SET count_files=count_files-1
+                                WHERE id=:id";
+                            $query=$conn->prepare($sql);
+                            return $query->execute([":id"=> $user_id]);
+                        }
+                    }
+                    
+                    
+                }
+            }
+            return false;
+            
         }
         // public function getFileIDsByUser($username)
         // {

@@ -25,6 +25,10 @@ class Session{
     {
         return isset($_SESSION[$data]);
     }
+    public function getDataSession($data)
+    {
+        return isset($_SESSION[$data])?$_SESSION[$data]: null ;
+    }
 }
 
 ?>

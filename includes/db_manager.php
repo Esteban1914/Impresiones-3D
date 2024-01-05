@@ -40,8 +40,15 @@ class DB_Manager extends DB
             return true;
         return false;
     }
-
-    
+    public function setUserSession($un,$unt="")
+    {
+        $this->setDataSession(
+            array(
+                    "user"=>$un,
+                    "usernametelegram"=>$unt
+                )
+            );
+    }
     public function getUserNameTelegram($u)
     {
         $sql="SELECT user_telegram.username FROM user_telegram LEFT JOIN users ON user_telegram.user_id=users.id WHERE users.username=:u";
@@ -51,19 +58,7 @@ class DB_Manager extends DB
             return $query->fetch(PDO::FETCH_ASSOC)["username"];
         return "";
     }
-    public function setUserSession($un,$unt="")
-    {
-        $this->session->setDataSession(
-            array(
-                    "user"=>$un,
-                    "usernametelegram"=>$unt
-                )
-            );
-    }
-    public function existSessionUser()
-    {
-        return $this->session->existDataSession('user');
-    }
+    
     // public function getCurrentUser()
     // {
     //     return $_SESSION['user'];

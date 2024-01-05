@@ -1,26 +1,20 @@
 <?php
 include_once "session.php";
-class DB
+class DB extends Session
 {
     private $host,$db,$user,$password,$charset;
     protected $session;
     public function __construct()
     {
+        parent::__construct();
         $this->host=getenv('DB_HOST');
         $this->db="impresiones3D";
         $this->user=getenv('DB_USER');
         $this->password=getenv('DB_PASSWORD');
-        $this->session=new Session();
         if($this->password==" ")
             $this->password="";
         $this->charset='utf8mb4';
-        // if(session_status() === PHP_SESSION_NONE) 
-        // {
-        //     session_start();
-        //     $time=86400;    //24h
-        //     session_set_cookie_params($time);
-        //     setcookie(session_name(), session_id(), time() + $time, '/');
-        // }
+        
     }
     public static function log($message)
     {
@@ -36,6 +30,11 @@ class DB
             print_r("ERROR Connection:".$e->getMessage());
             exit;
         }
+    }
+    
+    public function existSessionUser()
+    {
+        return $this->existDataSession('user');
     }
 }
 ?>

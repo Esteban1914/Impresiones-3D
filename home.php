@@ -19,6 +19,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php endif;?>
+                <?php if (isset($_GET['delete_file']) && $_GET['delete_file']=="OK" ): ?>
+                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
+                        Eliminado fichero STL
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php elseif(isset($_GET['delete_file']) && $_GET['delete_file']=="BAD" ):?>
+                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        Error al eliminar el fichero STL
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif;?>
             </div>
         </div>
         <div class="row justify-content-start">
