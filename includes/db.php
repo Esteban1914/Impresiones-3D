@@ -32,9 +32,6 @@ class DB extends Session
         }
     }
     
-    public function existSessionUser()
-    {
-        return $this->existDataSession('user');
-    }
+    
 }
 ?>

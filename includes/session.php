@@ -29,6 +29,10 @@ class Session{
     {
         return isset($_SESSION[$data])?$_SESSION[$data]: null ;
     }
+    public function existSessionUser()
+    {
+        return $this->existDataSession('user');
+    }
 }
 
 ?>

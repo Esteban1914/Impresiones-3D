@@ -2,14 +2,14 @@
     if($_SERVER["REQUEST_METHOD"]=== 'POST')
     {   
         $data = json_decode(file_get_contents('php://input'), true);
-        include_once "./db_manager.php";
-        $db_manager=new DB_Manager();
+        include_once "./user.php";
+        $user=new User();
         switch ($data['action']) {
             case 'findUser':
-                    echo json_encode(['result' => $db_manager->userExist($data["username"])]);
+                    echo json_encode(['result' => $user->userExist($data["username"])]);
                 break;
             case "findPassword":
-                    echo json_encode(['result' => $db_manager->userExistPassword($_SESSION['user'],$data["password"])]);
+                    echo json_encode(['result' => $user->userExistPassword($_SESSION['user'],$data["password"])]);
                 break;
             default:
                 break;

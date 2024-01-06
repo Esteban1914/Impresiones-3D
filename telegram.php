@@ -30,11 +30,11 @@
                         <?php elseif($uic === false): ?>
                             <p lead class="text-dark h5">
                                 Se quire vincular con @<?php 
-                                    include_once "includes/db_manager.php";
+                                    include_once "includes/user.php";
                                     if($_SESSION['usernametelegram']=="")
                                     {
-                                        $db_manager=new DB_Manager();
-                                        $_SESSION['usernametelegram']=$db_manager->getUserNameTelegram($_SESSION['user']);
+                                        $user=new User();
+                                        $_SESSION['usernametelegram']=$user->getUserNameTelegram($_SESSION['user']);
                                     }
                                     echo $_SESSION['usernametelegram'];
                                 ?>

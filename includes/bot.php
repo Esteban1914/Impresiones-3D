@@ -259,6 +259,16 @@
             }
             return false;
         }
+        public function getIDFileByFileID($file_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id FROM files_telegram 
+                    WHERE file_id=:fi";
+            $query=$conn->prepare($sql);
+            if($query->execute([":fi"=> $file_id]))
+                return $query->fetch(PDO::FETCH_ASSOC)["id"];
+            return false;
+        }
         public function existFile($file_id)
         {
             $conn=$this->connect();
@@ -317,10 +327,10 @@
             $query->execute([":id"=> $id]);
             return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
         }
-        public function getFilesIDNameByUser($username)
+        public function getFilesInfoByUser($username)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name,files_telegram.id FROM files_telegram 
+            $sql="SELECT file_name,files_telegram.id,state FROM files_telegram 
                     JOIN users ON files_telegram.user_id = users.id 
                     WHERE username=:un";
             $query=$conn->prepare($sql);
@@ -336,18 +346,40 @@
             $query->execute([":id"=> $id]);
             return $query->fetch(PDO::FETCH_ASSOC)['file_id'];
         }
+        public function getFilesNameByID($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT file_name FROM files_telegram 
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id]);
+            return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
+        }
 
         public function getFileURLDownload($id)
         {
-            $url=$this->getURLFileTelegramByID($id);
-            $file_name=basename($url);
-            $url_file='./tem_data/'.$id."_".$file_name;
-            if(!file_exists($url_file))
+            $file_name_cache=$this->getFilesNameByID($id);
+            $url_file='./tem_data/'.$id."_".$file_name_cache;
+            if(!file_exists(".".$url_file))
             {
+                $url=$this->getURLFileTelegramByID($id);
+                $file_name=basename($url);
+                if($file_name_cache!=$file_name)
+                {
+                    $conn=$this->connect();
+                    $sql="UPDATE files_telegram SET file_name=:fn
+                            WHERE id=:id";
+                    $query=$conn->prepare($sql);
+                    $query->execute([":fn"=>$file_name,":id"=> $id]);
+                }
+                $url_file='./tem_data/'.$id."_".$file_name;
                 $contenido = file_get_contents($url);
                 file_put_contents($url_file, $contenido);
+                return $url_file;
             }
-            return $url_file;
+            else
+                return $url_file;
+ 
         }
 
         public function getURLFileTelegramByID($id)
@@ -403,6 +435,16 @@
                 }
             }
             return false;
+            
+        }
+        public function requestFile($id)
+        {
+            
+            $conn=$this->connect();
+            $sql="UPDATE files_telegram SET state='Pendiente'
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            return $query->execute([":id"=> $id]);
             
         }
         // public function getFileIDsByUser($username)

@@ -1,6 +1,6 @@
 <?php
 include_once 'db.php';
-class DB_Manager extends DB
+class User extends DB
 {
     //private $username,$password;
  
@@ -80,6 +80,28 @@ class DB_Manager extends DB
         $query=$this->connect()->prepare($sql);
         return $query->execute([':un'=> $username, ":p"=> md5($password)]);
     }
+    public function getUserRole()
+    {
+        $username=$this->getDataSession("user");
+        $sql="SELECT role FROM users WHERE username=:un";
+        $query=$this->connect()->prepare($sql);
+        $query->execute([':un'=> $username]);
+        if( $query->rowCount() > 0)
+            return $query->fetch(PDO::FETCH_ASSOC)["role"];
+    }
+    public function userIsUser()
+    {
+        return $this->getUserRole()=="Usuario";
+    }
+    public function userIsAdmin()
+    {
+        return $this->getUserRole()=="Administrador";
+    }
+    public function userIsDev()
+    {
+        return $this->getUserRole()=="Dev";
+    }
+    
 }
 
 ?>

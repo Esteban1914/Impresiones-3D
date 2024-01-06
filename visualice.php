@@ -9,6 +9,8 @@
     }
     $model_id=$_GET['model_id'];
     header("Access-Control-Allow-Origin: *");
+    include_once "includes/bot.php";
+    $bot=new Bot();
 ?> 
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
@@ -16,33 +18,6 @@
        
     <div class="container-fluid h-100 pt-5">
         <div class="row h-100">
-            <!-- <div class="col-3 d-none d-md-block">
-                    <?php 
-                        include_once './includes/bot.php';
-                        $bot=new Bot();
-                    
-                        if(!isset($_SESSION['user']))
-                            die("Session Error");
-                        $files=$bot->getFilesIDNameByUser($_SESSION['user']);
-                    ?>
-                    <?php if (!empty($files)): ?>
-                        <div class="row h-100 align-items-center">
-                            <div class="row"></div>
-                            <?php foreach ($files as $row): ?>
-                                <div class="row ms-2 my-2 ">
-                                    <a href="?model_id=<?php echo $row['id'] ?>" class=" btn  btn-<?php if($row['id']==$model_id ) echo "success"; else echo "secondary" ?>">
-                                        <span class="card-text h4">
-                                            <?php echo $row['file_name']; ?>
-                                        </span>
-                                    </a>
-                                </div>
-                            <?php endforeach;?>
-                            <div class="row"></div>
-                        </div>
-                    <?php else:?>
-                        Nada
-                    <?php endif;?>
-            </div> -->
             <div class="col p-5">
                 <div style="position: relative; top: 40%;">   
                     <div id="load_id" class="text-dark" style="position: absolute; left: 50%;transform: translateX(-50%)">
@@ -128,15 +103,15 @@
         },
         function (xhr) 
         {
-            document.getElementById("span_load_id").innerHTML=(xhr.loaded / xhr.total) * 100;
+            document.getElementById("span_load_id").innerHTML=((xhr.loaded / xhr.total) * 100).toFixed(2);
             if((xhr.loaded / xhr.total) > 0.75)
                 document.getElementById("color_load_id").className="text-success";
             else if((xhr.loaded / xhr.total) > 0.50)
                 document.getElementById("color_load_id").className="text-warning";
             else if((xhr.loaded / xhr.total )> 0.25)
-                document.getElementById("color_load_id").className="text-secondary";
-            else
                 document.getElementById("color_load_id").className="text-dark";
+            else
+                document.getElementById("color_load_id").className="text-secondary";
         },
         function (error) 
         {

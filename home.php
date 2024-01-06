@@ -30,6 +30,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php endif;?>
+                <?php if (isset($_GET['request_file']) && $_GET['request_file']=="OK" ): ?>
+                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
+                        Solicitado fichero STL
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php elseif(isset($_GET['request_file']) && $_GET['request_file']=="BAD" ):?>
+                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        Error al solicitar el fichero STL
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif;?>
+                
             </div>
         </div>
         <div class="row justify-content-start">
@@ -160,7 +172,11 @@
         </div>
     </div>
     <script>
-        fetch('./views/_files.php')
+        <?php
+            include_once "includes/user.php";
+            $user=new User();        
+        ?>
+        fetch('./views/<?php if($user->userIsUser()) echo "_files_user.php"; else if($user->userIsAdmin()) echo "_files_admin.php"; else if($user->userIsDev()) echo "_files_dev.php";?> ')
         .then(response => response.text())
         .then(html => {
             document.getElementById('id_placeholder').innerHTML = html;

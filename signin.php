@@ -1,7 +1,7 @@
 <?php 
-    include_once "includes/db_manager.php";
-    $db_manager= new DB_manager();
-    if($db_manager->existSessionUser())
+    include_once "includes/user.php";
+    $user= new User();
+    if($user->existSessionUser())
         header("Location: impresiones3d.php")
 ?>
 <?php require('views/_head.html'); ?>

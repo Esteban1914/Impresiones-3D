@@ -34,6 +34,7 @@
     //     username VARCHAR(10) NOT NULL,
     //     password VARCHAR(255) NOT NULL,
     //     count_files INT UNSIGNED DEFAULT 0,
+    //     role ENUM('Dev','Administrador','Usuario') NOT NULL DEFAULT 'Usuario',
     //     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     // )";
     //     $conn->exec($sql);
@@ -63,7 +64,7 @@
     //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //             file_id CHAR(100) UNIQUE NOT NULL,
     //             file_name CHAR(20) NOT NULL,
-    //             state ENUM('OK', 'BAD', 'MEDIUM') DEFAULT OK,
+    //             state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno',
     //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     //             user_id INT(11) UNSIGNED,
     //             FOREIGN KEY (user_id) REFERENCES users(id)
@@ -124,16 +125,16 @@
     //     echo "NO UPDATE  -> X<br>";
     
     // ///////////////////////ALLTER///////////////////////
-    $sql="ALTER TABLE files_telegram ADD state ENUM(1, 2, 3) NOT NULL DEFAULT 1;";
-    // $sql="ALTER TABLE mi_tabla CHANGE campo_antiguo campo_nuevo tipo_dato;";
+    // $sql="ALTER TABLE users ADD role ENUM('Dev','Administrador','Usuario') NOT NULL DEFAULT 'Usuario';";
+    // $sql="ALTER TABLE files_telegram CHANGE state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
     // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";
-    //$sql=" ALTER TABLE files_telegram DROP COLUMN state ;";
-    $query=$conn->prepare($sql);
-    if($query->execute())
-        echo "ALLTER -> OK<br>";
-    else
-        echo "NO ALLTER -> X<br>";
+    // $sql=" ALTER TABLE files_telegram DROP COLUMN state ;";
+    // $query=$conn->prepare($sql);
+    // if($query->execute())
+    //     echo "ALLTER -> OK<br>";
+    // else
+    //     echo "NO ALLTER -> X<br>";
 
 
 
