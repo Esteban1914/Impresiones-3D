@@ -125,7 +125,7 @@
     //     echo "NO UPDATE  -> X<br>";
     
     // ///////////////////////ALLTER///////////////////////
-    // $sql="ALTER TABLE users ADD role ENUM('Dev','Administrador','Usuario') NOT NULL DEFAULT 'Usuario';";
+    // $sql="ALTER TABLE files_telegram ADD state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
     // $sql="ALTER TABLE files_telegram CHANGE state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
     // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";

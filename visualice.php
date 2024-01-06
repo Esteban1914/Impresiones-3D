@@ -123,17 +123,47 @@
     var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
     
-    var directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight3.position.set(0, -1, 0);
-    scene.add(directionalLight3);
+    // var directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
+    // directionalLight3.position.set(0, -1, 0);
+    // scene.add(directionalLight3);
 
-    var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(-1, -1, -1);
-    scene.add(directionalLight);
+    // var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    // directionalLight.position.set(-1, -1, -1);
+    // scene.add(directionalLight);
     
-    var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 1, 1);
-    scene.add(directionalLight);
+    // var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    // directionalLight.position.set(1, 1, 1);
+    // scene.add(directionalLight);
+    // Luz arriba
+    var directionalLightUp = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightUp.position.set(0, 1, 0);
+    scene.add(directionalLightUp);
+
+    // Luz abajo
+    var directionalLightDown = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightDown.position.set(0, -1, 0);
+    scene.add(directionalLightDown);
+
+    // Luz derecha
+    var directionalLightRight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightRight.position.set(1, 0, 0);
+    scene.add(directionalLightRight);
+
+    // Luz izquierda
+    var directionalLightLeft = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightLeft.position.set(-1, 0, 0);
+    scene.add(directionalLightLeft);
+
+    // Luz frente
+    var directionalLightFront = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightFront.position.set(0, 0, 1);
+    scene.add(directionalLightFront);
+
+    // Luz atrás
+    var directionalLightBack = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightBack.position.set(0, 0, -1);
+    scene.add(directionalLightBack);
+
     
     // Función de animación
     function animate() 
