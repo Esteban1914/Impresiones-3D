@@ -49,9 +49,9 @@
     //         username VARCHAR(20) NOT NULL,
     //         chatid INT(11) NOT NULL,
     //         registered BOOLEAN DEFAULT FALSE,
-    //         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    //         user_id INT(11) UNSIGNED UNIQUE,
-    //         FOREIGN KEY (user_id) REFERENCES users(id)
+    //         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    //         user_id INT(11) UNSIGNED NOT NULL UNIQUE,
+    //         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     //     )";
     //     $conn->exec($sql);
     //     echo "TABLE user_telegram CREATED -> OK<br>";
@@ -65,9 +65,9 @@
     //             file_id CHAR(100) UNIQUE NOT NULL,
     //             file_name CHAR(20) NOT NULL,
     //             state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno',
-    //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    //             user_id INT(11) UNSIGNED,
-    //             FOREIGN KEY (user_id) REFERENCES users(id)
+    //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    //             user_id INT(11) UNSIGNED NOT NULL,
+    //             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     //         )";
     //         $conn->exec($sql);
     //         echo "TABLE files_telegram CREATED -> OK<br>";
@@ -127,12 +127,27 @@
     // ///////////////////////ALLTER///////////////////////
     // $sql="ALTER TABLE files_telegram ADD state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
     // $sql="ALTER TABLE files_telegram CHANGE state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
-    // $qlp="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
+    // $sql="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";
-    // $sql=" ALTER TABLE files_telegram DROP COLUMN state ;";
+    // $sql=" ALTER TABLE files_telegram DROP FOREIGN KEY files_telegram_ibfk_1 ;";
+    //$sql=" ALTER TABLE user_telegram DROP user_id ;";
+    
+    // $sql="ALTER TABLE user_telegram
+    //         ADD CONSTRAINT user_id
+    //         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+    // ";
+    //$sql="DROP TABLE user_telegram";
+    //$sql="SHOW CREATE TABLE user_telegram";
     // $query=$conn->prepare($sql);
     // if($query->execute())
+    // {
     //     echo "ALLTER -> OK<br>";
+    //     while($row=$query->fetch(PDO::FETCH_ASSOC))
+    //     {
+    //         foreach($row as $r)
+    //             echo $r."<br>"; 
+    //     }
+    // }
     // else
     //     echo "NO ALLTER -> X<br>";
 

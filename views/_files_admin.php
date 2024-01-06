@@ -7,7 +7,16 @@
             die("Session Error");
         $files=$bot->getFilesInfoByUser($_SESSION['user']);
     ?>
-    ADMIN
+    <div class="contanier">
+        <div class="row">
+            <div class="col">
+                
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
         
 </div>
 

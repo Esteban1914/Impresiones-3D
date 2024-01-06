@@ -123,11 +123,6 @@
     <?php endif;?>
         
 </div>
-<div class="row justify-content-center text-light mt-4">
-    <div class="col-auto">
-        <?php echo $bot->getCountFilesByUserName($_SESSION['user'])."/".$bot->getMaxCountFiles();?> ficheros STL almacenados
-    </div>
-</div>
 <?php
     if(!$bot->userIsFullFilesByUserName($_SESSION['user'])):
 ?>

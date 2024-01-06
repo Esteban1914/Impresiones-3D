@@ -8,7 +8,7 @@ class DB extends Session
     {
         parent::__construct();
         $this->host=getenv('DB_HOST');
-        $this->db="impresiones3D";
+        $this->db="impresiones3d";
         $this->user=getenv('DB_USER');
         $this->password=getenv('DB_PASSWORD');
         if($this->password==" ")
