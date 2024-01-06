@@ -120,20 +120,7 @@
         }
         
     );
-    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
     
-    // var directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
-    // directionalLight3.position.set(0, -1, 0);
-    // scene.add(directionalLight3);
-
-    // var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    // directionalLight.position.set(-1, -1, -1);
-    // scene.add(directionalLight);
-    
-    // var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    // directionalLight.position.set(1, 1, 1);
-    // scene.add(directionalLight);
     // Luz arriba
     var directionalLightUp = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLightUp.position.set(0, 1, 0);
@@ -163,6 +150,24 @@
     var directionalLightBack = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLightBack.position.set(0, 0, -1);
     scene.add(directionalLightBack);
+
+    // Luz indirecta superior derecha
+    var directionalLightIndirectTopRight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightIndirectTopRight.position.set(1, 1, 0);
+    scene.add(directionalLightIndirectTopRight);
+
+    // Luz indirecta inferior derecha
+    var directionalLightIndirectBottomRight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightIndirectBottomRight.position.set(1, -1, 0);
+    scene.add(directionalLightIndirectBottomRight);
+
+    // Luz indirecta inferior izquierda
+    var directionalLightIndirectBottomLeft = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLightIndirectBottomLeft.position.set(-1, -1, 0);
+    scene.add(directionalLightIndirectBottomLeft);
+
+
+    
 
     
     // Función de animación
