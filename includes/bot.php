@@ -84,7 +84,7 @@
             $query->execute([":un"=> $username]);
             if($query->rowCount()> 0)
             {
-                $row=$query->fetch(PDO::FETCH_ASSOC);
+                $row=$query->fetchColumn();
                 return $row["id"];
             }
             return false;
@@ -99,7 +99,7 @@
             $query->execute([":chi"=> $chatID]);
             if($query->rowCount()> 0)
             {
-                $row=$query->fetch(PDO::FETCH_ASSOC);
+                $row=$query->fetchColumn();
                 return $row["user_id"];
             }
             return false;
@@ -114,7 +114,7 @@
             $query->execute([":unt"=> $usernametelegram]);
             if($query->rowCount()> 0)
             {
-                $row=$query->fetch(PDO::FETCH_ASSOC);
+                $row=$query->fetchColumn();
                 return $row["chatid"];
             }
             return false;
@@ -129,7 +129,7 @@
             $query->execute([":unt"=> $usernametelegram]);
             if($query->rowCount()> 0)
             {
-                $row=$query->fetch(PDO::FETCH_ASSOC);
+                $row=$query->fetchColumn();
                 return $row["username"];
             }
             return null;
@@ -143,7 +143,7 @@
             $query=$conn->prepare($sql);
             $query->execute([":u"=>$username]);    
             if($query->rowCount()>0)        
-                return (bool)$query->fetch(PDO::FETCH_ASSOC)["registered"];
+                return (bool)$query->fetchColumn();
             return null;
         }
         public function userIsConfirmatedUserTelegram($usernametelegram)
@@ -154,7 +154,7 @@
             $query=$conn->prepare($sql);
             $query->execute([":u"=>$usernametelegram]);    
             if($query->rowCount()>0)        
-                return (bool)$query->fetch(PDO::FETCH_ASSOC)["registered"];
+                return (bool)$query->fetchColumn();
             return null;
         }
 
@@ -200,7 +200,7 @@
                     WHERE chatid=:chi";
             $query=$conn->prepare($sql);
             if($query->execute([":chi"=> $chatID]))
-                return $query->fetch(PDO::FETCH_ASSOC)["count_files"];
+                return $query->fetchColumn();
             return false;
         }
         public function getCountFilesByUserName($username)
@@ -210,7 +210,7 @@
                     WHERE username=:un";
             $query=$conn->prepare($sql);
             if($query->execute([":un"=> $username]))
-                return $query->fetch(PDO::FETCH_ASSOC)["count_files"];
+                return $query->fetchColumn();
             return false;
         }
         public function userIsFullFilesByChatID($chatID)
@@ -228,7 +228,7 @@
                 return false;
             $conn=$this->connect();
             $user_id=$this->getUserIDByChatID($chatID);
-            $sql="INSERT INTO files_telegram (file_id,user_id,file_name) 
+            $sql="INSERT INTO files (file_id,user_id,file_name) 
                     VALUES (:fi,:ui,:fn)";
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id, ":fn"=>$file_name ]))
@@ -247,7 +247,7 @@
                 return false;
             $conn=$this->connect();
             $user_id=$this->getUserIDByName($username);
-            $sql="INSERT INTO files_telegram (file_id,user_id,file_name) 
+            $sql="INSERT INTO files (file_id,user_id,file_name) 
                     VALUES (:fi,:ui,:fn)";
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id,":fn"=>$file_name]))
@@ -262,17 +262,17 @@
         public function getIDFileByFileID($file_id)
         {
             $conn=$this->connect();
-            $sql="SELECT id FROM files_telegram 
+            $sql="SELECT id FROM files 
                     WHERE file_id=:fi";
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id]))
-                return $query->fetch(PDO::FETCH_ASSOC)["id"];
+                return $query->fetchColumn();
             return false;
         }
         public function existFile($file_id)
         {
             $conn=$this->connect();
-            $sql="SELECT id FROM files_telegram  
+            $sql="SELECT id FROM files  
                     WHERE file_id=:fi";
             $query=$conn->prepare($sql);
             $query->execute([":fi"=> $file_id]);
@@ -280,58 +280,31 @@
                 return true;
             return false;
         }
-        // public function getIDFileByChatID($chatID)
-        // {
-        //     $conn=$this->connect();
-        //     $sql="SELECT files_telegram.id FROM files_telegram 
-        //             JOIN users ON files_telegram.user_id = users.id 
-        //             JOIN user_telegram ON users.id = user_telegram.user_id 
-        //             WHERE chatid=:chi";
-        //     $query=$conn->prepare($sql);
-        //     $query->execute([":chi"=> $chatID]);
-        //     return $query->fetch(PDO::FETCH_ASSOC)['id'];
-        // }
         public function getFilesNameByChatID($chatID)
         {
             $conn=$this->connect();
-            $sql="SELECT files_telegram.file_name FROM files_telegram 
-                    JOIN users ON files_telegram.user_id = users.id 
+            $sql="SELECT files.file_name FROM files 
+                    JOIN users ON files.user_id = users.id 
                     JOIN user_telegram ON users.id = user_telegram.user_id 
                     WHERE chatid=:chi";
             $query=$conn->prepare($sql);
             $query->execute([":chi"=> $chatID]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
-        // public function getFilesInfo($chatID)
-        // {
-        //     $conn=$this->connect();
-        //     $sql="SELECT file_id,files_telegram.id FROM files_telegram 
-        //             JOIN users ON files_telegram.user_id = users.id 
-        //             JOIN user_telegram ON users.id = user_telegram.user_id 
-        //             WHERE chatid=:chi";
-        //     $query=$conn->prepare($sql);
-        //     $query->execute([":chi"=> $chatID]);
-        //     return $query->fetchAll(PDO::FETCH_ASSOC);
-        // }
-        // public function getFileInfo($file_id)
-        // {
-        //     $response=file_get_contents("https://api.telegram.org/bot".$this->token."/getFile?file_id=".$file_id);
-        //     return json_decode($response,true);  
-        // }
         public function getFileNameByID($id)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name FROM files_telegram 
+            $sql="SELECT file_name FROM files 
                     WHERE id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id]);
-            return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
+            return $query->fetchColumn();
         }
         public function getFilesInfoByUser($username)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name,files_telegram.id,state FROM files_telegram 
-                    JOIN users ON files_telegram.user_id = users.id 
+            $sql="SELECT file_name,files.id,state FROM files 
+                    JOIN users ON files.user_id = users.id 
                     WHERE username=:un";
             $query=$conn->prepare($sql);
             $query->execute([":un"=> $username]);
@@ -340,20 +313,20 @@
         public function getIDFilesByID($id)
         {
             $conn=$this->connect();
-            $sql="SELECT file_id FROM files_telegram 
+            $sql="SELECT file_id FROM files 
                     WHERE id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id]);
-            return $query->fetch(PDO::FETCH_ASSOC)['file_id'];
+            return $query->fetchColumn();
         }
         public function getFilesNameByID($id)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name FROM files_telegram 
+            $sql="SELECT file_name FROM files 
                     WHERE id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id]);
-            return $query->fetch(PDO::FETCH_ASSOC)['file_name'];
+            return $query->fetchColumn();
         }
 
         public function getFileURLDownload($id)
@@ -367,7 +340,7 @@
                 if($file_name_cache!=$file_name)
                 {
                     $conn=$this->connect();
-                    $sql="UPDATE files_telegram SET file_name=:fn
+                    $sql="UPDATE files SET file_name=:fn
                             WHERE id=:id";
                     $query=$conn->prepare($sql);
                     $query->execute([":fn"=>$file_name,":id"=> $id]);
@@ -393,24 +366,24 @@
         {
             $conn=$this->connect();
             $sql="SELECT username FROM users
-                    JOIN files_telegram ON files_telegram.user_id=users.id
-                    WHERE files_telegram.id=:id";
+                    JOIN files ON files.user_id=users.id
+                    WHERE files.id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id_file]);
-            return $query->fetch(PDO::FETCH_ASSOC)['username']==$username;
+            return $query->fetchColumn()==$username;
         }
         public function deleteFile($id)
         {
             $conn=$this->connect();
             $sql="SELECT users.id FROM users
-                    JOIN files_telegram ON files_telegram.user_id=users.id
-                    WHERE files_telegram.id=:id";
+                    JOIN files ON files.user_id=users.id
+                    WHERE files.id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id]);
             if($query->rowCount()>0)
             {
-                $user_id=$query->fetch(PDO::FETCH_ASSOC)["id"];
-                $sql="DELETE FROM files_telegram
+                $user_id=$query->fetchColumn();
+                $sql="DELETE FROM files
                     WHERE id=:id";
                 $query=$conn->prepare($sql);
                 if($query->execute([":id"=> $id]))
@@ -421,7 +394,7 @@
                     $query->execute([":id"=> $user_id]);
                     if($query->rowCount()>0)
                     {
-                        $count_files=$query->fetch(PDO::FETCH_ASSOC)["count_files"];
+                        $count_files=$query->fetchColumn();
                         if($count_files> 0)
                         {
                             $sql="UPDATE users SET count_files=count_files-1
@@ -437,46 +410,91 @@
             return false;
             
         }
-        public function requestFile($id)
+        public  function getFileStatus($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id,completed FROM files_users_requests 
+                    JOIN files ON files.id=files_users_requests.file_id
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([":id"=> $id]);
+            $resp=$query->fetchColumn();
+            if($resp['completed']==true)
+            {
+                $sql="SELECT state FROM files_requests 
+                    JOIN files_users_requests ON files_requests.id=files_users_requests.user_request_id
+                    WHERE files_users_requests.id=:id";
+                $query=$conn->prepare($sql);
+                $query->execute([":id"=> $resp['id']]);
+                return $query->fetchColumn();
+            }
+            return "p";
+        }
+        public function setRequestFile($id,$message)
         {
             
             $conn=$this->connect();
-            $sql="UPDATE files_telegram SET state='Pendiente'
-                    WHERE id=:id";
+            $sql="INSERT INTO files_requests (message,user_id)
+                    VALUES (:m,:id)";
+            $query=$conn->prepare($sql);
+            return $query->execute([":m"=>$message,":id"=> $id]);
+            
+        }
+        public function cancelFile($id)
+        {
+            
+            $conn=$this->connect();
+            $sql="DELETE FROM files_requests
+                    JOIN  files ON files_requests.file_id=files.id
+                    WHERE files.id=:id";
             $query=$conn->prepare($sql);
             return $query->execute([":id"=> $id]);
             
         }
-        // public function getFileIDsByUser($username)
-        // {
-        //     $conn=$this->connect();
-        //     $sql="SELECT file_id,files_telegram.id FROM files_telegram 
-        //             JOIN users ON files_telegram.user_id = users.id 
-        //             WHERE username=:un";
-        //     $query=$conn->prepare($sql);
-        //     $query->execute([":un"=> $username]);
-        //     return $query->fetchAll(PDO::FETCH_ASSOC);
-        // }
-        // public function deleteFile($id)
-        // {
-        //     $conn=$this->connect();
-            
-        //     $sql= "SELECT user_id FROM files_telegram WHERE id=:i";
-        //     $query=$conn->prepare($sql);
-        //     $query->execute(["i"=> $id]);
-        //     if($query->rowCount()>0)
-        //     {
-        //         $user_id=$query->fetch(PDO::FETCH_ASSOC)['user_id'];
-        //         $sql= "DELETE FROM files_telegram WHERE id=:i";
-        //         $query=$conn->prepare($sql);
-        //         if($query->execute(["i"=> $id]))
-        //         {
-        //             $sql="UPDATE users SET count_files = :c WHERE id=:ui";
-        //             $query=$conn->prepare($sql);
-        //             return $query->execute([":c"=> $count_files-1,":ui"=> $user_id]);
-        //         }
-        //     }
-            
-        // }
+        public function getCountUsers()
+        {
+            $conn=$this->connect();
+            $sql="SELECT Count(*) FROM users";
+            $query=$conn->prepare($sql);
+            if ($query->execute())
+                return $query->fetchColumn();
+        }
+        public function getCountRequest()
+        {
+            $conn=$this->connect();
+            $sql="SELECT Count(*) FROM files_users_requests 
+                                WHERE completed=FALSE";
+            $query=$conn->prepare($sql);
+            if ($query->execute())
+                return $query->fetchColumn();
+        }
+        public function getCountAccept()
+        {
+            $conn=$this->connect();
+            $sql="SELECT Count(*) FROM files_requests 
+                                WHERE completed=FALSE AND state='a'";
+            $query=$conn->prepare($sql);
+            if ($query->execute())
+                return $query->fetchColumn();
+        }
+        public function getCountDenied()
+        {
+            $conn=$this->connect();
+            $sql="SELECT Count(*) FROM files_requests 
+                                WHERE completed=FALSE AND state='d'";
+            $query=$conn->prepare($sql);
+            if ($query->execute())
+                return $query->fetchColumn();
+        }
+        public function getCountCompleted()
+        {
+            $conn=$this->connect();
+            $sql="SELECT Count(*) FROM files_requests 
+                                WHERE completed=FALSE AND state='c'";
+            $query=$conn->prepare($sql);
+            if ($query->execute())
+                return $query->fetchColumn();
+        }
+        
     }
 ?>

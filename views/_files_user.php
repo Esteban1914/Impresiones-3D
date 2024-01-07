@@ -23,19 +23,21 @@
                         </div>
                         
                         <div class="col-auto">
-                            <?php if($row['state'] != 'Ninguno'):?>
+                        <?php 
+                            $status=$bot->getFileStatus($row['id']);
+                            if( $status != 'n'):?>
                                 <div class="card px-3 bg-<?php 
-                                    if($row['state'] == 'Pendiente' ) 
+                                    if($status == 'p' ) 
                                         echo "warning text-dark"; 
-                                    else if($row['state'] == 'Denegado' ) 
+                                    else if($status == 'd' ) 
                                         echo "danger text-white";
-                                    else if($row['state'] == 'Aceptado' )  
+                                    else if($status == 'a' )  
                                         echo "info text-dark";
-                                    else if($row['state'] == 'Terminado' )  
+                                    else if($status == 'c' )  
                                         echo "success text-white";
                                     ?>
                                     "> 
-                                    <p class="card-text"><?php echo $row['state'] ?></p>
+                                    <p class="card-text"><?php echo $status ?></p>
                                 </div>
                             <?php endif ?>
                         </div>
@@ -45,14 +47,67 @@
                 </div>
                 <div class="col-5">
                     <div class="row justify-content-around">
-                        <?php if($row['state'] == 'Ninguno'):?>
+                        <?php if($status == 'n'):?>
                             <div class="col-auto mb-2">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#modalRequest<?php echo $row['id']?>" title="Solicitar" class="btn btn-outline-info"><i class="bi bi-check-lg"></i></a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#modalRequest<?php echo $row['id']?>" title="Solicitar" class="btn btn-outline-success"><i class="bi bi-check-lg"></i></a>
+                            </div>
+                            <div class="modal fade" id="modalRequest<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body  text-dark">
+                                            <h3 class="m-3">Solicitar revisión de fichero <br><?php echo $row['file_name'] ?></h3>
+                                            <hr>
+                                            <form action="./includes/request.php" method="post">
+                                                <input type="hidden" name="request_id" value="<?php echo $row['id']?>">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-auto">
+                                                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <button  type="submit" class="btn btn-success">Solicitar</button>
+                                                    </div>
+                                                </div>   
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php elseif($row['state'] == 'Pendiente'):?>
+                            <div class="col-auto mb-2">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#modalCancel<?php echo $row['id']?>" title="Cancelar" class="btn btn-outline-warning"><i class="bi bi-x"></i></i></a>
+                            </div>
+                            <div class="modal fade" id="modalCancel<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body  text-dark">
+                                            <h3 class="m-3">Cancelar revisión de fichero <br><?php echo $row['file_name'] ?></h3>
+                                            <hr>
+                                            <form action="./includes/cancel.php" method="post">
+                                                <input type="hidden" name="cancel_id" value="<?php echo $row['id']?>">
+                                                <div class="row justify-content-around">
+                                                    <div class="col-auto">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <button  type="submit" class="btn btn-warning">Cancelar</button>
+                                                    </div>
+                                                </div>   
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
                         
                         <div class="col-auto mb-2   ">
-                            <a title="Visualizar Modelo" href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>
+                            <a title="Visualizar Modelo" href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-info"><i class="bi bi-eye-fill"></i></a>
                         </div>
                         <div class="col-auto mb-2">
                             <a href="<?php echo $bot->getFileURLDownload($row['id'])?>" title="Descargar" class="btn btn-outline-secondary"><i class="bi bi-download"></i></a>
@@ -84,30 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="modalRequest<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body  text-dark">
-                                        <h3 class="m-3">Solicitar revisión de fichero <br><?php echo $row['file_name'] ?></h3>
-                                        <hr>
-                                        <form action="./includes/request.php" method="post">
-                                            <input type="hidden" name="request_id" value="<?php echo $row['id']?>">
-                                            <div class="row justify-content-around">
-                                                <div class="col-auto">
-                                                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <button  type="submit" class="btn btn-info">Solicitar</button>
-                                                </div>
-                                            </div>   
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

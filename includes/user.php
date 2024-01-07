@@ -91,15 +91,15 @@ class User extends DB
     }
     public function userIsUser()
     {
-        return $this->getUserRole()=="Usuario";
+        return $this->getUserRole()=="user";
     }
     public function userIsAdmin()
     {
-        return $this->getUserRole()=="Administrador";
+        return $this->getUserRole()=="admin";
     }
     public function userIsDev()
     {
-        return $this->getUserRole()=="Dev";
+        return $this->getUserRole()=="dev";
     }
     
 }

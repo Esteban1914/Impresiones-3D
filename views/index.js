@@ -230,20 +230,8 @@ function findPassWrodExistEdit()
     },1000);
 }
 
-// function validateEmail()
-// {
-//     let regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-//     if(regex.test(document.getElementById("inputemail").value))
-//     {
-//         document.getElementById("inputemail").className="form-control is-valid";
-//         disabled_email=false;
-//         document.getElementById("btnRegister").disabled=canEnableButton();
-//     }
-//     else
-//     {
-//         document.getElementById("inputemail").className="form-control is-invalid";
-//         disabled_email=true;
-//         document.getElementById("btnRegister").disabled=true;
-//     }
-// }
+function userAjax()
+{
+    console.log("A");
+}
    

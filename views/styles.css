@@ -9,3 +9,18 @@ html,body
 .cursor-select{
     cursor: pointer;
 }
+.bg-orange {
+    background-color: orange !important;
+}
+.bg-purple {
+background-color: purple !important;
+}
+   
+
+/* .focus-transition{
+    transition: transform 0.3s ease-in-out;
+} */
+.focus-transition:focus {
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.2);
+  }

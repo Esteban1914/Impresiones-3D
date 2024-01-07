@@ -34,7 +34,7 @@
     //     username VARCHAR(10) NOT NULL,
     //     password VARCHAR(255) NOT NULL,
     //     count_files INT UNSIGNED DEFAULT 0,
-    //     role ENUM('Dev','Administrador','Usuario') NOT NULL DEFAULT 'Usuario',
+    //     role ENUM('dev','admin','user') NOT NULL DEFAULT 'user',
     //     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     // )";
     //     $conn->exec($sql);
@@ -60,20 +60,52 @@
     // }
 
     // try {
-    //         $sql = "CREATE TABLE files_telegram (
+    //         $sql = "CREATE TABLE files (
     //             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     //             file_id CHAR(100) UNIQUE NOT NULL,
     //             file_name CHAR(20) NOT NULL,
-    //             state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno',
     //             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     //             user_id INT(11) UNSIGNED NOT NULL,
     //             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     //         )";
     //         $conn->exec($sql);
-    //         echo "TABLE files_telegram CREATED -> OK<br>";
+    //         echo "TABLE files CREATED -> OK<br>";
     //     } catch(PDOException $e) {
     //         die ("Error:" . $e->getMessage());
     //     }
+
+    try {
+        $sql = "CREATE TABLE files_users_requests (
+            id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            message TEXT,
+            date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            user_id INT(11) UNSIGNED UNIQUE NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            completed BOOLEAN NOT NULL DEFAULT FALSE
+        )";
+        $conn->exec($sql);
+        echo "TABLE files_users_requests CREATED -> OK<br>";
+    } catch(PDOException $e) {
+        die ("Error:" . $e->getMessage());
+    }
+    try {
+            $sql = "CREATE TABLE files_requests (
+                id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                message TEXT,
+                state ENUM('a','d','c') NOT NULL,
+                completed BOOLEAN NOT NULL DEFAULT FALSE,
+                date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                user_admin INT(11) UNSIGNED,
+                FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
+                user_request_id INT(11) UNSIGNED UNIQUE,
+                FOREIGN KEY (user_request_id) REFERENCES files_users_requests(id) ON DELETE CASCADE,
+                UNIQUE (user_request_id, state)
+            )";
+            $conn->exec($sql);
+            echo "TABLE files_requests CREATED -> OK<br>";
+        } catch(PDOException $e) {
+            die ("Error:" . $e->getMessage());
+        }
 
     // // ///////////////////////INSERT TABLE///////////////////////
     // $sql="INSERT INTO users (username,password) VALUES (:u,:p)";
@@ -125,11 +157,11 @@
     //     echo "NO UPDATE  -> X<br>";
     
     // ///////////////////////ALLTER///////////////////////
-    // $sql="ALTER TABLE files_telegram ADD state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
-    // $sql="ALTER TABLE files_telegram CHANGE state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
+    // $sql="ALTER TABLE files ADD state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
+    // $sql="ALTER TABLE files CHANGE state ENUM('Ninguno','Pendiente','Aceptado','Denegado','Terminado') NOT NULL DEFAULT 'Ninguno';";
     // $sql="ALTER TABLE nombre_tabla MODIFY file_id CHAR(100) UNIQUE NOT NULL;"
     // $sql="ALTER TABLE user_telegram ADD date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;";
-    // $sql=" ALTER TABLE files_telegram DROP FOREIGN KEY files_telegram_ibfk_1 ;";
+    // $sql=" ALTER TABLE files DROP FOREIGN KEY files_telegram_ibfk_1 ;";
     //$sql=" ALTER TABLE user_telegram DROP user_id ;";
     
     // $sql="ALTER TABLE user_telegram

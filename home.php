@@ -4,52 +4,52 @@
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
+    <?php
+        include_once "includes/user.php";
+        $user=new User();        
+    ?>
     <div class="contanier opacity-translation pt-5">
         
         <div class="row justify-content-center ">
             <div class="col-auto ">
-                <?php if (isset($_GET['upload_file']) && $_GET['upload_file']=="OK" ): ?>
-                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
-                        Fichero STL agregado
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <?php
+                function getOKMessage($key)
+                {
+                    switch ($key) {
+                        case 'delete_file':
+                            return "Eliminado fichero STL";
+                        case "request_file":
+                            return "Solicitado fichero STL";
+                        case "cancel_file":
+                            return "Cancelada solicitud fichero STL";
+                        default:
+                            return "Realizada operación";
+                    }
+                }
+                ?>
+                <?php foreach ($_GET as $key => $value): ?>    
+                    <?php if ($value=="OK" ): ?>
+                        <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
+                            <?php echo getOKMessage($key); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php elseif($value =="BAD" ):?>
+                        <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
+                            Error al realizar operación
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php elseif(isset($_GET['upload_file']) && $_GET['upload_file']=="BAD" ):?>
-                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
-                        Error al agregar el fichero STL
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <?php endif;?>
-                <?php if (isset($_GET['delete_file']) && $_GET['delete_file']=="OK" ): ?>
-                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
-                        Eliminado fichero STL
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php elseif(isset($_GET['delete_file']) && $_GET['delete_file']=="BAD" ):?>
-                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
-                        Error al eliminar el fichero STL
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <?php endif;?>
-                <?php if (isset($_GET['request_file']) && $_GET['request_file']=="OK" ): ?>
-                    <div class="pe-5 alert alert-success alert-dismissible fade show" role="alert">
-                        Solicitado fichero STL
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php elseif(isset($_GET['request_file']) && $_GET['request_file']=="BAD" ):?>
-                    <div class="pe-5 alert alert-danger alert-dismissible fade show" role="alert">
-                        Error al solicitar el fichero STL
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <?php endif;?>
-                
+                    <?php endif;?>
+                <?php endforeach;?>
             </div>
         </div>
         <div class="row justify-content-start">
             <div class="col-auto">
                 <div class="card bg-dark text-light border border-0">
                     <div class="card-body">
-                        <h4 class="display-4">Impresiones 3D</h4>
+                        <h4 class="display-5">Impresiones 3D</h4>
+                        <?php if ($user->userIsUser()): ?>
                         <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="learn.php">Aprende aquí!</a></small></p>
+                        <?php endif;?>
                     </div>
                 </div>
                 
@@ -172,10 +172,7 @@
         </div>
     </div>
     <script>
-        <?php
-            include_once "includes/user.php";
-            $user=new User();        
-        ?>
+        
         fetch('./views/<?php if($user->userIsUser()) echo "_files_user.php"; else if($user->userIsAdmin()) echo "_files_admin.php"; else if($user->userIsDev()) echo "_files_dev.php";?> ')
         .then(response => response.text())
         .then(html => {
