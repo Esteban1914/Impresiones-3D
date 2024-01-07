@@ -68,7 +68,7 @@
                                     
                                 </div> -->
                             </div>
-                            <button disabled id="btnRegister" class="btn btn-outline-secondary my-3"type="submit">Registrar</button>
+                            <button disabled id="btnRegister" class="btn btn-outline-secondary my-3"type="submit">Registrar <i class="bi h5 m-1 bi-box-arrow-right"></i></button>
                         </form>
                         <div class="row justify-content-center mt-3">
                             <div class="col-auto">

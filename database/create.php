@@ -79,9 +79,11 @@
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             message TEXT,
             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            user_id INT(11) UNSIGNED UNIQUE NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-            completed BOOLEAN NOT NULL DEFAULT FALSE
+            completed BOOLEAN NOT NULL DEFAULT FALSE,
+            file_id INT(11) UNSIGNED UNIQUE,
+            FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE SET NULL ON UPDATE CASCADE,
+            user_id INT(11) UNSIGNED NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )";
         $conn->exec($sql);
         echo "TABLE files_users_requests CREATED -> OK<br>";

@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <h4 class="display-5">Impresiones 3D</h4>
                         <?php if ($user->userIsUser()): ?>
-                        <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="learn.php">Aprende aquí!</a></small></p>
+                            <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="learn.php">Aprende aquí!</a></small></p>
                         <?php endif;?>
                     </div>
                 </div>

@@ -82,11 +82,8 @@
                     WHERE username=:un";
             $query=$conn->prepare($sql);
             $query->execute([":un"=> $username]);
-            if($query->rowCount()> 0)
-            {
-                $row=$query->fetchColumn();
-                return $row["id"];
-            }
+            if($query->rowCount()> 0)    
+                return $query->fetchColumn();
             return false;
         }
 
@@ -303,7 +300,7 @@
         public function getFilesInfoByUser($username)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name,files.id,state FROM files 
+            $sql="SELECT file_name,files.id FROM files 
                     JOIN users ON files.user_id = users.id 
                     WHERE username=:un";
             $query=$conn->prepare($sql);
@@ -413,40 +410,43 @@
         public  function getFileStatus($id)
         {
             $conn=$this->connect();
-            $sql="SELECT id,completed FROM files_users_requests 
+            $sql="SELECT files_users_requests.file_id,completed FROM files_users_requests 
                     JOIN files ON files.id=files_users_requests.file_id
-                    WHERE id=:id";
+                    WHERE files.id=:id";
             $query=$conn->prepare($sql);
             $query->execute([":id"=> $id]);
-            $resp=$query->fetchColumn();
-            if($resp['completed']==true)
+            $resp=$query->fetch();
+            if($query->rowCount()>0 )    
             {
+                if($resp['completed']==true)
+                {
                 $sql="SELECT state FROM files_requests 
                     JOIN files_users_requests ON files_requests.id=files_users_requests.user_request_id
                     WHERE files_users_requests.id=:id";
                 $query=$conn->prepare($sql);
                 $query->execute([":id"=> $resp['id']]);
                 return $query->fetchColumn();
+                }
+                return "p";
             }
-            return "p";
+            return "n";
         }
         public function setRequestFile($id,$message)
         {
-            
+            $user_id=$this->getUserIDByName($this->getDataSession('user'));
             $conn=$this->connect();
-            $sql="INSERT INTO files_requests (message,user_id)
-                    VALUES (:m,:id)";
+            $sql="INSERT INTO files_users_requests (message,user_id,file_id)
+                    VALUES (:m,:ui,:id)";
             $query=$conn->prepare($sql);
-            return $query->execute([":m"=>$message,":id"=> $id]);
+            return $query->execute([":m"=>$message,":ui"=>$user_id,":id"=> $id]);
             
         }
         public function cancelFile($id)
         {
             
             $conn=$this->connect();
-            $sql="DELETE FROM files_requests
-                    JOIN  files ON files_requests.file_id=files.id
-                    WHERE files.id=:id";
+            $sql="DELETE FROM files_users_requests
+                    WHERE file_id=:id";
             $query=$conn->prepare($sql);
             return $query->execute([":id"=> $id]);
             

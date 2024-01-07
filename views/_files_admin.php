@@ -11,9 +11,9 @@
         <div class="row">
             <div class="display-5">Panel de Administracion</div>
         </div>
-        <div class="row mt-4   p-2 justify-content-center">
+        <div class="row mt-4 p-2 justify-content-center">
             <div class="col m-2">
-                <a onclick="userAjax()" href="#sessionAjax" class="focus-transition" style="text-decoration: none;">
+                <a onclick="userAjax()" href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-primary">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-people-fill" style="font-size: 500%;"></i></h4>
@@ -26,7 +26,7 @@
                 </a>
             </div>
             <div class="col m-2">
-                <a href="#sessionAjax" class="focus-transition" style="text-decoration: none;">
+                <a href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-info">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-list-stars" style="font-size: 500%;"></i></h4>
@@ -39,7 +39,7 @@
                 </a>
             </div>
             <div class="col m-2">
-                <a href="#sessionAjax" class="focus-transition" style="text-decoration: none;">
+                <a href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-warning">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-card-checklist" style="font-size: 500%;"></i></h4>
@@ -52,7 +52,7 @@
                 </a>
             </div>
             <div class="col m-2">
-                <a href="#sessionAjax" class="focus-transition" style="text-decoration: none;">
+                <a href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-danger">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-x-octagon-fill" style="font-size: 500%;"></i></h4>
@@ -66,7 +66,7 @@
             </div>
             
             <div class="col m-2">
-                <a  href="#sessionAjax" class="focus-transition" style="text-decoration: none;">
+                <a  href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-success">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-bookmark-check-fill"  style="font-size: 500%;"></i></h4>
@@ -79,8 +79,5 @@
                 </a>
             </div>
         </div>
-    </div>
-    <div class="" id="sessionAjax">
-
     </div>
     

@@ -1,6 +1,3 @@
-<?php
-    include_once 'includes/login.php';
-?>
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>

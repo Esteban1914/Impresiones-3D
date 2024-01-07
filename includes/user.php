@@ -40,12 +40,13 @@ class User extends DB
             return true;
         return false;
     }
-    public function setUserSession($un,$unt="")
+    public function setUserSession($username,$usernametelegram="")
     {
         $this->setDataSession(
             array(
-                    "user"=>$un,
-                    "usernametelegram"=>$unt
+                    "user"=>$username,
+                    "usernametelegram"=>$usernametelegram,
+                    "role"=>$this->getUserRoleByUserName($username),
                 )
             );
     }
@@ -83,6 +84,14 @@ class User extends DB
     public function getUserRole()
     {
         $username=$this->getDataSession("user");
+        $sql="SELECT role FROM users WHERE username=:un";
+        $query=$this->connect()->prepare($sql);
+        $query->execute([':un'=> $username]);
+        if( $query->rowCount() > 0)
+            return $query->fetch(PDO::FETCH_ASSOC)["role"];
+    }
+    public function getUserRoleByUserName($username)
+    {
         $sql="SELECT role FROM users WHERE username=:un";
         $query=$this->connect()->prepare($sql);
         $query->execute([':un'=> $username]);

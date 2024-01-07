@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                            <button class="btn btn-outline-secondary my-3"type="submit">Ingresar</button>
+                            <button class="btn btn-outline-secondary my-3 h5"type="submit">Ingresar <i class="m-1 h5 bi bi-box-arrow-in-right"></i></button>
                         </form>
                         <div class="row justify-content-center mt-3">
                             <div class="col-auto">
