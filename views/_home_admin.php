@@ -1,19 +1,35 @@
-<div class="container text-light">
-    <?php 
-        include_once '../includes/bot.php';
-        $bot=new Bot();
-       
-        if(!$bot->existSessionUser())
-            die("Session Error");
-        $files=$bot->getFilesInfoByUser($_SESSION['user']);
-    ?>
-    <div class="contanier text-light">
+<?php
+    include_once 'includes/login.php';
+?>
+<?php 
+    include_once './includes/bot.php';
+    $bot=new Bot();
+
+    if(!$bot->existSessionUser() || !$bot->userIsAdmin())
+        die("Session Error");
+?>
+<?php require('views/_head.html'); ?>
+<body class="text-center bg-dark text-light">
+    <?php require('views/_navbar.php'); ?>
+    <div class="container pt-5 text-light">
+    <div class="contanier opacity-translation pt-5">
+        
+        <div class="row justify-content-start">
+            <div class="col-auto">
+                <div class="card bg-dark text-light border border-0">
+                    <div class="card-body">
+                        <h4 class="display-5">Impresiones 3D</h4>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
         <div class="row">
-            <div class="display-5">Panel de Administracion</div>
+            <div class="display-6">Panel de Administracion</div>
         </div>
         <div class="row mt-4 p-2 justify-content-center">
             <div class="col m-2">
-                <a onclick="userAjax()" href="" class="focus-transition" style="text-decoration: none;">
+                <a href="users_admin.php" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-primary">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-people-fill" style="font-size: 500%;"></i></h4>
@@ -79,5 +95,7 @@
                 </a>
             </div>
         </div>
+        
     </div>
-    
+</body>
+<?php require 'views/_footer.html'; ?>

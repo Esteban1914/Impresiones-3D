@@ -12,10 +12,11 @@
         );
         $response=$bot->sendCommnadPOSTFile("sendDocument",$data);
         //unlink($target_file);
-        if($response['ok']===true && $bot->setFileByUserName($_SESSION["user"],$response['result']['document']['file_id'],basename($_FILES["file"]["name"])))
+        if($response['ok']===true && $bot->setFileByUserName($_SESSION["user"],$response['result']['document']['file_id'],$_FILES["file"]["name"]))
         {
             $id=$bot->getIDFileByFileID($response['result']['document']['file_id']);
-            rename($target_file, "../tem_data/".$id."_".$_FILES["file"]["name"]);
+            $file_info=pathinfo($_FILES["file"]["name"]);
+            rename($target_file, "../tem_data/".$file_info['filename']."_".$id.".".$file_info['extension']);
             header("Location: ../home.php?upload_file=OK");
         }
        else

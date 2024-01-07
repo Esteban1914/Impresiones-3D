@@ -1,7 +1,7 @@
 <?php 
-    include_once "db.php";
+    include_once "user.php";
 
-    class Bot extends DB
+    class Bot extends User
     {
         private $token,$path;
         private $MAX_COUNT_FILES,$GROUP_UPLOAD_FILES;
@@ -18,18 +18,6 @@
             $this->token = getenv("DB_TELEGRAM_TOKEN");
             $this->path = "https://api.telegram.org/bot".$this->token."/";
         }
-        
-        // public function connect()
-        // {
-        //     try {
-        //         $conn = new PDO("mysql:host=$this->servername;", $this->username, $this->password);
-        //         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        //     } catch(PDOException $e) {
-        //         die ("Error:" . $e->getMessage());
-        //     }
-        //     $conn->exec("USE impresiones3D");
-        //     return $conn;
-        // }
         public function getMaxCountFiles()
         {
             return $this->MAX_COUNT_FILES;
@@ -74,19 +62,6 @@
             return false;
             
         }
-
-        public function getUserIDByName($username)
-        {
-            $conn=$this->connect();
-            $sql="SELECT id FROM users 
-                    WHERE username=:un";
-            $query=$conn->prepare($sql);
-            $query->execute([":un"=> $username]);
-            if($query->rowCount()> 0)    
-                return $query->fetchColumn();
-            return false;
-        }
-
         public function getUserIDByChatID($chatID)
         {
             $conn=$this->connect();
@@ -158,6 +133,7 @@
         
         public function registerUser($username,$chatID,$user_name)
         {
+            
             $user_id=$this->getUserIDByName($user_name);
             if($user_id===false)
                 return null;
@@ -325,30 +301,26 @@
             $query->execute([":id"=> $id]);
             return $query->fetchColumn();
         }
-
-        public function getFileURLDownload($id)
+        public function getFileURLDownloadBase($url)
         {
+            
+        }
+        public function getFileURLDownload($id,$axaj_folder=FALSE)
+        {
+            
             $file_name_cache=$this->getFilesNameByID($id);
-            $url_file='./tem_data/'.$id."_".$file_name_cache;
-            if(!file_exists(".".$url_file))
+            $file_info=pathinfo($file_name_cache);
+            $file_name=$file_info['filename']."_".$id.".".$file_info['extension'];
+            $url_access='./tem_data/'.$file_name;
+            $url_file=($axaj_folder?"../.":"").$url_access;
+            if(!file_exists($url_file))
             {
-                $url=$this->getURLFileTelegramByID($id);
-                $file_name=basename($url);
-                if($file_name_cache!=$file_name)
-                {
-                    $conn=$this->connect();
-                    $sql="UPDATE files SET file_name=:fn
-                            WHERE id=:id";
-                    $query=$conn->prepare($sql);
-                    $query->execute([":fn"=>$file_name,":id"=> $id]);
-                }
-                $url_file='./tem_data/'.$id."_".$file_name;
-                $contenido = file_get_contents($url);
-                file_put_contents($url_file, $contenido);
-                return $url_file;
+                $url_telegram=$this->getURLFileTelegramByID($id);
+                $contenido = file_get_contents($url_telegram);
+                if($contenido!==false)
+                    file_put_contents($url_file, $contenido);
             }
-            else
-                return $url_file;
+            return $url_access;
  
         }
 
@@ -496,5 +468,17 @@
                 return $query->fetchColumn();
         }
         
+        public function getLastUsers($no_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id,username,role FROM users 
+                    WHERE id != :nid
+                    ORDER BY date DESC LIMIT 5 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":nid"=> $no_id]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
+    
 ?>

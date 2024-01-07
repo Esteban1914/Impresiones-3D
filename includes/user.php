@@ -8,13 +8,6 @@ class User extends DB
     {
         parent::__construct();
     }
-    public function registerUser($username, $password)
-    {
-        $query=$this->connect()->prepare('INSERT INTO users (username,password) VALUES (:u,:p)');
-        if($query->execute(['u'=> $username , 'p' => md5($password)]))
-            return true;
-        return false;
-    }
     public function userExistForLogin($u,$p)
     {
         
@@ -40,24 +33,38 @@ class User extends DB
             return true;
         return false;
     }
-    public function setUserSession($username,$usernametelegram="")
+    public function getUserIDByName($username)
+    {
+        $conn=$this->connect();
+        $sql="SELECT id FROM users 
+                WHERE username=:un";
+        $query=$conn->prepare($sql);
+        $query->execute([":un"=> $username]);
+        if($query->rowCount()> 0)    
+            return $query->fetchColumn();
+        return false;
+    }
+    public function setUserSession($username,$usernametelegram=null)
     {
         $this->setDataSession(
             array(
                     "user"=>$username,
                     "usernametelegram"=>$usernametelegram,
                     "role"=>$this->getUserRoleByUserName($username),
+                    "id"=> $this->getUserIDByName($username)
                 )
             );
     }
     public function getUserNameTelegram($u)
     {
-        $sql="SELECT user_telegram.username FROM user_telegram LEFT JOIN users ON user_telegram.user_id=users.id WHERE users.username=:u";
+        $sql="SELECT user_telegram.username FROM user_telegram 
+            JOIN users ON user_telegram.user_id=users.id 
+            WHERE users.username=:u";
         $query=$this->connect()->prepare($sql);
         $query->execute(['u'=> $u]);
         if($query->rowCount())
-            return $query->fetch(PDO::FETCH_ASSOC)["username"];
-        return "";
+            return $query->fetchColumn();
+        return null;
     }
     
     // public function getCurrentUser()
@@ -100,15 +107,18 @@ class User extends DB
     }
     public function userIsUser()
     {
-        return $this->getUserRole()=="user";
+        //return $this->getUserRole()=="user";
+        return $this->getDataSession('role')=="user";
     }
     public function userIsAdmin()
     {
-        return $this->getUserRole()=="admin";
+        //return $this->getUserRole()=="admin";
+        return $this->getDataSession('role')=="admin";
     }
     public function userIsDev()
     {
-        return $this->getUserRole()=="dev";
+        //return $this->getUserRole()=="dev";
+        return $this->getDataSession('role')=="dev";
     }
     
 }
