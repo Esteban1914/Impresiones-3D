@@ -17,10 +17,10 @@
             </div>
         </div>
         <div class="row justify-content-center my-3">
-            <div class="col-auto">
+            <div class="col-auto m-2">
                 <a type="button" href="home.php"class="btn btn-outline-secondary btn-lg "><i class="bi bi-bookmark-star-fill m-1 h5"></i> Comenzar</a>
             </div>
-            <div class="col-auto">
+            <div class="col-auto m-2">
                 <!-- <a type="button" data-bs-toggle="modal" data-bs-target="#ModalTelegram" class="btn btn-outline-primary btn-lg"><i class="bi bi-telegram"></i> Telegram</a> -->
                 <a href="./learn.php" type="button" class="btn btn-outline-primary btn-lg"><i class="bi bi-book me-2"></i>Explora la plataforma</a>
             </div>
