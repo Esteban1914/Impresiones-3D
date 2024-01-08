@@ -99,10 +99,6 @@ class User extends DB
     }
     public function registerUser($username,$password)
     {
-        
-        $user_id=$this->getUserIDByName($username);
-        if($user_id===false)
-            return null;
         $conn=$this->connect();
         $sql="INSERT INTO users (username,password) 
                 VALUES (:un,:pass)";
