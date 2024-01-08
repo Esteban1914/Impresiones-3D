@@ -97,17 +97,17 @@ class User extends DB
         if( $query->rowCount() > 0)
             return $query->fetch(PDO::FETCH_ASSOC)["role"];
     }
-    public function registerUser($username,$chatID,$user_name)
+    public function registerUser($username,$password)
     {
         
-        $user_id=$this->getUserIDByName($user_name);
+        $user_id=$this->getUserIDByName($username);
         if($user_id===false)
             return null;
         $conn=$this->connect();
-        $sql="INSERT INTO user_telegram (username,chatid, user_id) 
-                VALUES (:un,:chi,:ui)";
+        $sql="INSERT INTO users (username,password) 
+                VALUES (:un,:pass)";
         $query=$conn->prepare($sql);
-        if($query->execute([":un"=> $username ,"chi"=> $chatID, "ui"=> $user_id]))
+        if($query->execute([":un"=> $username ,":pass"=> md5($password)]))
             return true;
         return false;
     }

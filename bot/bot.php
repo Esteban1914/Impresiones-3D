@@ -29,7 +29,7 @@
                 {
                     function regAndMess($bot,$usernametelegram,$chatID,$username)
                     {
-                        $resp=$bot->registerUser($usernametelegram,$chatID,$username);
+                        $resp=$bot->registerUserTelegram($usernametelegram,$chatID,$username);
                         if($resp===true)
                             return "Usuario confirmado. Continue en proceso de registro en la plataforma";
                         else if ($resp===null)

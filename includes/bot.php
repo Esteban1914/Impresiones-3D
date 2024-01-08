@@ -129,6 +129,22 @@
                 return (bool)$query->fetchColumn();
             return null;
         }
+
+        
+        public function registerUserTelegram($usernametelegram,$chatID,$user_name)
+        {
+            
+            $user_id=$this->getUserIDByName($user_name);
+            if($user_id===false)
+                return null;
+            $conn=$this->connect();
+            $sql="INSERT INTO user_telegram (username,chatid, user_id) 
+                    VALUES (:un,:chi,:ui)";
+            $query=$conn->prepare($sql);
+            if($query->execute([":un"=> $usernametelegram ,"chi"=> $chatID, "ui"=> $user_id]))
+                return true;
+            return false;
+        }
         public function userConfirm($usernametelegram)
         {
             $conn=$this->connect();
