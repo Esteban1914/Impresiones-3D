@@ -50,7 +50,7 @@
         </div>
     </div>
     
-    <div id="id_placeholder">
+    <div id="id_data">
         <div class="row justify-content-center text-light opacity-translation">
             <hr>
             <span class="h3 text-center ">Cargando Datos</span>
@@ -168,7 +168,7 @@
         fetch('./views/ajax/_user_data.php')
         .then(response => response.text())
         .then(html => {
-            document.getElementById('id_placeholder').innerHTML = html;
+            document.getElementById('id_data').innerHTML = html;
         })
         .catch(error => console.warn(error));
     </script>    

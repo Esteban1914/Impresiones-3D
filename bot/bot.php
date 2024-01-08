@@ -119,32 +119,4 @@
     $message=str_replace("(", rawurlencode("("), $message);
     $message=str_replace(")", rawurlencode(")"), $message);
     $bot->sendMessage($chatID,$message);
-/*
-ok	true
-result	
-    0	
-        update_id	481154846
-        message	
-            message_id	72
-            from	
-                id	1033479354
-                is_bot	false
-                first_name	"Esteban"
-                last_name	"Acevedo"
-                username	"EstebanACB2"
-                language_code	"es"
-            chat	
-                id	1033479354
-                first_name	"Esteban"
-                last_name	"Acevedo"
-                username	"EstebanACB2"
-                type	"private"
-            date	1703978825
-            text	"/start_link"
-            entities	
-            0	
-                offset	0
-                length	11
-                type	"bot_command"
-*/
 ?>
