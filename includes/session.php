@@ -1,6 +1,6 @@
 <?php
-//ini_set('display_errors', 'Off');    // Evita que los errores se muestren en la pantalla
-//error_reporting(E_ALL & ~E_NOTICE);  // Desactiva los avisos
+ini_set('display_errors', 'Off');    // Evita que los errores se muestren en la pantalla
+error_reporting(E_ALL & ~E_NOTICE);  // Desactiva los avisos
 
 class Session{
     public function __construct()
