@@ -13,19 +13,8 @@
     <?php require('views/_navbar.php'); ?>
     <div class="container pt-5 text-light">
     <div class="contanier opacity-translation pt-5">
-        
-        <div class="row justify-content-start">
-            <div class="col-auto">
-                <div class="card bg-dark text-light border border-0">
-                    <div class="card-body">
-                        <h4 class="display-5">Impresiones 3D</h4>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <div class="row">
-            <div class="display-6">Panel de Administracion</div>
+        <div class="row m-5">
+            <div class="display-5">Panel de Administracion</div>
         </div>
         <div class="row mt-4 p-2 justify-content-center">
             <div class="col m-2">
@@ -42,7 +31,7 @@
                 </a>
             </div>
             <div class="col m-2">
-                <a href="" class="focus-transition" style="text-decoration: none;">
+                <a href="request_admin.php" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-info">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-list-stars" style="font-size: 500%;"></i></h4>

@@ -72,7 +72,7 @@
                                                 <input type="hidden" name="request_id" value="<?php echo $row['id']?>">
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlTextarea1" class="form-label h4">Mensaje adicional</label>
-                                                    <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="4">Solicito la aprobación para imprimir mi modelo 3D.</textarea>
+                                                    <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="4">Solicitar modelo 3D.</textarea>
                                                 </div>
                                                 <div class="row justify-content-around my-3">
                                                     <div class="col-auto">

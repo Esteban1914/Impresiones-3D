@@ -46,8 +46,6 @@ function canEnableButtonPass()
     return disabled_password_last||disabled_password;
 }
 
-
-
 function findUserNameExist()
 {
     document.getElementById("inputusername").className="form-control ";
@@ -90,8 +88,6 @@ function findUserNameExist()
         .catch(error => console.log("error:",error));
     },1000);
 }
-
-
 
 function confirmPasswords()
 {
@@ -230,7 +226,3 @@ function findPassWrodExistEdit()
     },1000);
 }
 
-function userAjax()
-{
-    console.log("A");
-}

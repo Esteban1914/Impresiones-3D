@@ -473,12 +473,42 @@
             $conn=$this->connect();
             $sql="SELECT id,username,role FROM users 
                     WHERE id != :nid
-                    ORDER BY date DESC LIMIT 5 
+                    ORDER BY date DESC 
+                    LIMIT 5 
                     ";
             $query=$conn->prepare($sql);
             $query->execute([":nid"=> $no_id]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function getFilteredtUsers($no_id,$filter_username)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id,username,role FROM users 
+                    WHERE id != :nid 
+                    AND username LIKE :search
+                    ORDER BY username DESC 
+                    LIMIT 5 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":nid"=> $no_id,":search"=>"%".$filter_username."%"]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getNewRequests()
+        {
+            $conn=$this->connect();
+            $sql="SELECT files_users_requests.id,files_users_requests.file_id,files_users_requests.message,users.username,files.file_name 
+                    FROM files_users_requests 
+                    JOIN users ON files_users_requests.user_id=users.id
+                    JOIN files ON files_users_requests.file_id=files.id
+                    WHERE completed = FALSE 
+                    ORDER BY files_users_requests.date ASC 
+                    LIMIT 5 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
     }
     
 ?>
