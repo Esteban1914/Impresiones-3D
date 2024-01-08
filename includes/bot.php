@@ -100,10 +100,7 @@
             $query=$conn->prepare($sql);
             $query->execute([":unt"=> $usernametelegram]);
             if($query->rowCount()> 0)
-            {
-                $row=$query->fetchColumn();
-                return $row["username"];
-            }
+                return $query->fetchColumn();
             return null;
         }
         public function userIsConfirmated($username)

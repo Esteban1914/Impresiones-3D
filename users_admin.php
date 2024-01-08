@@ -30,11 +30,11 @@
                     <td><strong><?php echo $bot->getDataSession('id')?></strong></th>
                     <td><strong>@<?php echo $bot->getDataSession('user')?></strong></td>
                     <td><strong><?php
-                    $uer_telegram=$bot->getDataSession('usertelegram') ;
-                    if($uer_telegram!==null)
-                        echo "@".$uer_telegram;
-                    else
-                        echo "No asignado"
+                        $uer_telegram=$bot->getDataSession('usernametelegram') ;
+                        if($uer_telegram!==null)
+                            echo "@".$uer_telegram;
+                        else
+                            echo "No asignado"
                     ?></strong></td>
                     <td><strong><?php echo $bot->getDataSession('role')?></strong></td>
                 </tr>
