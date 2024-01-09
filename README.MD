@@ -1,2 +1,2 @@
 ## Impresiones 3D
-### Alojado en https://eacb2.duckdns.org/impresiones3d 
+### Alojado en https://eacb2.duckdns.org/impresiones3d/impresiones3d.php
