@@ -7,6 +7,9 @@
         header('Location: home.php');
         exit;
     }
+    $action="";
+    if (isset($_GET['action']))
+        $action = $_GET['action'];
     $model_id=$_GET['model_id'];
     header("Access-Control-Allow-Origin: *");
     include_once "includes/bot.php";
@@ -17,8 +20,81 @@
     <?php require('views/_navbar.php'); ?>
        
     <div class="container-fluid h-100 pt-5">
-        <div class="row h-100">
-            <div class="col p-5">
+        <div style="position: relative;">
+            <div style="position: absolute">
+                <a style="decoration: none;"class="m-0 text-light h3" href="<?php if($action=="ACCEPT") echo "./request_admin.php"; else echo "./home.php";?>"><i class="bi bi-arrow-left-circle"></i></a>
+            </div>
+            <div style="position: absolute; left: 50%;transform: translateX(-50%)">    
+                <div class="h2">
+                    <?php echo $bot->getFileNameByID($model_id)?>
+                </div>
+            </div>
+        </div>
+        <?php if($action=="ACCEPT"):?>
+            <?php 
+                if(!$bot->fileIsRequest($model_id))
+                {
+                    header("Location: impresiones3d.php");
+                    exit;
+                }
+                $request=$bot->getRequest($model_id);
+            ?>
+            <div style="position: relative; top: 10%;">
+                <div style="position: absolute; left: 50%;transform: translateX(-50%)">    
+                    <div class="m-2 badge bg-primary">
+                        <a href=""  data-bs-toggle="modal" data-bs-target="#Modal" class="h2">
+                            <i class="bi bi-card-checklist"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content text-dark">
+                    <div class="modal-header">
+                        
+                        <h1 class="modal-title fs-5" id="ModalLabel">Solicitud</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Fichero:</th>
+                            <td><?php echo $request['file_name']?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Usuario:</th>
+                            <td>@<?php echo $request['username']?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Mensaje:</th>
+                            <td><?php echo $request['message']?></td>
+                        </tr>
+                        
+                    </tbody>
+                    </table>
+                    </div>
+                    <div class="row justify-content-around">
+                        <div class="col-auto">
+                            <form action="./includes/denied.php" method="post">
+                                <input type="hidden" name="denied">
+                                <button class="btn btn-danger" type="submit">Denegar</button>
+                            </form>
+                        </div>
+                        <div class="col-auto mb-3">
+                            <form action="./includes/accept.php" method="post">
+                                <input type="hidden" name="accept_id" value="<?php echo $request['id']?>">
+                                <button class="btn btn-success" type="submit">Aceptar</button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif?>
+        <div class="row p-5 h-100">
+            <div class="col">
                 <div style="position: relative; top: 40%;">   
                     <div id="load_id" class="text-dark" style="position: absolute; left: 50%;transform: translateX(-50%)">
                         <div class="container">
@@ -36,9 +112,14 @@
                                 </div>
                             </div>
                         </div> 
-                    </div>       
-                    
+                    </div>           
                 </div>
+                <div style="position: relative;">
+                    <div style="position: absolute; left: 50%;transform: translateX(-50%)">
+                        
+                    </div>
+                </div>
+                
                 <div id="id_scene" class="h-100"></div>
             </div>
         </div>

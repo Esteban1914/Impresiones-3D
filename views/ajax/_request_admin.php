@@ -28,10 +28,9 @@
                     <td><?php echo $request['file_name']?></td>
                     <td><?php echo $request['message'] ?></td>
                     <td>
-                    
-                    <a title="Aceptar Modelo" href="" class="m-1 btn btn-outline-success"><i class="bi bi-journal-text"></i></a>
-                    <a title="Verificar Modelo" href="./visualice.php?model_id=<?php echo $request['file_id'] ?>" class="m-1 btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>
-                    <a title="Denegar Modelo" href="" class="m-1 btn btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    <!-- <a title="Aceptar Modelo" href="" class="m-1 btn btn-outline-success"><i class="bi bi-journal-text"></i></a> -->
+                    <a title="Verificar Modelo" href="./visualice.php?model_id=<?php echo $request['file_id'] ?>&action=ACCEPT" class="m-1 btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>
+                    <!-- <a title="Denegar Modelo" href="" class="m-1 btn btn-outline-danger"><i class="bi bi-trash"></i></a> -->
                 </td>
                 </tr>
             <?php endforeach ?>

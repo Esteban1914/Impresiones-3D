@@ -432,7 +432,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT Count(*) FROM files_users_requests 
-                                WHERE completed=FALSE";
+                                WHERE completed=FALSE AND file_id IS NOT NULL";
             $query=$conn->prepare($sql);
             if ($query->execute())
                 return $query->fetchColumn();
@@ -504,6 +504,47 @@
             $query=$conn->prepare($sql);
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        function fileIsRequest($file_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT id 
+                    FROM files_users_requests 
+                    WHERE file_id = :id AND completed=FALSE
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([':id'=>$file_id]);
+            return ($query->rowCount()>0);
+        }
+        public function getRequest($file_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT files_users_requests.id,files_users_requests.message,users.username,files.file_name 
+                    FROM files_users_requests 
+                    JOIN users ON files_users_requests.user_id=users.id
+                    JOIN files ON files_users_requests.file_id=files.id
+                    WHERE files_users_requests.file_id = :id AND completed=FALSE
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([':id'=>$file_id]);
+            return $query->fetch();
+        }
+        public function setAcceptFile($id_request_users,$message)
+        {
+            $conn=$this->connect();
+            $sql="INSERT INTO files_requests (message,state,user_admin,user_request_id) 
+                VALUES (:mes,:st,:ua,:urid)
+            ";
+            $query=$conn->prepare($sql);
+            if($query->execute([":mes"=> $message,":st"=>'a',':ua'=>$this->getDataSession('id'),$id_request_users]))
+            {
+                $sql="UPDATE files_users_requests SET completed=TRUE
+                    WHERE id=:idru";
+                $query=$conn->prepare($sql);
+                if($query->execute([":idru"=> $id_request_users]))
+                    return true;
+            }
+            return false;
         }
         
     }

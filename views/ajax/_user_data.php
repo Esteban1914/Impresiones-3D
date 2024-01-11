@@ -57,7 +57,7 @@
                     <div class="row justify-content-center mt-3">
                         <?php if($status == 'n'):?>
                             <div class="col-auto m-1">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#modalRequest<?php echo $row['id']?>" title="Solicitar" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-check-lg"></i></a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#modalRequest<?php echo $row['id']?>" title="Solicitar" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-send"></i></a>
                             </div>
                             <div class="modal fade" id="modalRequest<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         <?php elseif($status == 'p'):?>
-                            <div class="col-auto m-1">
+                            <!-- <div class="col-auto m-1">
                                 <a href="" data-bs-toggle="modal" data-bs-target="#modalCancel<?php echo $row['id']?>" title="Cancelar" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-x"></i></i></a>
                             </div>
                             <div class="modal fade" id="modalCancel<?php echo $row['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         <?php endif; ?>
                         
                         <div class="col-auto m-1">

@@ -148,5 +148,6 @@
             document.getElementById('id_data').className="d-block";
         });
     </script>    
+    
 </body>
 <?php require 'views/_footer.html'; ?>
