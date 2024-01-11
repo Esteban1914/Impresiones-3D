@@ -41,8 +41,8 @@
             ?>
             <div style="position: relative; top: 10%;">
                 <div style="position: absolute; left: 50%;transform: translateX(-50%)">    
-                    <div class="m-2 badge bg-primary">
-                        <a href=""  data-bs-toggle="modal" data-bs-target="#Modal" class="h2">
+                    <div id="id_accept" class="d-none m-2 badge bg-primary">
+                        <a href=""  data-bs-toggle="modal" data-bs-target="#Modal" class="h1">
                             <i class="bi bi-card-checklist"></i>
                         </a>
                     </div>
@@ -162,6 +162,9 @@
         function (geometry) 
         {
             document.getElementById("load_id").className="d-none";
+            document.getElementById("id_accept").className="m-2 badge bg-primary";
+
+            
             var material = new THREE.MeshPhongMaterial({color: 0xaaaaaa, specular: 0x111111, shininess: 200});
             mesh = new THREE.Mesh(geometry, material);
             mesh_bool=true;
