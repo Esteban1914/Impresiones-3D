@@ -536,7 +536,7 @@
                 VALUES (:mes,:st,:ua,:urid)
             ";
             $query=$conn->prepare($sql);
-            if($query->execute([":mes"=> $message,":st"=>'a',':ua'=>$this->getDataSession('id'),$id_request_users]))
+            if($query->execute([":mes"=> $message,":st"=>'a',':ua'=>$this->getDataSession('id'),':urid'=>$id_request_users]))
             {
                 $sql="UPDATE files_users_requests SET completed=TRUE
                     WHERE id=:idru";
