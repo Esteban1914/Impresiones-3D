@@ -17,6 +17,8 @@
                             return "Cancelada solicitud fichero STL";
                         case "upload_file":
                             return "Subido fichero STL";
+                        case "signin":
+                            return "<span class='h2'>Bienvendio a impresiones3d</span>";
                         default:
                             return "Realizada operación";
                     }

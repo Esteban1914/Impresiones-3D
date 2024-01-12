@@ -11,6 +11,9 @@
             case "findPassword":
                     echo json_encode(['result' => $user->userExistPassword($_SESSION['user'],$data["password"])]);
                 break;
+            case "findValidation":
+                echo json_encode(['result' => $user->validationExist($data["data"])]);
+                break;
             default:
                 break;
         }

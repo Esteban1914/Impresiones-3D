@@ -546,6 +546,23 @@
             }
             return false;
         }
+        public function setDeniedFile   ($id_request_users,$message)
+        {
+            $conn=$this->connect();
+            $sql="INSERT INTO files_requests (message,state,user_admin,user_request_id) 
+                VALUES (:mes,:st,:ua,:urid)
+            ";
+            $query=$conn->prepare($sql);
+            if($query->execute([":mes"=> $message,":st"=>'d',':ua'=>$this->getDataSession('id'),':urid'=>$id_request_users]))
+            {
+                $sql="UPDATE files_users_requests SET completed=TRUE
+                    WHERE id=:idru";
+                $query=$conn->prepare($sql);
+                if($query->execute([":idru"=> $id_request_users]))
+                    return true;
+            }
+            return false;
+        }
         
     }
     

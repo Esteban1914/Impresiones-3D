@@ -28,6 +28,8 @@
     
     
     // // ///////////////////////CREATE TABLE///////////////////////
+    
+    
     // try {
     // $sql = "CREATE TABLE users (
     //     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +44,13 @@
     // } catch(PDOException $e) {
     //     die ("Error:" . $e->getMessage());
     // }
-    
+    "CREATE TABLE user_validation (
+        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        type ENUM('email','phone') NOT NULL,
+        data VARCHAR(254) NOT NULL UNIQUE,
+        user_id INT(11) UNSIGNED NOT NULL UNIQUE,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
     //     try {
     //     $sql = "CREATE TABLE user_telegram (
     //         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

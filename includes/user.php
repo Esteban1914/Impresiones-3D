@@ -51,9 +51,19 @@ class User extends DB
                     "user"=>$username,
                     "usernametelegram"=>$usernametelegram,
                     "role"=>$this->getUserRoleByUserName($username),
+                    //"validation_type"=>$this->getUserRoleByUserName($username),
+                    //"validation_data"=>$this->getUserRoleByUserName($username),
                     "id"=> $this->getUserIDByName($username)
                 )
             );
+    }
+    public function validationExist($validation_data)
+    {
+        $sql="SELECT id FROM user_validation 
+            WHERE data=:d";
+        $query=$this->connect()->prepare($sql);
+        $query->execute([':d'=> $validation_data]);
+        return $query->rowCount()> 0;
     }
     public function getUserNameTelegram($u)
     {
@@ -61,7 +71,7 @@ class User extends DB
             JOIN users ON user_telegram.user_id=users.id 
             WHERE users.username=:u";
         $query=$this->connect()->prepare($sql);
-        $query->execute(['u'=> $u]);
+        $query->execute([':u'=> $u]);
         if($query->rowCount())
             return $query->fetchColumn();
         return null;
@@ -97,14 +107,25 @@ class User extends DB
         if( $query->rowCount() > 0)
             return $query->fetch(PDO::FETCH_ASSOC)["role"];
     }
-    public function registerUser($username,$password)
+    public function registerUser($username,$password,$type,$validation_data)
     {
         $conn=$this->connect();
         $sql="INSERT INTO users (username,password) 
                 VALUES (:un,:pass)";
         $query=$conn->prepare($sql);
         if($query->execute([":un"=> $username ,":pass"=> md5($password)]))
-            return true;
+            {
+                $id=$this->getUserIDByName($username);
+                if($id!==false)
+                {
+                    $sql="INSERT INTO user_validation (type,data,user_id) 
+                            VALUES (:ty,:d,:ui)";
+                    $query=$conn->prepare($sql);
+                    if($query->execute([":ty"=> $type ,":d"=> $validation_data,":ui"=>$id]))
+                        return true;
+                }
+                return true;
+            }
         return false;
     }
     public function getUserRoleByUserName($username)

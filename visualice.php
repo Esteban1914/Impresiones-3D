@@ -78,7 +78,7 @@
                     <div class="row justify-content-around">
                         <div class="col-auto">
                             <form action="./includes/denied.php" method="post">
-                                <input type="hidden" name="denied">
+                                <input type="hidden" name="denied_id">
                                 <button class="btn btn-danger" type="submit">Denegar</button>
                             </form>
                         </div>
