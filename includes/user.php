@@ -51,8 +51,8 @@ class User extends DB
                     "user"=>$username,
                     "usernametelegram"=>$usernametelegram,
                     "role"=>$this->getUserRoleByUserName($username),
-                    //"validation_type"=>$this->getUserRoleByUserName($username),
-                    //"validation_data"=>$this->getUserRoleByUserName($username),
+                    "validation_type"=>$this->getUserValidationTypeByUserName($username),
+                    "validation_data"=>$this->getUserValidationByUserName($username),
                     "id"=> $this->getUserIDByName($username)
                 )
             );
@@ -77,10 +77,6 @@ class User extends DB
         return null;
     }
     
-    // public function getCurrentUser()
-    // {
-    //     return $_SESSION['user'];
-    // }
     public function closeSession()
     {
         session_unset();
@@ -135,6 +131,28 @@ class User extends DB
         $query->execute([':un'=> $username]);
         if( $query->rowCount() > 0)
             return $query->fetch(PDO::FETCH_ASSOC)["role"];
+    }
+    public function getUserValidationTypeByUserName($username)
+    {
+        $sql="SELECT type FROM user_validation 
+            JOIN users ON user_validation.user_id=users.id 
+            WHERE users.username=:un"
+        ;
+        $query=$this->connect()->prepare($sql);
+        $query->execute([':un'=> $username]);
+        if( $query->rowCount() > 0)
+            return $query->fetchColumn();
+    }
+    public function getUserValidationByUserName($username)
+    {
+        $sql="SELECT data FROM user_validation 
+            JOIN users ON user_validation.user_id=users.id 
+            WHERE users.username=:un"
+        ;
+        $query=$this->connect()->prepare($sql);
+        $query->execute([':un'=> $username]);
+        if( $query->rowCount() > 0)
+            return $query->fetchColumn();
     }
     public function userIsUser()
     {

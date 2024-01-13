@@ -113,10 +113,6 @@
     }
     else
         $message="Solo se puede interactuar con el bot en chats privados";
-    $message=str_replace("\n", rawurlencode("\n"), $message);
-    $message=str_replace("[", rawurlencode("["), $message);
-    $message=str_replace("]", rawurlencode("]"), $message);
-    $message=str_replace("(", rawurlencode("("), $message);
-    $message=str_replace(")", rawurlencode(")"), $message);
+    
     $bot->sendMessage($chatID,$message);
 ?>

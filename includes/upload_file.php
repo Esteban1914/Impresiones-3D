@@ -8,7 +8,12 @@
 
         $data = array(
             'chat_id' => $bot->getGroupUploadFiles(),
-            'document' => new CURLFile($target_file)
+            'document' => new CURLFile($target_file),
+            'caption' => 
+                        "Usuario: @"
+                        .$bot->getDataSession('user')
+                        .($bot->getDataSession('usernametelegram')?"\nTelegram: @".$bot->getDataSession('usernametelegram'):"")
+                        ."\nContacto: ".$bot->getDataSession('validation_data')
         );
         $response=$bot->sendCommnadPOSTFile("sendDocument",$data);
         //unlink($target_file);

@@ -31,27 +31,29 @@
                 </a>
             </div>
             <div class="col m-2">
-                <a href="request_admin.php" class="focus-transition" style="text-decoration: none;">
+                <?php $_requests=$bot->getCountRequest(); ?>
+                <a href="<?php if($_requests>0) echo "request_admin.php"?>" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-info">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-list-stars" style="font-size: 500%;"></i></h4>
                             <p class="card-text h3">Solicitudes</p>
                         </div>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
-                            <?php echo $bot->getCountRequest() ?>
+                            <?php echo $_requests ?>
                         </span>       
                     </div>
                 </a>
             </div>
             <div class="col m-2">
-                <a href="" class="focus-transition" style="text-decoration: none;">
+                <?php $_accepts=$bot->getCountAccept(); ?>
+                <a href="<?php if($_accepts > 0) echo "accept_admin.php"?>" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-warning">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-card-checklist" style="font-size: 500%;"></i></h4>
                             <p class="card-text h3">Aceptados</p>
                         </div>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
-                            <?php echo $bot->getCountAccept() ?>
+                            <?php echo $_accepts ?>
                         </span>       
                     </div>
                 </a>

@@ -13,6 +13,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Usuario</th>
+                <th scope="col">Contacto</th>
                 <th scope="col">Telegram</th>
                 <th scope="col">Role</th>
                 <th scope="col"></th>
@@ -29,12 +30,14 @@
             <tr>
                 <th scope="row "><?php echo $user['id']?></th>
                 <td>@<?php echo $user['username']?></td>
+                <td><strong data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?php echo $user['data']?>"><?php echo $user['type']=="email"?"correo":"teléfono"?></strong></td>
+                    
                 <td><?php
-                $uer_telegram=$bot->getUserNameTelegram($user['username']);
+                $uer_telegram=$user['telegram_username'];
                 if($uer_telegram!==null)
                     echo "@".$uer_telegram;
                 else
-                    echo "No asignado"
+                    echo "-"
                 ?></td>
                 <td><?php echo $user['role']?></td>
                 <td>

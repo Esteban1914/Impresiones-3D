@@ -50,6 +50,19 @@
                         <div class="row m-2 mt-4 align-items-center">
                             <div class="col-5">
                                 <div class="h6 text-start">
+                                    Contacto
+                                </div>
+                            </div>
+                            <div class="col-7 text-end">
+                                <span class="h6">
+                                    <?php echo $_SESSION['validation_data'] ?> 
+                                </span>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row m-2 mt-4 align-items-center">
+                            <div class="col-5">
+                                <div class="h6 text-start">
                                     Contraseña
                                 </div>
                             </div>
