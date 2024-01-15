@@ -20,7 +20,7 @@ background-color: purple !important;
 /* .focus-transition{
     transition: transform 0.3s ease-in-out;
 } */
-.focus-transition:focus {
-    transition: transform 0.3s ease-in-out;
-    transform: scale(1.2);
+.focus-transition:hover  {
+    transition: transform 0.3s ease-in-out !important; 
+    transform: scale(1.2) !important;
   }

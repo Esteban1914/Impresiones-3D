@@ -73,7 +73,7 @@
                 </a>
             </div>
             
-            <div class="col m-2">
+            <div class="col m-2 ">
                 <a  href="" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-success">
                         <div class="card-body">
@@ -90,8 +90,8 @@
                 <a  href="./admin_user_interface.php" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-secondary">
                         <div class="card-body">
-                            <h4 class="card-title"><i class="bi bi-bookmark-check-fill"  style="font-size: 500%;"></i></h4>
-                            <p class="card-text h3">Interfaz de Usuario</p>
+                            <h4 class="card-title"><i class="bi bi-diagram-3"  style="font-size: 500%;"></i></h4>
+                            <p class="card-text h5">Interfaz de Usuario</p>
                         </div>   
                     </div>
                 </a>
