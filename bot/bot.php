@@ -111,6 +111,10 @@
                 break;
         }
     }
+    else if($chatID==$bot->getGroupUploadFiles())
+    {
+        
+    }
     else
         $message="Solo se puede interactuar con el bot en chats privados";
     
