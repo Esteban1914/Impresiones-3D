@@ -120,6 +120,6 @@
     }
     else
         $message="Solo se puede interactuar con el bot en chats privados";
-    
+    Bot::log($_json);
     $bot->sendMessage($chatID,$message);
 ?>
