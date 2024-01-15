@@ -5,7 +5,7 @@
     include_once './includes/bot.php';
     $bot=new Bot();
 
-    if(!$bot->existSessionUser() || !$bot->userIsAdmin())
+    if(!$bot->existSessionUser())
         die("Session Error");
 ?>
 <?php require('views/_head.html'); ?>
@@ -17,6 +17,7 @@
             <div class="display-5">Panel de Administracion</div>
         </div>
         <div class="row mt-4 p-2 justify-content-center">
+            
             <div class="col m-2">
                 <a href="users_admin.php" class="focus-transition" style="text-decoration: none;">
                     <div class="card text-dark bg-primary">
@@ -82,6 +83,16 @@
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
                             <?php echo $bot->getCountCompleted() ?>
                         </span>       
+                    </div>
+                </a>
+            </div>
+            <div class="col m-2">
+                <a  href="./admin_user_interface.php" class="focus-transition" style="text-decoration: none;">
+                    <div class="card text-dark bg-secondary">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-bookmark-check-fill"  style="font-size: 500%;"></i></h4>
+                            <p class="card-text h3">Interfaz de Usuario</p>
+                        </div>   
                     </div>
                 </a>
             </div>

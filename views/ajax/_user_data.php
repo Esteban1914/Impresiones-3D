@@ -3,7 +3,7 @@
         include_once '../../includes/bot.php';
         $bot=new Bot();
        
-        if(!$bot->existSessionUser() || !$bot->userIsUser())
+        if(!$bot->existSessionUser())
             die("Session Error");
         $files=$bot->getFilesInfoByUser($bot->getDataSession('user'));
     ?>
