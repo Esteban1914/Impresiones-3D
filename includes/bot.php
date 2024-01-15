@@ -9,7 +9,7 @@
         {
             parent::__construct();
             $this->MAX_COUNT_FILES=5;
-            $this->GROUP_UPLOAD_FILES="-4000258594";
+            $this->GROUP_UPLOAD_FILES="-4114338928";
             // $this->servername = getenv('DB_HOST');
             // $this->username = getenv('DB_USER');
             // $this->password=getenv('DB_PASSWORD');
