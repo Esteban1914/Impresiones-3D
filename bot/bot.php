@@ -114,9 +114,9 @@
     else if($update["message"]['chat']['type']==="group")
     {
         if($chatID==$bot->getGroupUploadFiles())
-            $message="Admin Group";
+            exit;
         else
-        $message="Solo se puede interactuar con el bot en chats privados";
+            $message="Solo se puede interactuar con el bot en chats privados, @impresiones3d_bot";
     }
     else
         $message="Solo se puede interactuar con el bot en chats privados";
