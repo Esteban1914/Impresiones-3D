@@ -7,7 +7,7 @@
     $reply=$update['message']['reply_to_message'];
     $_json=json_encode($update);
     $array=explode(" ", $update["message"]['text']);
-    $message="...";
+    $message="";
     if($update["message"]['chat']['type']==="private")
     {
         switch($array[0])
@@ -111,9 +111,12 @@
                 break;
         }
     }
-    else if($chatID==$bot->getGroupUploadFiles())
+    else if($update["message"]['chat']['type']==="group")
     {
+        if($chatID==$bot->getGroupUploadFiles())
+            exit;
         
+        $message="Solo se puede interactuar con el bot en chats privados";
     }
     else
         $message="Solo se puede interactuar con el bot en chats privados";
