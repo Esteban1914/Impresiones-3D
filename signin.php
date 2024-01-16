@@ -111,11 +111,13 @@
         var disabled_username=true;
         var disabled_password=true;
         var disabled_validation=true;
+        var validation="email";
         function ChangeVaidation(bool)
         {
-            document.getElementById("inputvalidation").value=""
             if(bool==true)
             {
+                validation="email";
+                document.getElementById("inputvalidation").value=""
                 document.getElementById("inputvalidation").oninput=validateEmail;
                 document.getElementById("validation_invalid_id").innerHTML="El correo no es válido";
                 document.getElementById("validation_icon_input").innerHTML="<i class='bi bi-envelope'></i>"
@@ -123,6 +125,8 @@
             }
             else
             {
+                validation="phone";
+                document.getElementById("inputvalidation").value="+53";
                 document.getElementById("inputvalidation").oninput=validatePhone;
                 document.getElementById("validation_invalid_id").innerHTML="El teléfono no es válido";
                 document.getElementById("validation_icon_input").innerHTML="<i class='bi bi-telephone'></i>"
@@ -227,8 +231,12 @@
             document.getElementById("spiner_loaduser").className="d-block spinner-border";
             document.getElementById("btnRegister").disabled=true;
             clearTimeout(timer1);
-            
-            document.getElementById("validation_invalid_id").innerHTML="Metódo de validación en uso, utilize otro";
+            if(validation==="email")
+                document.getElementById("validation_invalid_id").innerHTML="Correo en uso, utilize otro";
+            else if(validation==="phone")
+                document.getElementById("validation_invalid_id").innerHTML="Teléfono en uso, utilize otro";
+            else
+                document.getElementById("validation_invalid_id").innerHTML="Metódo de validación en uso, utilize otro";
             //var _validation=document.getElementById("btnradioemail").checked;
             timer1=setTimeout(()=>{
             

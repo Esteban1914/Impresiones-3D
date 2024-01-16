@@ -10,8 +10,10 @@
 ?>
 <?php require('views/_head.html'); ?>
 <body class="text-center bg-dark text-light">
+    
     <?php require('views/_navbar.php'); ?>
     <div class="container pt-5 opacity-translation text-light">
+        <?php $url="./admin_request_view.php";require_once "./views/back_url.php"?>
         <div class="row">
             <div class="display-5">Panel de Solicitudes</div>
         </div>
@@ -135,7 +137,7 @@
     </div>
     <script>
         
-        fetch("./views/ajax/_request_admin.php")
+        fetch("./views/ajax/_admin_request.php")
         .then(response => response.text())
         .then(html => {   
             document.getElementById('id_placeholder').className="d-none";

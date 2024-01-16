@@ -21,6 +21,6 @@ background-color: purple !important;
     transition: transform 0.3s ease-in-out;
 } */
 .focus-transition:hover  {
-    transition: transform 0.3s ease-in-out !important; 
-    transform: scale(1.2) !important;
-  }
+    transition: transform 0.5s ease-in-out !important; 
+    transform: scale(1.1) !important;
+}

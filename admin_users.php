@@ -12,6 +12,7 @@
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
     <div class="container pt-5 opacity-translation text-light">
+        <?php $url="./home.php";require_once "./views/back_url.php"?>
         <div class="row">
             <div class="display-5">Panel de Usuarios</div>
         </div>
@@ -183,7 +184,7 @@
         {
             document.getElementById('id_data').className="d-none";
             document.getElementById('id_placeholder').className="d-block";
-            fetch("./views/ajax/_users_admin.php"+(document.getElementById("id_search").value?"?filter_username="+document.getElementById("id_search").value:""))
+            fetch("./views/ajax/_admin_users.php"+(document.getElementById("id_search").value?"?filter_username="+document.getElementById("id_search").value:""))
             .then(response => response.text())
             .then(html => {
                 

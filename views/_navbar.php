@@ -17,31 +17,31 @@
         </ul>
         
         <ul class="navbar-nav justify-content-end w-100">
-        <?php if(isset($_SESSION['user'])):?>
-            <li class="nav-item mx-3">
-                <a class="nav-link active  p-0" href="./telegram.php"  role="button"><i class="bi bi-telegram h1"></i></a>
-            </li>
+            <?php if(isset($_SESSION['user'])):?>
+                <li class="nav-item mx-3">
+                    <a class="nav-link active  p-0" href="./telegram.php"  role="button"><i class="bi bi-telegram h1"></i></a>
+                </li>
 
-            <li class="nav-item dropdown mx-3">
-                <a class="nav-link active dropdown-toggle  p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" role="button"><i class="bi bi-person-circle h1"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" ><?php echo "@".$_SESSION['user'] ?></a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="profile.php">Perfil</a></li>
-                    <li>
-                        <form action="./includes/logout.php" method="post">
-                            <button class="dropdown-item" type="submit">Desconectar</button>
-                        </form>
-                    </li>
-                </ul>
+                <li class="nav-item dropdown mx-3">
+                    <a class="nav-link active dropdown-toggle  p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" role="button"><i class="bi bi-person-circle h1"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" ><?php echo "@".$_SESSION['user'] ?></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="profile.php">Perfil</a></li>
+                        <li>
+                            <form action="./includes/logout.php" method="post">
+                                <button class="dropdown-item" type="submit">Desconectar</button>
+                            </form>
+                        </li>
+                    </ul>
 
-            </li>
+                </li>
 
-        <?php else: ?>
-            <li class="nav-item mx-3">
-                <a class="nav-link active p-0" href="./home.php"  role="button"><i class="bi bi-person-circle h1"></i></a>
-            </li>
-        <?php endif ?>
+            <?php else: ?>
+                <li class="nav-item mx-3">
+                    <a class="nav-link active p-0" href="./home.php"  role="button"><i class="bi bi-person-circle h1"></i></a>
+                </li>
+            <?php endif ?>
         </ul>
     </div>
 </nav>

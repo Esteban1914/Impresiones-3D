@@ -2,7 +2,6 @@
 <body class="text-center bg-dark text-light">
     <?php require('views/_navbar.php'); ?>
     <div class="contanier opacity-translation pt-5">
-        
         <div class="row justify-content-center ">
             <div class="col-auto ">
                 <?php
