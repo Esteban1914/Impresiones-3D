@@ -306,6 +306,7 @@
             $conn=$this->connect();
             $sql="SELECT file_name,files.id FROM files 
                     JOIN users ON files.user_id = users.id 
+                    -- LEFT JOIN users ON files.user_id = users.id 
                     WHERE username=:un";
             $query=$conn->prepare($sql);
             $query->execute([":un"=> $username]);

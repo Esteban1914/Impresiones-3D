@@ -66,16 +66,13 @@
                 </a>
             </div>
             <div class="col m-2 focus-transition">
-                <?php $_requests=$bot->getCountRequest(); ?>
-                <a href="admin_request.php"  style="text-decoration: none;">
+                <a href="admin_solicitation.php"  style="text-decoration: none;">
                     <div class="card text-dark bg-info">
                         <div class="card-body">
-                            <h4 class="card-title"><i class="bi bi-list-stars" style="font-size: 500%;"></i></h4>
+                            <h4 class="card-title"><i class="bi bi-list-check" style="font-size: 500%;"></i></h4>
                             <p class="card-text h3">Solicitudes</p>
                         </div>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
-                            <?php echo $_requests ?>
-                        </span>       
+                          
                     </div>
                 </a>
             </div>
@@ -84,7 +81,7 @@
                     <div class="card text-dark bg-secondary">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-diagram-3"  style="font-size: 500%;"></i></h4>
-                            <p class="card-text h5">Interfaz de Usuario</p>
+                            <p class="card-text h3">Interfaz de Usuario</p>
                         </div>   
                     </div>
                 </a>

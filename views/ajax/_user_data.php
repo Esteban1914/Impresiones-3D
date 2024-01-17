@@ -75,7 +75,19 @@
                     <div class="col col-md-3 mx-4 focus-transition my-3 border p-2 border border-<?php echo getColorByIndex($seleccionados[$count]) ?>p-2">
                         <div class="card bg-<?php echo getColorByIndex($seleccionados[$count])?>">
                             <div class="card-body">
-                                <h4 class="card-title"><i class="bi bi-<?php echo $count?>-circle-fill"  style="font-size: 400%;"></i></h4>
+                                <h4 class="card-title"><i class="<?php 
+                                                                    if($status == 'p' ) 
+                                                                    echo "bi bi-question-circle";
+                                                                    else if($status == 'd' ) 
+                                                                        echo "bi bi-x-circle";
+                                                                    else if($status == 'a' )  
+                                                                        echo "bi bi-check-circle";
+                                                                    else if($status == 'c' )  
+                                                                        echo "bi bi-c-circle";
+                                                                    else
+                                                                        echo "bi bi-exclamation-circle"
+                                                                    ?>"  
+                                                                    style="font-size: 400%;"></i></h4>
                                 <p class="card-text h3"><?php echo $row['file_name']?></p>
                             </div>       
                         </div>

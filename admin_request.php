@@ -13,9 +13,9 @@
     
     <?php require('views/_navbar.php'); ?>
     <div class="container pt-5 opacity-translation text-light">
-        <?php $url="./admin_request_view.php";require_once "./views/back_url.php"?>
+        <?php $url="./admin_solicitation.php";require_once "./views/back_url.php"?>
         <div class="row">
-            <div class="display-5">Panel de Solicitudes</div>
+            <div class="display-5">Panel de Peticiones</div>
         </div>
         <div id="id_placeholder">
         <div class="row justify-content-center text-light opacity-translation">

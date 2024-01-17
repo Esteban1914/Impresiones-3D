@@ -88,6 +88,19 @@
         FOREIGN KEY (user_request_id) REFERENCES files_users_requests(id) ON DELETE CASCADE,
         UNIQUE (user_request_id, state)
     )";
+    
+    "CREATE TABLE filament (
+        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(30) NOT NULL UNIQUE,
+        price 
+    )";
+    "CREATE TABLE filament_color (
+        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        color VARCHAR(20) NOT NULL,
+        filament_id INT(11) UNSIGNED UNIQUE,
+        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE,
+        UNIQUE (color, filament_id)
+    )";
             
 
     // // ///////////////////////INSERT TABLE///////////////////////
