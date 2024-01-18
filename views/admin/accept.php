@@ -1,18 +1,18 @@
 <?php
-    include_once 'includes/login.php';
+    include_once '../../includes/login.php';
 ?>
 <?php 
-    include_once './includes/bot.php';
+    include_once '../../includes/bot.php';
     $bot=new Bot();
 
     if(!$bot->existSessionUser() || !$bot->userIsAdmin())
         die("Session Error");
 ?>
-<?php require('views/_head.html'); ?>
+<?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
-    <?php require('views/_navbar.php'); ?>
+    <?php require('../_navbar.php'); ?>
     <div class="container pt-5 opacity-translation text-light">
-        <?php $url="./admin_solicitation.php";require_once "./views/back_url.php"?>
+        <?php $url="./solicitation.php";require_once "../back_url.php"?>
         <div class="row">
             <div class="display-5">Panel de Aceptados</div>
         </div>
@@ -136,7 +136,7 @@
     </div>
     <script>
         
-        fetch("./views/ajax/_admin_accept.php")
+        fetch("../ajax/_accept.php")
         .then(response => response.text())
         .then(html => {   
             document.getElementById('id_placeholder').className="d-none";
@@ -151,4 +151,4 @@
     </script>    
     
 </body>
-<?php require 'views/_footer.html'; ?>
+<?php require '../_footer.html'; ?>

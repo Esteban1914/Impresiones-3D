@@ -1,6 +1,6 @@
-<?php require('views/_head.html'); ?>
+<?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
-    <?php require('views/_navbar.php'); ?>
+    <?php require('../_navbar.php'); ?>
     <div class="contanier opacity-translation pt-5">
         <div class="row justify-content-center ">
             <div class="col-auto ">
@@ -166,7 +166,7 @@
         </div>
     </div>
     <script>
-        fetch('./views/ajax/_user_data.php')
+        fetch('./ajax/_user_data.php')
         .then(response => response.text())
         .then(html => {
             document.getElementById('id_data').innerHTML = html;
@@ -174,4 +174,4 @@
         .catch(error => console.warn(error));
     </script>    
 </body>
-<?php require 'views/_footer.html'; ?>
+<?php require '../_footer.html'; ?>

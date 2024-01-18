@@ -1,6 +1,6 @@
 <div class="container text-light">
     <?php 
-        include_once '../../includes/bot.php';
+        include_once '../../../includes/bot.php';
         $bot=new Bot();
        
         if(!$bot->existSessionUser())
@@ -10,28 +10,9 @@
     <?php if(!$bot->userIsFullFilesByUserName($bot->getDataSession('user'))):?>
         <div class="row justify-content-center m-2">
             <div class="col-auto">
-                <a href="./add_model.php" class="btn btn-primary">Agregar Modelos</a>
+                <a href="" class="btn btn-primary">Agregar Modelos</a>
             </div>
         </div>
-        <!-- <div class="modal fade" id="editUploadSTLModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="includes/upload_file.php" method="post" enctype="multipart/form-data">
-                        <div class="mb-3" >
-                            <label for="formFile" class="text-dark text-start form-label h4">Subir Fichero</label>
-                            <input required class="form-control" name="file" type="file" id="file_id">
-                        </div>
-                        <button class="btn btn-primary"type="submit">ENVIAR</button>
-                    </form>
-                </div>
-                </div>
-            </div>
-        </div> -->
     <?php endif;?>
     <?php if (!empty($files)): ?>
         <hr>

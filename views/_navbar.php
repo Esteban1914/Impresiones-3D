@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand fixed-top navbar-sm-expand- bg-dark p-0">
-    <a class="navbar-brand p-0 mx-3" href="./impresiones3d.php"><i class="bi bi-badge-3d h1"></i></a>
+    <a class="navbar-brand p-0 mx-3" href="/impresiones3d/impresiones3d.php"><i class="bi bi-badge-3d h1"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,18 +8,18 @@
         <ul class='navbar-nav'>
             <?php if(isset($_SESSION['user'])):?>
                 <li class='nav-item mx-3'>
-                    <a class='nav-link active p-0' aria-current='page' href='home.php'><i class='bi bi-house-door h2'></i></a>
+                    <a class='nav-link active p-0' aria-current='page' href='/impresiones3d/home.php'><i class='bi bi-house-door h2'></i></a>
                 </li>
             <?php endif ?>
             <li class="nav-item mx-3">
-                <a class="nav-link active p-0" aria-current="page" href="contact.php"><i class="bi bi-envelope-at h2"></i></a>
+                <a class="nav-link active p-0" aria-current="page" href="/impresiones3d/contact.php"><i class="bi bi-envelope-at h2"></i></a>
             </li>
         </ul>
         
         <ul class="navbar-nav justify-content-end w-100">
             <?php if(isset($_SESSION['user'])):?>
                 <li class="nav-item mx-3">
-                    <a class="nav-link active  p-0" href="./telegram.php"  role="button"><i class="bi bi-telegram h1"></i></a>
+                    <a class="nav-link active  p-0" href="/impresiones3d/telegram.php"  role="button"><i class="bi bi-telegram h1"></i></a>
                 </li>
 
                 <li class="nav-item dropdown mx-3">

@@ -341,7 +341,7 @@
             $file_info=pathinfo($file_name_cache);
             $file_name=$file_info['filename']."_".$id.".".$file_info['extension'];
             $url_access='./tem_data/'.$file_name;
-            $url_file=($axaj_folder?"../.":"").$url_access;
+            $url_file=($axaj_folder?"../../../.":"").$url_access;
             if(!file_exists($url_file))
             {
                 $url_telegram=$this->getURLFileTelegramByID($id);

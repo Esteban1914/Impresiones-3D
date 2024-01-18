@@ -1,21 +1,56 @@
 <?php
-    include_once 'includes/login.php';
+    include_once '../../includes/login.php';
 ?>
 <?php 
-    include_once './includes/bot.php';
+    include_once '../../includes/bot.php';
     $bot=new Bot();
 
     if(!$bot->existSessionUser() || !$bot->userIsAdmin())
         die("Session Error");
 ?>
-<?php require('views/_head.html'); ?>
+<?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
-    
-    <?php require('views/_navbar.php'); ?>
+    <?php require('../_navbar.php'); ?>
     <div class="container pt-5 opacity-translation text-light">
-        <?php $url="./admin_solicitation.php";require_once "./views/back_url.php"?>
+        <?php $url="/impresiones3d/home.php";require_once "../back_url.php"?>
         <div class="row">
-            <div class="display-5">Panel de Peticiones</div>
+            <div class="display-5">Panel de Usuarios</div>
+        </div>
+        <div class="row mt-4 p-2 justify-content-center">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><i class="bi h2 bi-bookmark"></i></th>
+                    <th scope="col"><i class="bi h2 bi-person-check-fill"></i></th>
+                    <th scope="col"><i class="bi h2 bi-link"></i></th>
+                    <th scope="col"><i class="bi h2 bi-telegram"></i></th>
+                    <th scope="col"><i class="bi h2 bi-ui-checks-grid"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-success">
+                    <td><strong><?php echo $bot->getDataSession('id')?></strong></th>
+                    <td><strong>@<?php echo $bot->getDataSession('user')?></strong></td>
+                    <td><strong data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?php echo $bot->getDataSession('validation_data')?>"><?php echo $bot->getDataSession('validation_type')=="email"?"correo":"teléfono"?></strong></td>
+                    <td><strong><?php
+                        $uer_telegram=$bot->getDataSession('usernametelegram') ;
+                        if($uer_telegram!==null)
+                            echo "@".$uer_telegram;
+                        else
+                            echo "-"
+                    ?></strong></td>
+                    <td><strong><?php echo $bot->getDataSession('role')?></strong></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr> 
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="d-flex" role="search">
+                    <input oninput="getUserFilterTimer()" id="id_search" class=" text-center form-control me-2" type="search" placeholder="Filtrar por usuario" aria-label="Search">
+                </div>
+            </div>
         </div>
         <div id="id_placeholder">
         <div class="row justify-content-center text-light opacity-translation">
@@ -136,20 +171,34 @@
         </div> 
     </div>
     <script>
-        
-        fetch("./views/ajax/_admin_request.php")
-        .then(response => response.text())
-        .then(html => {   
-            document.getElementById('id_placeholder').className="d-none";
-            document.getElementById('id_data').className="d-block";
-            document.getElementById('id_data').innerHTML = html;
-        })
-        .catch(error => {
-            console.warn(error);
-            document.getElementById('id_placeholder').className="d-none";
-            document.getElementById('id_data').className="d-block";
-        });
+        function getUserFilterTimer()
+        {
+            clearTimeout(timer);
+            
+            timer=setTimeout(()=>
+            {
+                getUserFilter();
+            },500);
+        }
+        function getUserFilter()
+        {
+            document.getElementById('id_data').className="d-none";
+            document.getElementById('id_placeholder').className="d-block";
+            fetch("../ajax/_users.php"+(document.getElementById("id_search").value?"?filter_username="+document.getElementById("id_search").value:""))
+            .then(response => response.text())
+            .then(html => {
+                
+                document.getElementById('id_placeholder').className="d-none";
+                document.getElementById('id_data').className="d-block";
+                document.getElementById('id_data').innerHTML = html;
+            })
+            .catch(error => {
+                console.warn(error);
+                document.getElementById('id_placeholder').className="d-none";
+                document.getElementById('id_data').className="d-block";
+            });
+        }    
+        getUserFilter();
     </script>    
-    
 </body>
-<?php require 'views/_footer.html'; ?>
+<?php require '../_footer.html'; ?>

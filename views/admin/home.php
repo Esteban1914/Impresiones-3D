@@ -1,16 +1,16 @@
 <?php
-    include_once 'includes/login.php';
+    include_once '../../includes/login.php';
 ?>
 <?php 
-    include_once './includes/bot.php';
+    include_once '../../includes/bot.php';
     $bot=new Bot();
 
     if(!$bot->existSessionUser())
         die("Session Error");
 ?>
-<?php require('views/_head.html'); ?>
+<?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
-    <?php require('views/_navbar.php'); ?>
+    <?php require('../_navbar.php'); ?>
     <div class="container opacity-translation pt-5">
     <div class="row justify-content-center ">
         <div class="col-auto ">
@@ -53,21 +53,21 @@
         </div>
         <div class="row mt-4 p-2 justify-content-center">  
             <div class="col m-2 focus-transition">
-                <a href="admin_users.php"  style="text-decoration: none;">
-                    <div class="card text-dark bg-primary">
+                <a href="users.php"  class="h-100" style="text-decoration: none;">
+                    <div class="card h-100 text-dark bg-primary">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-people-fill" style="font-size: 500%;"></i></h4>
                             <p class="card-text text-dark h3">Usuarios</p>
                         </div>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
+                        <span  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary border border-dark">
                             <?php echo $bot->getCountUsers() ?>
                         </span>
                     </div>
                 </a>
             </div>
             <div class="col m-2 focus-transition">
-                <a href="admin_solicitation.php"  style="text-decoration: none;">
-                    <div class="card text-dark bg-info">
+                <a href="solicitation.php" class="h-100"  style="text-decoration: none;">
+                    <div class="card h-100 text-dark bg-info">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-list-check" style="font-size: 500%;"></i></h4>
                             <p class="card-text h3">Solicitudes</p>
@@ -77,7 +77,18 @@
                 </a>
             </div>
             <div class="col m-2 focus-transition">
-                <a  href="./admin_user_interface.php"  style="text-decoration: none;">
+                    <a href="parameters.php" class="h-100" style="text-decoration: none;">
+                        <div class="card h-100 text-dark bg-warning">
+                            <div class="card-body">
+                                <h4 class="card-title"><i class="bi bi-sliders" style="font-size: 500%;"></i></h4>
+                                <p class="card-text h3">Parámetros</p>
+                            </div>
+                        </div>
+                    </a>
+                
+            </div>
+            <div class="col m-2 focus-transition">
+                <a  href="../user/home.php"  style="text-decoration: none;">
                     <div class="card text-dark bg-secondary">
                         <div class="card-body">
                             <h4 class="card-title"><i class="bi bi-diagram-3"  style="font-size: 500%;"></i></h4>
@@ -89,4 +100,4 @@
         </div> 
     </div>
 </body>
-<?php require 'views/_footer.html'; ?>
+<?php require '../_footer.html'; ?>

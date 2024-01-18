@@ -22,7 +22,7 @@
     <div class="container-fluid h-100 pt-5">
         <div style="position: relative;">
             <div style="position: absolute">
-                <a style="decoration: none;"class="m-0 text-light h3" href="<?php if($action=="ACCEPT") echo "./admin_request.php";else if($action=="CONFIRM") echo "./admin_accept.php"; else echo "./home.php";?>"><i class="bi bi-arrow-left-circle"></i></a>
+                <a style="decoration: none;"class="m-0 text-light h3" href="<?php if($action=="ACCEPT") echo "./request.php";else if($action=="CONFIRM") echo "./accept.php"; else echo "./home.php";?>"><i class="bi bi-arrow-left-circle"></i></a>
             </div>
             <div style="position: absolute; left: 50%;transform: translateX(-50%)">    
                 <div class="h2">

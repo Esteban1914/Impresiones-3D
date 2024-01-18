@@ -3,7 +3,7 @@
     include_once "includes/user.php";
     $user=new User();
     if($user->userIsUser())
-        include "views/_home_user.php";
+        header("Location: ./views/user/home.php");
     else if($user->userIsAdmin())
-        include "views/_home_admin.php";
+        header("Location: ./views/admin/home.php");
 ?>

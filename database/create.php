@@ -92,15 +92,19 @@
     "CREATE TABLE filament (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL UNIQUE,
-        price 
+        price FLOAT(5,3) 
     )";
     "CREATE TABLE filament_color (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        color VARCHAR(20) NOT NULL,
-        filament_id INT(11) UNSIGNED UNIQUE,
-        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE,
-        UNIQUE (color, filament_id)
+        color VARCHAR(20) NOT NULL
     )";
+    "CREATE TABLE filament_color_relation (
+        filament_id INT(11) UNSIGNED,
+        color_id INT(11) UNSIGNED,
+        PRIMARY KEY (filament_id, color_id),
+        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE,
+        FOREIGN KEY (color_id) REFERENCES filament_color(id) ON DELETE CASCADE
+     );"
             
 
     // // ///////////////////////INSERT TABLE///////////////////////
