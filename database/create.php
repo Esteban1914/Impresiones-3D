@@ -48,7 +48,7 @@
     "CREATE TABLE user_telegram (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(20) NOT NULL,
-        chatid INT(11) NOT NULL,
+        chat_id INT(11) NOT NULL,
         registered BOOLEAN DEFAULT FALSE,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         user_id INT(11) UNSIGNED NOT NULL UNIQUE,
@@ -68,7 +68,7 @@
         FOREIGN KEY (filament_color_id) REFERENCES filament_color(id) ON DELETE CASCADE
     )";
            
-    "CREATE TABLE files_requests (
+    "CREATE TABLE file_requests (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         message TEXT,
         state ENUM('ACCEPT','DENIED','COMPLETED'),
@@ -76,7 +76,7 @@
         file_id INT(11) UNSIGNED UNIQUE,
         FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE CASCADE,
         user_admin INT(11) UNSIGNED,
-        FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE CASCADE
     )";
     
     "CREATE TABLE filament (

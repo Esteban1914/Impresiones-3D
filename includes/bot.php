@@ -58,7 +58,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT id FROM user_telegram 
-                    WHERE chatid=:u";
+                    WHERE chat_id=:u";
             $query=$conn->prepare($sql);
             $query->execute([":u"=> $chatID]);
             if($query->rowCount()> 0)
@@ -70,7 +70,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT user_id FROM user_telegram 
-                    WHERE chatid=:chi";
+                    WHERE chat_id=:chi";
             $query=$conn->prepare($sql);
             $query->execute([":chi"=> $chatID]);
             if($query->rowCount()> 0)
@@ -84,14 +84,14 @@
         public function getChatIDByUsernametelegram($usernametelegram)
         {
             $conn=$this->connect();
-            $sql="SELECT chatid FROM user_telegram 
+            $sql="SELECT chat_id FROM user_telegram 
                     WHERE username=:unt";
             $query=$conn->prepare($sql);
             $query->execute([":unt"=> $usernametelegram]);
             if($query->rowCount()> 0)
             {
                 $row=$query->fetchColumn();
-                return $row["chatid"];
+                return $row["chat_id"];
             }
             return false;
         }
@@ -139,7 +139,7 @@
             if($user_id===false)
                 return null;
             $conn=$this->connect();
-            $sql="INSERT INTO user_telegram (username,chatid, user_id) 
+            $sql="INSERT INTO user_telegram (username,chat_id, user_id) 
                     VALUES (:un,:chi,:ui)";
             $query=$conn->prepare($sql);
             if($query->execute([":un"=> $usernametelegram ,"chi"=> $chatID, "ui"=> $user_id]))
@@ -171,10 +171,10 @@
             $conn=$this->connect();
             // $sql="SELECT count_files FROM users 
             //         JOIN user_telegram ON users.id=user_telegram.user_id 
-            //         WHERE chatid=:chi";
+            //         WHERE chat_id=:chi";
             $sql="SELECT Count(*) FROM files 
                 JOIN user_telegram ON files.user_id=user_telegram.user_id 
-                WHERE chatid=:chi";
+                WHERE chat_id=:chi";
             $query=$conn->prepare($sql);
             if($query->execute([":chi"=> $chatID]))
                 return $query->fetchColumn();
@@ -267,7 +267,7 @@
             $conn=$this->connect();
             $sql="SELECT files.file_name FROM files 
                     JOIN user_telegram ON files.user_id = user_telegram.user_id 
-                    WHERE user_telegram.chatid=:chi";
+                    WHERE user_telegram.chat_id=:chi";
             $query=$conn->prepare($sql);
             $query->execute([":chi"=> $chatID]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -355,7 +355,7 @@
         public function sendMessageTelegramToUser($username,$msg)
         {
             $conn= $this->connect();
-            $sql="SELECT chatid FROM user_telegram
+            $sql="SELECT chat_id FROM user_telegram
                     LEFT JOIN users ON user_telegram.user_id=users.id
                     WHERE users.username=:un";
             $query=$conn->prepare($sql);
@@ -440,8 +440,8 @@
             {
                 if($resp['completed']==true)
                 {
-                $sql="SELECT state FROM files_requests 
-                    JOIN files_users_requests ON files_requests.user_request_id=files_users_requests.id
+                $sql="SELECT state FROM file_requests 
+                    JOIN files_users_requests ON file_requests.user_request_id=files_users_requests.id
                     WHERE files_users_requests.id=:id";
                 $query=$conn->prepare($sql);
                 $query->execute([":id"=> $resp['id']]);
@@ -491,7 +491,7 @@
         public function getCountAccept()
         {
             $conn=$this->connect();
-            $sql="SELECT Count(*) FROM files_requests 
+            $sql="SELECT Count(*) FROM file_requests 
                                 WHERE completed=FALSE AND state='a'";
             $query=$conn->prepare($sql);
             if ($query->execute())
@@ -500,7 +500,7 @@
         public function getCountDenied()
         {
             $conn=$this->connect();
-            $sql="SELECT Count(*) FROM files_requests 
+            $sql="SELECT Count(*) FROM file_requests 
                                 WHERE completed=FALSE AND state='d'";
             $query=$conn->prepare($sql);
             if ($query->execute())
@@ -509,7 +509,7 @@
         public function getCountCompleted()
         {
             $conn=$this->connect();
-            $sql="SELECT Count(*) FROM files_requests 
+            $sql="SELECT Count(*) FROM file_requests 
                                 WHERE completed=FALSE AND state='c'";
             $query=$conn->prepare($sql);
             if ($query->execute())
@@ -563,14 +563,14 @@
         public function getNewAccepts()
         {
             $conn=$this->connect();
-            $sql="SELECT files_requests.id,files_requests.message, _username.username ,files.file_name, files.id AS file_id,_adminname.username AS adminname
-                    FROM files_requests
-                    JOIN files_users_requests ON files_requests.user_request_id=files_users_requests.id
+            $sql="SELECT file_requests.id,file_requests.message, _username.username ,files.file_name, files.id AS file_id,_adminname.username AS adminname
+                    FROM file_requests
+                    JOIN files_users_requests ON file_requests.user_request_id=files_users_requests.id
                     JOIN files ON files.id= files_users_requests.file_id
                     JOIN users AS _username ON _username.id= files_users_requests.user_id
                     JOIN users AS _adminname ON _adminname.id= files_users_requests.user_id
-                    WHERE files_requests.completed = false 
-                    ORDER BY files_requests.date ASC 
+                    WHERE file_requests.completed = false 
+                    ORDER BY file_requests.date ASC 
                     LIMIT 5 
                     ";
             $query=$conn->prepare($sql);
@@ -605,7 +605,7 @@
         public function setAcceptFile($id_request_users,$message)
         {
             $conn=$this->connect();
-            $sql="INSERT INTO files_requests (message,state,user_admin,user_request_id) 
+            $sql="INSERT INTO file_requests (message,state,user_admin,user_request_id) 
                 VALUES (:mes,:st,:ua,:urid)
             ";
             $query=$conn->prepare($sql);
@@ -622,7 +622,7 @@
         public function setDeniedFile   ($id_request_users,$message)
         {
             $conn=$this->connect();
-            $sql="INSERT INTO files_requests (message,state,user_admin,user_request_id) 
+            $sql="INSERT INTO file_requests (message,state,user_admin,user_request_id) 
                 VALUES (:mes,:st,:ua,:urid)
             ";
             $query=$conn->prepare($sql);
@@ -640,14 +640,14 @@
         {
             $conn=$this->connect();
             $sql="SELECT files.file_name,_user.username,_usertelegram.username as usernametelegram,_admin.username as usernameadmin,_admintelegram.username as adminnametelegram
-                    FROM files_requests 
-                    JOIN files_users_requests ON files_users_requests.id=files_requests.user_request_id
+                    FROM file_requests 
+                    JOIN files_users_requests ON files_users_requests.id=file_requests.user_request_id
                     JOIN files ON files_users_requests.file_id=files.id
                     JOIN users AS _user ON _user.id=files_users_requests.user_id
-                    JOIN users AS _admin ON _admin.id=files_requests.user_admin
+                    JOIN users AS _admin ON _admin.id=file_requests.user_admin
                     LEFT JOIN user_telegram AS _usertelegram ON files_users_requests.user_id=_usertelegram.user_id
-                    LEFT JOIN user_telegram AS _admintelegram ON files_requests.user_admin=_admintelegram.user_id
-                    WHERE files_requests.user_request_id = :id  
+                    LEFT JOIN user_telegram AS _admintelegram ON file_requests.user_admin=_admintelegram.user_id
+                    WHERE file_requests.user_request_id = :id  
                     ";
             $query=$conn->prepare($sql);
             $query->execute([":id"=>$id]);
@@ -666,7 +666,7 @@
         public function getFilamentColors($filament_id)
         {
             $conn=$this->connect();
-            $sql="SELECT filament_color.id,filament_color.color,filament_color.R,filament_color.G,filament_color.B
+            $sql="SELECT filament_color.id,filament_color.name,filament_color.R,filament_color.G,filament_color.B
                     FROM filament_color
                     LEFT JOIN filament_color_relation ON filament_color_relation.color_id=filament_color.id 
                     LEFT JOIN filament ON filament.id=filament_color_relation.filament_id
