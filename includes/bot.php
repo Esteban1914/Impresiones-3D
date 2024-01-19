@@ -221,7 +221,7 @@
             }
             return false;
         }
-        public function setFileByUserName($username, $file_id,$file_name)
+        public function setFileByUserName($username, $file_id,$file_name,$filament_id,$filament_color_id)
         {
             $count_files=$this->getCountFilesByUserName($username);
             if($count_files >= $this->MAX_COUNT_FILES)

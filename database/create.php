@@ -62,10 +62,6 @@
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         user_id INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-        filament_id INT(11) UNSIGNED NOT NULL,
-        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE
-        filament_color_id INT(11) UNSIGNED NOT NULL,
-        FOREIGN KEY (filament_color_id) REFERENCES filament_color(id) ON DELETE CASCADE
     )";
            
     "CREATE TABLE file_requests (
@@ -77,6 +73,10 @@
         FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE CASCADE,
         user_admin INT(11) UNSIGNED,
         FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE CASCADE
+        filament_id INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE
+        filament_color_id INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (filament_color_id) REFERENCES filament_color(id) ON DELETE CASCADE
     )";
     
     "CREATE TABLE filament (

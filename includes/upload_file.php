@@ -1,10 +1,6 @@
 <?php
-    if (isset($_FILES['file'])) 
+    if (isset($_FILES['file']) && isset($_POST["filament"]) && $_POST["filament_color"]) 
     {
-        echo $_POST["filament"];
-        echo $_POST["filament_color"];
-        echo $_FILES["file"]["name"];
-        exit;
         include_once "bot.php";
         $bot= new Bot();
         $target_file = "../tem_data/".$_FILES["file"]["name"];
@@ -21,7 +17,7 @@
         );
         $response=$bot->sendCommnadPOSTFile("sendDocument",$data);
         //unlink($target_file);
-        if($response['ok']===true && $bot->setFileByUserName($_SESSION["user"],$response['result']['document']['file_id'],$_FILES["file"]["name"]))
+        if($response['ok']===true && $bot->setFileByUserName($_SESSION["user"],$response['result']['document']['file_id'],$_FILES["file"]["name"],$_POST["filament"],$_POST["filament_color"]))
         {
             $id=$bot->getIDFileByFileID($response['result']['document']['file_id']);
             $file_info=pathinfo($_FILES["file"]["name"]);

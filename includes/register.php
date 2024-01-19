@@ -4,8 +4,8 @@
         if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['validation_type']) && isset($_POST['validation_data']))
         {
             
-            include_once "user.php";
-            $user=new User();
+            include_once "bot.php";
+            $bot=new Bot();
             if($_POST['validation_type']=="email")
             {    
                 $apiKey = "cd0f40e95d6843abb188225988c17314"; 
@@ -45,9 +45,15 @@
                 }
             }
             
-            if($user->registerUser($_POST["username"],$_POST["password"],$_POST['validation_type'],$_POST['validation_data']))
+            if($bot->registerUser($_POST["username"],$_POST["password"],$_POST['validation_type'],$_POST['validation_data']))
             {
-                $user->setUserSession($_POST["username"]);
+                
+                $bot->setUserSession($_POST["username"]);
+                $bot->sendMessage(
+                    $bot->getGroupUploadFiles(),
+                    "Nuevo usuario registrado\nUsername: @"
+                    .$bot->getDataSession('user')
+                    ."\nContacto: ".$bot->getDataSession('validation_data'));    
                 header ("Location: ../home.php?signin=OK");
                 exit;
             }
