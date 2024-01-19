@@ -26,7 +26,6 @@
     // $conn->exec("USE impresiones3D");
     // echo "SELECT -> OK<br>";
     
-    
     // // ///////////////////////CREATE TABLE///////////////////////
     
     
@@ -54,7 +53,7 @@
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         user_id INT(11) UNSIGNED NOT NULL UNIQUE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    )";
+    )"; 
 
     "CREATE TABLE files (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
