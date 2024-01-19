@@ -137,7 +137,7 @@
     </div>
     <script>
         
-        fetch("../ajax/_request.php")
+        fetch("./ajax/_request.php")
         .then(response => response.text())
         .then(html => {   
             document.getElementById('id_placeholder').className="d-none";

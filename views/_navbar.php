@@ -5,8 +5,10 @@
     </button>
     <div class="collapse navbar-collapse justify-content-start" id="navbarScroll">
         <div class="mx-3"></div>
-        <ul class='navbar-nav'>
-            <?php if(isset($_SESSION['user'])):?>
+        <ul class='navbar-nav'>    
+        <?php include_once dirname(dirname(__FILE__))."/includes/user.php";$uer=new User();?>
+            
+            <?php if($uer->existSessionUser()):?>
                 <li class='nav-item mx-3'>
                     <a class='nav-link active p-0' aria-current='page' href='/impresiones3d/home.php'><i class='bi bi-house-door h2'></i></a>
                 </li>
@@ -17,7 +19,7 @@
         </ul>
         
         <ul class="navbar-nav justify-content-end w-100">
-            <?php if(isset($_SESSION['user'])):?>
+            <?php if($uer->existSessionUser()):?>
                 <li class="nav-item mx-3">
                     <a class="nav-link active  p-0" href="/impresiones3d/telegram.php"  role="button"><i class="bi bi-telegram h1"></i></a>
                 </li>
@@ -27,9 +29,9 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" ><?php echo "@".$_SESSION['user'] ?></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="profile.php">Perfil</a></li>
+                        <li><a class="dropdown-item" href="/impresiones3d/profile.php">Perfil</a></li>
                         <li>
-                            <form action="./includes/logout.php" method="post">
+                            <form action="/impresiones3d/includes/logout.php" method="post">
                                 <button class="dropdown-item" type="submit">Desconectar</button>
                             </form>
                         </li>

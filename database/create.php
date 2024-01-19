@@ -63,40 +63,34 @@
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         user_id INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        filament_id INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE
+        filament_color_id INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (filament_color_id) REFERENCES filament_color(id) ON DELETE CASCADE
     )";
            
-    "CREATE TABLE files_users_requests (
-        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        -- message TEXT,
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        -- completed BOOLEAN NOT NULL DEFAULT FALSE,
-        file_id INT(11) UNSIGNED UNIQUE,
-        FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE SET NULL ON UPDATE CASCADE,
-        -- user_id INT(11) UNSIGNED NOT NULL,
-        -- FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    )";
-       
     "CREATE TABLE files_requests (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         message TEXT,
-        state ENUM('a','d','c') NOT NULL,
-        completed BOOLEAN NOT NULL DEFAULT FALSE,
+        state ENUM('ACCEPT','DENIED','COMPLETED'),
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        file_id INT(11) UNSIGNED UNIQUE,
+        FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE CASCADE,
         user_admin INT(11) UNSIGNED,
-        FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
-        user_request_id INT(11) UNSIGNED UNIQUE,
-        FOREIGN KEY (user_request_id) REFERENCES files_users_requests(id) ON DELETE CASCADE,
-        UNIQUE (user_request_id, state)
+        FOREIGN KEY (user_admin) REFERENCES users(id) ON DELETE CASCADE,
     )";
     
     "CREATE TABLE filament (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL UNIQUE,
-        price FLOAT(5,3) 
+        price DECIMAL(5,3) 
     )";
     "CREATE TABLE filament_color (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        color VARCHAR(20) NOT NULL
+        name VARCHAR(20) NOT NULL,
+        R DECIMAL(3,3) NOT NULL,
+        G DECIMAL(3,3) NOT NULL,
+        B DECIMAL(3,3) NOT NULL 
     )";
     "CREATE TABLE filament_color_relation (
         filament_id INT(11) UNSIGNED,

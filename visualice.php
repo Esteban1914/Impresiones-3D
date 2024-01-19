@@ -202,8 +202,6 @@
             document.getElementById("span_load_id").innerHTML=((xhr.loaded / xhr.total) * 100).toFixed(2);
             if((xhr.loaded / xhr.total) > 0.75)
                 document.getElementById("color_load_id").className="text-success";
-            else if((xhr.loaded / xhr.total) > 0.50)
-                document.getElementById("color_load_id").className="text-warning";
             else if((xhr.loaded / xhr.total )> 0.25)
                 document.getElementById("color_load_id").className="text-dark";
             else

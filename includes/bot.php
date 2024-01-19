@@ -340,8 +340,8 @@
             $file_name_cache=$this->getFilesNameByID($id);
             $file_info=pathinfo($file_name_cache);
             $file_name=$file_info['filename']."_".$id.".".$file_info['extension'];
-            $url_access='./tem_data/'.$file_name;
-            $url_file=($axaj_folder?"../../../.":"").$url_access;
+            $url_access='/impresiones3d/tem_data/'.$file_name;
+            $url_file=($axaj_folder?"../../..":".")."/tem_data/".$file_name;
             if(!file_exists($url_file))
             {
                 $url_telegram=$this->getURLFileTelegramByID($id);
@@ -652,6 +652,29 @@
             $query=$conn->prepare($sql);
             $query->execute([":id"=>$id]);
             return $query->fetch();
+        }
+        public function getFilaments()
+        {
+            $conn=$this->connect();
+            $sql="SELECT id,name,price
+                    FROM filament 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } 
+        public function getFilamentColors($filament_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.id,filament_color.color,filament_color.R,filament_color.G,filament_color.B
+                    FROM filament_color
+                    LEFT JOIN filament_color_relation ON filament_color_relation.color_id=filament_color.id 
+                    LEFT JOIN filament ON filament.id=filament_color_relation.filament_id
+                    WHERE filament.id=:fi
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([':fi'=>$filament_id]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
     }
     

@@ -3,7 +3,7 @@
     include_once "includes/user.php";
     $user=new User();
     if($user->userIsUser())
-        header("Location: ./views/user/home.php");
+        header("Location: ./views/user/home.php?".$_SERVER['QUERY_STRING']);
     else if($user->userIsAdmin())
-        header("Location: ./views/admin/home.php");
+        header("Location: ./views/admin/home.php?".$_SERVER['QUERY_STRING']);
 ?>

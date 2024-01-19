@@ -184,7 +184,7 @@
         {
             document.getElementById('id_data').className="d-none";
             document.getElementById('id_placeholder').className="d-block";
-            fetch("../ajax/_users.php"+(document.getElementById("id_search").value?"?filter_username="+document.getElementById("id_search").value:""))
+            fetch("./ajax/_users.php"+(document.getElementById("id_search").value?"?filter_username="+document.getElementById("id_search").value:""))
             .then(response => response.text())
             .then(html => {
                 

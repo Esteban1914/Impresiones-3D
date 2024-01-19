@@ -1,6 +1,10 @@
 <?php
     if (isset($_FILES['file'])) 
     {
+        echo $_POST["filament"];
+        echo $_POST["filament_color"];
+        echo $_FILES["file"]["name"];
+        exit;
         include_once "bot.php";
         $bot= new Bot();
         $target_file = "../tem_data/".$_FILES["file"]["name"];
@@ -27,4 +31,6 @@
        else
             header("Location: ../home.php?upload_file=BAD");
     }
+    echo "Nada";
+    exit;
 ?>

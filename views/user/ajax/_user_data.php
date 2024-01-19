@@ -9,8 +9,8 @@
     ?>
     <?php if(!$bot->userIsFullFilesByUserName($bot->getDataSession('user'))):?>
         <div class="row justify-content-center m-2">
-            <div class="col-auto">
-                <a href="" class="btn btn-primary">Agregar Modelos</a>
+            <div class="col-auto focus-transition">
+                <a href="./add_model.php" class="btn btn-primary">Agregar Modelo</a>
             </div>
         </div>
     <?php endif;?>
@@ -118,7 +118,7 @@
                                 <div class="modal-body  text-dark">
                                     <h3 class="m-3">Eliminar fichero <br><?php echo $row['file_name'] ?></h3>
                                     <hr>
-                                    <form action="./includes/delete_file.php" method="post">
+                                    <form action="../../includes/delete_file.php" method="post">
                                         <input type="hidden" name="delete_id" value="<?php echo $row['id']?>">
                                         <div class="row justify-content-around">
                                             <div class="col-auto">
