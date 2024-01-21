@@ -3,7 +3,7 @@
     $bot=new Bot();
     if(!$bot->existSessionUser())
     {
-        header("Location: ../home.php");
+        header("Location: /impresiones3d/home.php");
         exit;
     }
     if(isset($_POST["delete_id"]))
@@ -13,10 +13,10 @@
         {
             if($bot->deleteFile($id))
             {
-                header('Location: ../home.php?delete_file=OK');
+                header('Location: /impresiones3d/home.php?delete_file=OK');
                 exit;
             }
         }    
-        header('Location: ../home.php?delete_file=BAD');
+        header('Location: /impresiones3d/home.php?delete_file=BAD');
     }
 ?>

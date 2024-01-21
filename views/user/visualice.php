@@ -1,10 +1,10 @@
 <?php
-    include_once 'includes/login.php';
+    include_once '../../includes/login.php';
 ?>
 <?php 
     if(!isset($_GET['model_id']))
     {
-        header('Location: home.php');
+        header('Location: /impresiones3d/home.php');
         exit;
     }
     $action="";
@@ -12,12 +12,12 @@
         $action = $_GET['action'];
     $model_id=$_GET['model_id'];
     header("Access-Control-Allow-Origin: *");
-    include_once "includes/bot.php";
+    include_once "../../includes/bot.php";
     $bot=new Bot();
 ?> 
-<?php require('views/_head.html'); ?>
+<?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
-    <?php require('views/_navbar.php'); ?>
+    <?php require('../_navbar.php'); ?>
        
     <div class="container-fluid h-100 pt-5">
         <div style="position: relative;">
@@ -140,15 +140,15 @@
 
 <script type="module">
 
-    import * as THREE from './libs/threejs/three.module.js';
+    import * as THREE from '../../libs/threejs/three.module.js';
     /*Is Neceesary Change modeule/
         import {
             ...,
             ...,
         } from './three.module.js';
     */
-    import { OrbitControls } from './libs/threejs/OrbitControls.js';
-    import { STLLoader } from './libs/threejs/STLLoader.js';
+    import { OrbitControls } from '../../libs/threejs/OrbitControls.js';
+    import { STLLoader } from '../../libs/threejs/STLLoader.js';
 
     var scene = new THREE.Scene();
 
@@ -168,7 +168,7 @@
     var mesh,mesh_bool=false;
     loader.setCrossOrigin('anonymous');
     loader.load(
-        "<?php echo $bot->getFileURLDownload($model_id) ?>", 
+        "<?php echo $bot->getFileURLDownload($model_id,"../../") ?>", 
         function (geometry) 
         {
             try{
@@ -292,4 +292,4 @@
 
 
 </body>
-<?php require 'views/_footer.html'; ?>
+<?php require '../_footer.html'; ?>

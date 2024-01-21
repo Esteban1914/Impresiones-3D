@@ -232,12 +232,13 @@
                     VALUES (:fi,:ui,:fn)";
             $query=$conn->prepare($sql);
             if($query->execute([":fi"=> $file_id,":ui"=> $user_id,":fn"=>$file_name]))
-            {      
-                return true;  
-                // $sql="UPDATE users SET count_files = :c
-                //         WHERE id=:ui";
-                // $query=$conn->prepare($sql);
-                // return $query->execute([":c"=> $count_files+1,":ui"=> $user_id]);
+            {
+                $id=$this->getIDFileByFileID($file_id);  
+                $sql="INSERT INTO file_requests (file_id,filament_id,filament_color_id) 
+                    VALUES (:fid,:fi,:fci)";
+                $query=$conn->prepare($sql);
+                if($query->execute([":fid"=> $id,":fi"=> $filament_id,":fci"=>$filament_color_id]))
+                    return true;  
             }
             return false;
         }
@@ -304,10 +305,11 @@
         public function getFilesInfoByUser($username)
         {
             $conn=$this->connect();
-            $sql="SELECT file_name,files.id FROM files 
-                    JOIN users ON files.user_id = users.id 
-                    -- LEFT JOIN users ON files.user_id = users.id 
-                    WHERE username=:un";
+            $sql="SELECT file_name,files.id,file_requests.state
+                    FROM files 
+                    JOIN users ON files.user_id = users.id
+                    JOIN file_requests ON file_requests.file_id = files.id 
+                    WHERE users.username=:un";
             $query=$conn->prepare($sql);
             $query->execute([":un"=> $username]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -334,16 +336,17 @@
         {
             
         }
-        public function getFileURLDownload($id,$axaj_folder=FALSE)
+        public function getFileURLDownload($id,$folder=FALSE)
         {
             
             $file_name_cache=$this->getFilesNameByID($id);
             $file_info=pathinfo($file_name_cache);
             $file_name=$file_info['filename']."_".$id.".".$file_info['extension'];
             $url_access='/impresiones3d/tem_data/'.$file_name;
-            $url_file=($axaj_folder?"../../..":".")."/tem_data/".$file_name;
+            $url_file=($folder?$folder:".")."/tem_data/".$file_name;
             if(!file_exists($url_file))
             {
+                return null;
                 $url_telegram=$this->getURLFileTelegramByID($id);
                 $contenido = file_get_contents($url_telegram);
                 if($contenido!==false)
@@ -391,66 +394,46 @@
             $query=$conn->prepare($sql);
             if($query->execute([":id"=> $id]))
                 return true;
-            // $sql="SELECT users.id FROM users
-            //         JOIN files ON files.user_id=users.id
-            //         WHERE files.id=:id";
-            // $query=$conn->prepare($sql);
-            // $query->execute([":id"=> $id]);
-            // if($query->rowCount()>0)
-            // {
-            //     //$user_id=$query->fetchColumn();
-            //     $sql="DELETE FROM files
-            //         WHERE id=:id";
-            //     $query=$conn->prepare($sql);
-            //     if($query->execute([":id"=> $id]))
-            //     {
-            //         return true;
-                    // $sql="SELECT count_files FROM users
-                    //         WHERE id=:id";
-                    // $query=$conn->prepare($sql);
-                    // $query->execute([":id"=> $user_id]);
-                    // if($query->rowCount()>0)
-                    // {
-                    //     $count_files=$query->fetchColumn();
-                    //     if($count_files> 0)
-                    //     {
-                    //         $sql="UPDATE users SET count_files=count_files-1
-                    //             WHERE id=:id";
-                    //         $query=$conn->prepare($sql);
-                    //         return $query->execute([":id"=> $user_id]);
-                    //     }
-                    // }
-                    
-                    
-            //     }
-            // }
             return false;
             
         }
-        public  function getFileStatus($id)
+        public function deleteFilament($id)
         {
             $conn=$this->connect();
-            $sql="SELECT files_users_requests.file_id,completed FROM files_users_requests 
-                    JOIN files ON files.id=files_users_requests.file_id
-                    WHERE files.id=:id";
+            $sql="DELETE FROM filament
+                WHERE id=:id";
             $query=$conn->prepare($sql);
-            $query->execute([":id"=> $id]);
-            $resp=$query->fetch();
-            if($query->rowCount()>0 )    
-            {
-                if($resp['completed']==true)
-                {
-                $sql="SELECT state FROM file_requests 
-                    JOIN files_users_requests ON file_requests.user_request_id=files_users_requests.id
-                    WHERE files_users_requests.id=:id";
-                $query=$conn->prepare($sql);
-                $query->execute([":id"=> $resp['id']]);
-                return $query->fetchColumn();
-                }
-                return "p";
-            }
-            return "n";
+            if($query->execute([":id"=> $id]))
+                return true;
+            return false;
+            
         }
+        
+        // public  function getFileStatus($id)
+        // {
+        //     $conn=$this->connect();
+        //     $sql="SELECT file_requests.file_id,files.file_name,
+        //             FROM file_requests 
+        //             JOIN files ON files.id=file_requests.file_id
+        //             WHERE files.id=:id";
+        //     $query=$conn->prepare($sql);
+        //     $query->execute([":id"=> $id]);
+        //     $resp=$query->fetch();
+        //     if($query->rowCount()>0 )    
+        //     {
+        //         if($resp['completed']==true)
+        //         {
+        //         $sql="SELECT state FROM file_requests 
+        //             JOIN files_users_requests ON file_requests.user_request_id=files_users_requests.id
+        //             WHERE files_users_requests.id=:id";
+        //         $query=$conn->prepare($sql);
+        //         $query->execute([":id"=> $resp['id']]);
+        //         return $query->fetchColumn();
+        //         }
+        //         return "p";
+        //     }
+        //     return "n";
+        // }
         public function setRequestFile($id,$message)
         {
             $user_id=$this->getUserIDByName($this->getDataSession('user'));
@@ -482,8 +465,8 @@
         public function getCountRequest()
         {
             $conn=$this->connect();
-            $sql="SELECT Count(*) FROM files_users_requests 
-                                WHERE completed=FALSE AND file_id IS NOT NULL";
+            $sql="SELECT Count(*) FROM file_requests 
+                                WHERE state IS NULL";
             $query=$conn->prepare($sql);
             if ($query->execute())
                 return $query->fetchColumn();
@@ -492,7 +475,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT Count(*) FROM file_requests 
-                                WHERE completed=FALSE AND state='a'";
+                                WHERE state = 'ACCEPT'";
             $query=$conn->prepare($sql);
             if ($query->execute())
                 return $query->fetchColumn();
@@ -501,7 +484,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT Count(*) FROM file_requests 
-                                WHERE completed=FALSE AND state='d'";
+                                WHERE state = 'DENIED'";
             $query=$conn->prepare($sql);
             if ($query->execute())
                 return $query->fetchColumn();
@@ -510,7 +493,7 @@
         {
             $conn=$this->connect();
             $sql="SELECT Count(*) FROM file_requests 
-                                WHERE completed=FALSE AND state='c'";
+                                WHERE state = 'COMPLETED'";
             $query=$conn->prepare($sql);
             if ($query->execute())
                 return $query->fetchColumn();
@@ -548,12 +531,12 @@
         public function getNewRequests()
         {
             $conn=$this->connect();
-            $sql="SELECT files_users_requests.id,files_users_requests.file_id,files_users_requests.message,users.username,files.file_name 
-                    FROM files_users_requests 
-                    JOIN users ON files_users_requests.user_id=users.id
-                    JOIN files ON files_users_requests.file_id=files.id
-                    WHERE completed = FALSE 
-                    ORDER BY files_users_requests.date ASC 
+            $sql="SELECT file_requests.id,file_requests.file_id,users.username,files.file_name
+                    FROM file_requests 
+                    JOIN files ON file_requests.file_id=files.id
+                    JOIN users ON files.user_id=users.id
+                    WHERE state IS NULL 
+                    ORDER BY file_requests.date ASC 
                     LIMIT 5 
                     ";
             $query=$conn->prepare($sql);
@@ -666,7 +649,7 @@
         public function getFilamentColors($filament_id)
         {
             $conn=$this->connect();
-            $sql="SELECT filament_color.id,filament_color.name,filament_color.R,filament_color.G,filament_color.B
+            $sql="SELECT filament_color.id,filament_color.name,filament_color.color
                     FROM filament_color
                     LEFT JOIN filament_color_relation ON filament_color_relation.color_id=filament_color.id 
                     LEFT JOIN filament ON filament.id=filament_color_relation.filament_id
@@ -676,6 +659,119 @@
             $query->execute([':fi'=>$filament_id]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function getFilamentNameByID($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT name
+                    FROM filament 
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([':id'=>$id]);
+            return $query->fetchColumn();
+        }
+        public function getFilamentColorNameByID($id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT name
+                    FROM filament_color
+                    WHERE id=:id";
+            $query=$conn->prepare($sql);
+            $query->execute([':id'=>$id]);
+            return $query->fetchColumn();
+        }
+        public function getLastFilements()
+        {
+            $conn=$this->connect();
+            $sql="SELECT *
+                    FROM filament
+                    ORDER BY filament.id DESC 
+                    LIMIT 5
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getFiltredFilements($name)
+        {
+            $conn=$this->connect();
+            $sql="SELECT *
+                    FROM filament
+                    WHERE name LIKE :search
+                    ORDER BY filament.id DESC 
+                    LIMIT 5
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":search"=>"%".$name."%"]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function addFilament($name,$price)
+        {
+            $conn=$this->connect();
+            $sql="INSERT INTO filament (name,price) 
+                    VALUES (:n,:p)";
+            $query=$conn->prepare($sql);
+            if($query->execute([":n"=> $name ,":p"=> $price]))
+                return true;
+            return false;
+        } 
+        public function addFilamentColor($filament_id,$name,$color)
+        {
+            $conn=$this->connect();
+            $sql="INSERT INTO filament_color (name,color) 
+                    VALUES (:n,:c)";
+            $query=$conn->prepare($sql);
+            if($query->execute([":n"=> $name ,":c"=> $color]))
+            {
+                $sql="SELECT id
+                        FROM filament_color
+                        WHERE name=:n";
+                $query=$conn->prepare($sql);
+                $query->execute([':n'=>$name]);
+                if($query->rowCount()> 0)
+                {
+                    $id=$query->fetchColumn();
+                    $sql="INSERT INTO  filament_color_relation (filament_id,color_id)
+                            VALUES (:fid,:cid)";
+                    $query=$conn->prepare($sql);
+                    return $query->execute([':fid'=>$filament_id,":cid"=>$id]);   
+                }
+            }
+            return false;
+        } 
+        
+
+        public function getFiltredFilamentColors($filament_id,$name)
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.name,filament_color.id
+                    FROM filament_color
+                    JOIN filament_color_relation ON filament_color.id=color_id
+                    JOIN filament ON filament_color_relation.filament_id=filament.id
+                    WHERE filament.id=:fid  AND filament_color.name LIKE :search
+                    ORDER BY filament_color.id DESC 
+                    LIMIT 5
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":fid"=>$filament_id,":search"=>"%".$name."%"]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getLastFilamentColor($filament_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.name,filament_color.id
+                    FROM filament_color
+                    JOIN filament_color_relation ON filament_color.id=color_id
+                    JOIN filament ON filament_color_relation.filament_id=filament.id
+                    WHERE filament.id=:fid 
+                    ORDER BY filament_color.id DESC 
+                    LIMIT 5 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([':fid'=>$filament_id]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
+
+    
     
 ?>

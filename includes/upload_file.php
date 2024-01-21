@@ -10,9 +10,11 @@
             'chat_id' => $bot->getGroupUploadFiles(),
             'document' => new CURLFile($target_file),
             'caption' => 
-                        "Usuario: @"
+                        "Nueva solicitud\nUsuario: @"
                         .$bot->getDataSession('user')
                         .($bot->getDataSession('usernametelegram')?"\nTelegram: @".$bot->getDataSession('usernametelegram'):"")
+                        ."\nFilamento: ".$bot->getFilamentNameByID($_POST["filament"])
+                        ."\nColor: ".$bot->getFilamentColorNameByID($_POST["filament_color"])
                         ."\nContacto: ".$bot->getDataSession('validation_data')
         );
         $response=$bot->sendCommnadPOSTFile("sendDocument",$data);
@@ -22,6 +24,7 @@
             $id=$bot->getIDFileByFileID($response['result']['document']['file_id']);
             $file_info=pathinfo($_FILES["file"]["name"]);
             rename($target_file, "../tem_data/".$file_info['filename']."_".$id.".".$file_info['extension']);
+            
             header("Location: ../home.php?upload_file=OK");
         }
        else

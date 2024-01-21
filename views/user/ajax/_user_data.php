@@ -52,18 +52,18 @@
                 }
                 $count=0;
                 foreach ($files as $row): ?>
-                    <?php $count+=1;$status=$bot->getFileStatus($row['id']);?>
+                    <?php $count+=1;/*$row['state']=$bot->getFilestate($row['id']);*/?>
                     <div class="col col-md-3 mx-4 focus-transition my-3 border p-2 border border-<?php echo getColorByIndex($seleccionados[$count]) ?>p-2">
                         <div class="card bg-<?php echo getColorByIndex($seleccionados[$count])?>">
                             <div class="card-body">
                                 <h4 class="card-title"><i class="<?php 
-                                                                    if($status == 'p' ) 
+                                                                    if($row['state'] == null ) 
                                                                     echo "bi bi-question-circle";
-                                                                    else if($status == 'd' ) 
+                                                                    else if($row['state']== "DENIED" ) 
                                                                         echo "bi bi-x-circle";
-                                                                    else if($status == 'a' )  
+                                                                    else if($row['state'] == "ACCEPT" )  
                                                                         echo "bi bi-check-circle";
-                                                                    else if($status == 'c' )  
+                                                                    else if($row['state'] == "COMPLETED" )  
                                                                         echo "bi bi-c-circle";
                                                                     else
                                                                         echo "bi bi-exclamation-circle"
@@ -74,7 +74,7 @@
                         </div>
                         
                         <div class="row justify-content-center mt-3">
-                            <?php if($status == 'p'):?>
+                            <?php if($row['state'] == null):?>
                                 
                             <?php endif; ?>
                             
@@ -82,7 +82,7 @@
                                 <a title="Visualizar Modelo" href="./visualice.php?model_id=<?php echo $row['id'] ?>" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-eye-fill"></i></a>
                             </div>
                             <div class="col-auto m-1">
-                                <a href="<?php echo $bot->getFileURLDownload($row['id'],TRUE)?>" title="Descargar" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-download"></i></a>
+                                <a href="<?php echo $bot->getFileURLDownload($row['id'],"../../../")?>" title="Descargar" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"><i class="bi bi-download"></i></a>
                             </div>
                             <div class="col-auto m-1">
                                 <a title="Eliminar" href=""  data-bs-toggle="modal" data-bs-target="#modalDelete<?php echo $row['id']?>" class="btn btn-outline-<?php echo getColorByIndex($seleccionados[$count],false)?>"> <i class="bi bi-trash"></i></a>                
@@ -94,13 +94,13 @@
                         <div class="mt-2 card-title  text-<?php echo getColorByIndex($seleccionados[$count],false)?> mx-auto">
                                 <span class="h5  ">
                                     <?php 
-                                        if($status == 'p' ) 
+                                        if($row['state'] == null ) 
                                             echo "Pendiente"; 
-                                        else if($status == 'd' ) 
+                                        else if($row['state']== "DENIED" ) 
                                             echo "Denegado";
-                                        else if($status == 'a' )  
+                                        else if($row['state'] == "ACCEPT" )  
                                             echo "Aceptado";
-                                        else if($status == 'c' )  
+                                        else if($row['state'] == "COMPLETED" )  
                                             echo "Completado";
                                         else
                                             echo ""

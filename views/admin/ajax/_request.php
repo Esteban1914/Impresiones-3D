@@ -12,7 +12,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Fichero</th>
-                <th scope="col">Mensaje</th>
+                <!-- <th scope="col">Mensaje</th> -->
                 <th scope="col"></th>
             </tr>
         </thead>  
@@ -24,7 +24,7 @@
                     <td><?php echo $request['id']?></td>
                     <td>@<?php echo $request['username']?></td>
                     <td><?php echo $request['file_name']?></td>
-                    <td><?php echo $request['message'] ?></td>
+                    <!-- <td><?php echo $request['message'] ?></td> -->
                     <td>
                     <!-- <a title="Aceptar Modelo" href="" class="m-1 btn btn-outline-success"><i class="bi bi-journal-text"></i></a> -->
                     <a title="Verificar Modelo" href="./visualice.php?model_id=<?php echo $request['file_id'] ?>&action=ACCEPT" class="m-1 btn btn-outline-warning"><i class="bi bi-eye-fill"></i></a>

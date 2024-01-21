@@ -6,6 +6,6 @@
     $filament_colors=$bot->getFilamentColors($_POST['filament']);
 ?>
 <?php foreach ($filament_colors as $filament_color):?>
-    <option data-R="<?php echo $filament_color['R']?>" data-G="<?php echo $filament_color['G']?>" data-B="<?php echo $filament_color['B']?>" value="<?php echo $filament_color['id']?>"><?php echo $filament_color['color']?></option>
+    <option data-color="<?php echo $filament_color['color']?>" value="<?php echo $filament_color['id']?>"><?php echo $filament_color['name']?></option>
 <?php endforeach;?>
 <option value="" disabled  selected></option>

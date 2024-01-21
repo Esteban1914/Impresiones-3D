@@ -29,7 +29,7 @@
                                 <div class="col">
                                     <?php $filaments=$bot->getFilaments()?>
                                     <label for="id_filament">Filamento</label>
-                                    <select required id="id_filament" name="filament" class="form-select" onchange="changeFilament()">
+                                    <select required id="id_filament" name="filament" class="form-select">
                                         <?php foreach ($filaments as $filament):?>
                                             <option data-price="<?php echo $filament['price']?>" value="<?php echo $filament['id']?>"><?php echo $filament['name']?></option>
                                         <?php endforeach;?>
@@ -134,34 +134,35 @@
         document.getElementById(id).classList.remove("d-block");
         document.getElementById(id).classList.add("d-none");
     }
-    function changeFilament()
-    {
-        showElement("id_div_spinner");
-        //document.getElementById("id_div_spinner").className="row my-4 d-block";
-        //document.getElementById("id_div_color").className="row m-2 d-none";
-        hideElement("id_div_color");
-        fetch('./ajax/_filament_color.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'filament=' + document.getElementById("id_filament").value,
-        })
-        .then(response => response.text())
-        .then(html => {
-            let select = document.getElementById("id_filament");
-            let price = select.options[select.selectedIndex].getAttribute("data-price");
-            showElement("id_div_price");
-            //document.getElementById("id_div_price").className="row text-light text-center justify-content-center mt-5 d-block";
-            document.getElementById('id_span_price').innerHTML=price;
-            document.getElementById('id_filament_color').innerHTML = html;
-            hideElement("id_div_spinner");
-            //document.getElementById("id_div_spinner").className="row my-4 d-none";
-            showElement("id_div_color");
-            //document.getElementById("id_div_color").className="row m-2 d-block";
-        })
-        .catch(error => console.warn(error));
-    }
+    // function changeFilament()
+    // {
+    //     showElement("id_div_spinner");
+    //     //document.getElementById("id_div_spinner").className="row my-4 d-block";
+    //     //document.getElementById("id_div_color").className="row m-2 d-none";
+    //     hideElement("id_div_color");
+    //     fetch('./ajax/_filament_color.php', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded',
+    //         },
+    //         body: 'filament=' + document.getElementById("id_filament").value,
+    //     })
+    //     .then(response => response.text())
+    //     .then(html => {
+    //         let select = document.getElementById("id_filament");
+    //         let price = select.options[select.selectedIndex].getAttribute("data-price");
+    //         showElement("id_div_price");
+    //         //document.getElementById("id_div_price").className="row text-light text-center justify-content-center mt-5 d-block";
+    //         document.getElementById('id_span_price').innerHTML=price;
+    //         document.getElementById('id_filament_color').innerHTML = html;
+    //         hideElement("id_div_spinner");
+    //         //document.getElementById("id_div_spinner").className="row my-4 d-none";
+    //         showElement("id_div_color");
+    //         //document.getElementById("id_div_color").className="row m-2 d-block";
+    //         mesh.material.color.setHex(0xaaaaaa);
+    //     })
+    //     .catch(error => console.warn(error));
+    // }
 </script>
 <script type="module">
     import * as THREE from '../../libs/threejs/three.module.js';
@@ -191,14 +192,38 @@
     var loader = new STLLoader();
     var mesh,mesh_bool=false;
     loader.setCrossOrigin('anonymous');
+
+    
+    document.getElementById('id_filament').addEventListener('change', (event)=>{
+        showElement("id_div_spinner");
+        hideElement("id_div_color");
+        fetch('./ajax/_filament_color.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'filament=' + document.getElementById("id_filament").value,
+        })
+        .then(response => response.text())
+        .then(html => {
+            let select = document.getElementById("id_filament");
+            let price = select.options[select.selectedIndex].getAttribute("data-price");
+            showElement("id_div_price");
+            document.getElementById('id_span_price').innerHTML=price;
+            document.getElementById('id_filament_color').innerHTML = html;
+            hideElement("id_div_spinner");
+            showElement("id_div_color");
+            mesh.material.color.setHex(0xaaaaaa);
+        })
+        .catch(error => console.warn(error));
+    });
+
     document.getElementById('id_filament_color').addEventListener('change', (event)=>{
         let select = document.getElementById("id_filament_color");
-        let R = select.options[select.selectedIndex].getAttribute("data-R");
-        let G = select.options[select.selectedIndex].getAttribute("data-G");
-        let B = select.options[select.selectedIndex].getAttribute("data-B");
+        let color = select.options[select.selectedIndex].getAttribute("data-color");
         try
         {
-            mesh.material.color.setRGB(R, G, B);
+            mesh.material.color.setHex(color);
         }catch(e){}
         showElement("id_btn_send")
         //document.getElementById("id_btn_send").className="row d-block";
