@@ -7,13 +7,13 @@
 
     if(!$bot->existSessionUser())
         die("Session Error");
-    if(!isset($_GET['filament_id'])||!isset($_GET['filament_name']))
-    {
-        header('Location: /impresiones3d/home.php');
-        exit;
-    }
-    $filament_id=$_GET['filament_id'];
-    $filament_name=$_GET['filament_name'];
+    // if(!isset($_GET['filament_id'])||!isset($_GET['filament_name']))
+    // {
+    //     header('Location: /impresiones3d/home.php');
+    //     exit;
+    // }
+    // $filament_id=$_GET['filament_id'];
+    // $filament_name=$_GET['filament_name'];
 ?>
 <?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
@@ -53,59 +53,49 @@
             </div>
         </div>
         <div class="container">
-            <?php $url="./filaments.php";require_once "../back_url.php"?>
+            <?php $url="./parameters.php";require_once "../back_url.php"?>
             <div class="row m-5">
-                <div class="display-5">Colores <?php echo $filament_name?></div>
+                <div class="display-5">Panel de Colores</div>
             </div>
+            <!-- <div class="row m-5">
+                <div class="display-6"><?php echo $filament_name?></div>
+            </div> -->
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#modalAddFilament" class="btn btn-info"><div class="h6">Asignar color</div></a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modalAddFilament" class="btn btn-primary"><div class="h6">Nuevo Color</div></a>
                 </div>
             </div>
             <div class="modal fade" id="modalAddFilament" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-dark">Asignar Color</h5>
+                            <h5 class="modal-title text-dark">Nuevo Color</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body  text-dark">
-                            <!-- <form action="../../includes/add_color.php" method="post"> -->
+                            <form action="../../includes/add_color.php" method="post">
                                 <div class="row justify-content-center">
                                     <div class="input-group mb-3">
                                         <div class="form-floating">
-                                            <!-- <input type="hidden" name="filament_id" value="<?php echo $filament_id?>"> -->
-                                            <input oninput="getFilamentColorFilterTimerAjax()" required class="form-control "  name="name" type="text"  id="id_search_ajax" placeholder="Nombre del color">
-                                            <label for="id_search_ajax">Nombre del color</label>
+                                            <input required class="form-control "  name="name" type="text"  id="input_filament_color" placeholder="Nombre del color">
+                                            <label for="input_filament_color">Nombre del color</label>
+                                            <div class="invalid-tooltip" id="id_inputusername_invalid">
+                                                Nombre de color en uso 
+                                            </div>
                                         </div>  
                                     </div> 
-                                    <div id="id_placeholder_ajax" class="d-none">
-                                        <div class="row justify-content-center text-light opacity-translation">
-                                            <hr>
-                                            <span class="h3 text-center ">Cargando Datos</span>
-                                            <br>
-                                            <div class="m-3 spinner-border" role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div id="id_data_ajax">
-                
-                                    </div> 
-
-
-                                    
+                                    <input class="form-control form-control-color" type="color" name="color">
+                                   
                                 </div>
                                 <div class="row justify-content-around">
                                     <div class="col-auto">
                                         <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
                                     </div>
                                     <div class="col-auto">
-                                        <button  type="submit" class="btn btn-success">Asignar</button>
+                                        <button  type="submit" class="btn btn-success">Crear</button>
                                     </div>
                                 </div>   
-                            <!-- </form> -->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -252,7 +242,7 @@
         {
             document.getElementById('id_data').className="d-none";
             document.getElementById('id_placeholder').className="d-block";
-            fetch("./ajax/_filament_colors.php?filament_id=<?php echo $filament_id?>"+(document.getElementById("id_search").value?"&filter_filament_color="+document.getElementById("id_search").value:""))
+            fetch("./ajax/_colors.php?filament_id=<?php echo $filament_id?>"+(document.getElementById("id_search").value?"&filter_filament_color="+document.getElementById("id_search").value:""))
             .then(response => response.text())
             .then(html => {
                 
@@ -267,36 +257,6 @@
             });
         }    
         getFilamentColorFilter();
-        var timer_ajax;
-        function getFilamentColorFilterTimerAjax()
-        {
-            clearTimeout(timer_ajax);
-            
-            timer_ajax=setTimeout(()=>
-            {
-                getFilamentColorFilterAjax();
-            },500);
-        }
-        function getFilamentColorFilterAjax()
-        {
-            if(document.getElementById("id_search_ajax").value=="")
-                return;
-            document.getElementById('id_data_ajax').className="d-none";
-            document.getElementById('id_placeholder_ajax').className="d-block";
-            fetch("./ajax/_ajax_colors.php?$filament_id=<?php echo $filament_id?>&filter_filament_color="+document.getElementById("id_search_ajax").value)
-            .then(response => response.text())
-            .then(html => {
-                
-                document.getElementById('id_placeholder_ajax').className="d-none";
-                document.getElementById('id_data_ajax').className="d-block";
-                document.getElementById('id_data_ajax').innerHTML = html;
-            })
-            .catch(error => {
-                console.warn(error);
-                document.getElementById('id_placeholder_ajax').className="d-none";
-                document.getElementById('id_data_ajax').className="d-block";
-            });
-        }    
     </script>    
 </body>
 <?php require '../_footer.html'; ?>

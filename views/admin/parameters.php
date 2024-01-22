@@ -27,16 +27,16 @@
                     </div>
                 </a>
             </div>
-            <!-- <div class="col m-2 focus-transition">
-                <a href="filaments_colors.php"  class="h-100" style="text-decoration: none;">
+            <div class="col m-2 focus-transition">
+                <a href="colors.php"  class="h-100" style="text-decoration: none;">
                     <div class="card h-100 text-dark bg-warning">
                         <div class="card-body">
-                            <h4 class="card-title"><i class="bi bi-card-checklist" style="font-size: 500%;"></i></h4>
+                            <h4 class="card-title"><i class="bi bi-brush" style="font-size: 500%;"></i></h4>
                             <p class="card-text h3">Colores</p>
                         </div>       
                     </div>
                 </a>
-            </div> -->
+            </div>
         </div>
         
     </div>

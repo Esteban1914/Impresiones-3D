@@ -1,15 +1,15 @@
 <?php 
-    if(isset($_POST['filament'])&&isset($_POST['name']) && isset($_POST['color']) )
+    if(isset($_POST['filament_id']) && isset($_POST['color_id']) )
     {
         
         include_once "bot.php";
         $bot=new Bot();
         if($bot->userIsAdmin())
         {
-            if($bot->addFilamentColor($_POST['filament'],$_POST['name'],$_POST['color']))
-                header("Location: ../views/admin/filament_colors.php?add_filament_color=OK");
+            if($bot->addFilamentColorFilament($_POST['filament_id'],$_POST['color_id']))
+                header("Location: ../views/admin/filament_colors.php?add_color=OK");
             else
-                header("Location: ../views/admin/filament_colors.php?add_filament_color=BAD");
+                header("Location: ../views/admin/filament_colors.php?add_color=BAD");
         }
     }
 ?>

@@ -96,6 +96,7 @@
     "CREATE TABLE filament_color_relation (
         filament_id INT(11) UNSIGNED,
         color_id INT(11) UNSIGNED,
+        active BOOLEAN DEFAULT FALSE,
         PRIMARY KEY (filament_id, color_id),
         FOREIGN KEY (filament_id) REFERENCES filament(id) ON DELETE CASCADE,
         FOREIGN KEY (color_id) REFERENCES filament_color(id) ON DELETE CASCADE

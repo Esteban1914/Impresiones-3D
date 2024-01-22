@@ -1,29 +1,24 @@
 <?php 
     include_once '../../../includes/bot.php';
     $bot=new Bot();
-    
+
     if(!$bot->existSessionUser() || !$bot->userIsAdmin())
         die("Session Error");
     if(isset($_GET['filter_filament_color']))
         $filter_filament_color=$_GET['filter_filament_color'];
-    if(!isset($_GET['filament_id']))
-    {
-        header('Location: /impresiones3d/home.php');
-        exit;
-    }
-    $filament_id=$_GET['filament_id'];
 ?>
 
-<?php 
+<?php
     if(isset($filter_filament_color))
-        $fliament_colors=$bot->getFiltredFilamentColors($filament_id,$filter_filament_color);
+        $fliament_colors=$bot->getFiltredFilamentColors($filter_filament_color);
     else
-        $fliament_colors = $bot->getLastFilamentColor($filament_id)?>
+        $fliament_colors = $bot->getLastFilamentColor()?>
 <div class="row mt-4 p-2 justify-content-center">       
     <table class="table table-dark table-striped">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
+                <th scope="col">Color</th>
                 <th scope="col"></th>
             </tr>
         </thead>  
@@ -32,6 +27,7 @@
             <?php foreach($fliament_colors as $color): ?>
                 <tr>
                     <th ><?php echo $color['name']?></th>
+                    <th><div class="btn "style="background-color: <?php echo $color['color']?>;">  </div></th>
                     <th >
                         <a data-bs-toggle="modal" data-bs-target="#modalDelteFilamentColor<?php echo $color['id']?>" title="Eliminar" class="bg-danger mx-2 text-light p-1 rounded-pill"href=""><i class="bi bi-trash"></i></a>
                     </th>
@@ -48,7 +44,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body  text-dark">
-                            <form action="../../includes/delete_filament.php" method="post"> 
+                            <form action="../../includes/delete_filament_color.php" method="post"> 
                             
                                 <h3 class="m-3">Eliminar color <br><?php echo $color['name'] ?></h3>
                                 <hr>
@@ -67,6 +63,5 @@
                 </div>
             </div>
         </div>
-        
     <?php endforeach ?>  
 </div>  

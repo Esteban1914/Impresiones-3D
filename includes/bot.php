@@ -408,6 +408,18 @@
             return false;
             
         }
+        public function deleteFilamentColor($id)
+        {
+            $conn=$this->connect();
+            $sql="DELETE FROM filament_color
+                WHERE id=:id";
+            $query=$conn->prepare($sql);
+            if($query->execute([":id"=> $id]))
+                return true;
+            return false;
+            
+        }
+        
         
         // public  function getFileStatus($id)
         // {
@@ -714,33 +726,51 @@
                 return true;
             return false;
         } 
-        public function addFilamentColor($filament_id,$name,$color)
+        public function addFilamentColor($name,$color)
         {
             $conn=$this->connect();
             $sql="INSERT INTO filament_color (name,color) 
                     VALUES (:n,:c)";
             $query=$conn->prepare($sql);
-            if($query->execute([":n"=> $name ,":c"=> $color]))
-            {
-                $sql="SELECT id
-                        FROM filament_color
-                        WHERE name=:n";
-                $query=$conn->prepare($sql);
-                $query->execute([':n'=>$name]);
-                if($query->rowCount()> 0)
-                {
-                    $id=$query->fetchColumn();
-                    $sql="INSERT INTO  filament_color_relation (filament_id,color_id)
-                            VALUES (:fid,:cid)";
-                    $query=$conn->prepare($sql);
-                    return $query->execute([':fid'=>$filament_id,":cid"=>$id]);   
-                }
-            }
-            return false;
+            return $query->execute([":n"=> $name ,":c"=> $color]);
+        } 
+        public function addFilamentColorFilament($filament_id,$color_id)
+        {
+            // $conn=$this->connect();
+            // $sql="INSERT INTO filament_color_realation (name,color) 
+            //         VALUES (:n,:c)";
+            // $query=$conn->prepare($sql);
+            // return $query->execute([":n"=> $name ,":c"=> $color]);
         } 
         
+        
 
-        public function getFiltredFilamentColors($filament_id,$name)
+        public function getFiltredFilamentColors($name)
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.name,filament_color.id,filament_color.color
+                    FROM filament_color
+                    WHERE filament_color.name LIKE :search
+                    ORDER BY filament_color.id DESC 
+                    LIMIT 5
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":search"=>"%".$name."%"]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getLastFilamentColor()
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.name,filament_color.id,filament_color.color
+                    FROM filament_color
+                    ORDER BY filament_color.id DESC 
+                    LIMIT 5 
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function getFiltredFilamentColorsFilament($filament_id,$name)
         {
             $conn=$this->connect();
             $sql="SELECT filament_color.name,filament_color.id
@@ -755,7 +785,7 @@
             $query->execute([":fid"=>$filament_id,":search"=>"%".$name."%"]);
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
-        public function getLastFilamentColor($filament_id)
+        public function getLastFilamentColorFilament($filament_id)
         {
             $conn=$this->connect();
             $sql="SELECT filament_color.name,filament_color.id

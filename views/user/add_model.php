@@ -140,7 +140,7 @@
     //     //document.getElementById("id_div_spinner").className="row my-4 d-block";
     //     //document.getElementById("id_div_color").className="row m-2 d-none";
     //     hideElement("id_div_color");
-    //     fetch('./ajax/_filament_color.php', {
+    //     fetch('./ajax/_colors.php', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/x-www-form-urlencoded',
@@ -197,7 +197,7 @@
     document.getElementById('id_filament').addEventListener('change', (event)=>{
         showElement("id_div_spinner");
         hideElement("id_div_color");
-        fetch('./ajax/_filament_color.php', {
+        fetch('./ajax/_colors.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
