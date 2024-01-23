@@ -43,7 +43,7 @@
                 <div class="card bg-dark text-light border border-0">
                     <div class="card-body">
                         <h4 class="display-5">Impresiones 3D</h4>
-                        <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="learn.php">Aprende aquí!</a></small></p>
+                        <p class="card-text text-start"><small>Empezando en la plataforma? <a class="badge bg-info text-dark" href="/impresiones3d/learn.php">Aprende aquí!</a></small></p>
                     </div>
                 </div>
                 

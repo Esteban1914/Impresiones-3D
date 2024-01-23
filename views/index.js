@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     );
 });
-
 function RemoveError()
 {
     document.getElementById("usernameinput").className="form-control";

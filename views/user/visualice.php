@@ -177,7 +177,7 @@
                 document.getElementById("id_download").className="m-2 badge bg-danger";
             }catch(err){}
             
-            var material = new THREE.MeshPhongMaterial({color: 0xaaaaaa, specular: 0x111111, shininess: 200});
+            var material = new THREE.MeshPhongMaterial({color: parseInt( "<?php echo ltrim($bot->getColorByFile($model_id),"#")?>" , 16), specular: 0x111111, shininess: 200});
             mesh = new THREE.Mesh(geometry, material);
             mesh_bool=true;
             

@@ -7,13 +7,13 @@
 
     if(!$bot->existSessionUser())
         die("Session Error");
-    if(!isset($_GET['filament_id'])||!isset($_GET['filament_name']))
+    if(!isset($_GET['filament_id']))
     {
         header('Location: /impresiones3d/home.php');
         exit;
     }
     $filament_id=$_GET['filament_id'];
-    $filament_name=$_GET['filament_name'];
+    $filament_name=$bot->getFilamentNameByID($filament_id);//$_GET['filament_name'];
 ?>
 <?php require('../_head.html'); ?>
 <body class="text-center bg-dark text-light">
@@ -25,9 +25,9 @@
                     function getOKMessage($key)
                     {
                         switch ($key) {
-                            case 'add_color':
-                                return "Creado color";
-                            case "delete_filament_color":
+                            case 'add_filament_color':
+                                return "Vinculado color";
+                            case "delete_color":
                                 return "Eliminado color";
                             default:
                                 return "Realizada operación";
@@ -59,14 +59,14 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#modalAddFilament" class="btn btn-info"><div class="h6">Asignar color</div></a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modalAddFilament" class="btn btn-info"><div class="h6">Vincular color</div></a>
                 </div>
             </div>
             <div class="modal fade" id="modalAddFilament" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-dark">Asignar Color</h5>
+                            <h5 class="modal-title text-dark">Vincular Color</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body  text-dark">
@@ -102,7 +102,7 @@
                                         <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
                                     </div>
                                     <div class="col-auto">
-                                        <button  type="submit" class="btn btn-success">Asignar</button>
+                                        <button  type="submit" class="btn btn-success">Vincular</button>
                                     </div>
                                 </div>   
                             <!-- </form> -->

@@ -83,7 +83,7 @@
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL UNIQUE,
         active BOOLEAN DEFAULT FALSE,
-        price DECIMAL(5,3) 
+        price DECIMAL(8,3) 
     )";
     "CREATE TABLE filament_color (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

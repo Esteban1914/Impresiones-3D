@@ -54,6 +54,19 @@
         {
             return json_decode(file_get_contents("php://input"),true);
         }
+        public function getColorByFile($file_id)
+        {
+            $conn=$this->connect();
+            $sql="SELECT color FROM filament_color
+                    JOIN file_requests ON file_requests.filament_color_id = filament_color.id
+                    WHERE file_requests.file_id=:fid";
+            $query=$conn->prepare($sql);
+            $query->execute([":fid"=> $file_id]);
+            if($query->rowCount()> 0)
+                return $query->fetchColumn();
+            return false;
+            
+        }
         public function existUserTelegam($chatID)
         {
             $conn=$this->connect();
@@ -408,7 +421,7 @@
             return false;
             
         }
-        public function deleteFilamentColor($id)
+        public function deleteColor($id)
         {
             $conn=$this->connect();
             $sql="DELETE FROM filament_color
@@ -419,6 +432,19 @@
             return false;
             
         }
+        public function deleteFilamentColor($filament_id,$color_id)
+        {
+            $conn=$this->connect();
+            $sql="DELETE FROM filament_color_relation
+                WHERE filament_id=:fid
+                AND color_id=:cid";
+            $query=$conn->prepare($sql);
+            if($query->execute([":fid"=> $filament_id,":cid"=>$color_id]))
+                return true;
+            return false;
+            
+        }
+        
         
         
         // public  function getFileStatus($id)
@@ -576,9 +602,10 @@
         function fileIsRequest($file_id)
         {
             $conn=$this->connect();
-            $sql="SELECT id 
-                    FROM files_users_requests 
-                    WHERE file_id = :id AND completed=FALSE
+            $sql="SELECT 1 
+                    FROM file_requests 
+                    WHERE file_id = :id 
+                    AND state IS NULL
                     ";
             $query=$conn->prepare($sql);
             $query->execute([':id'=>$file_id]);
@@ -736,15 +763,32 @@
         } 
         public function addFilamentColorFilament($filament_id,$color_id)
         {
-            // $conn=$this->connect();
-            // $sql="INSERT INTO filament_color_realation (name,color) 
-            //         VALUES (:n,:c)";
-            // $query=$conn->prepare($sql);
-            // return $query->execute([":n"=> $name ,":c"=> $color]);
+            $conn=$this->connect();
+            $sql="INSERT INTO filament_color_relation (filament_id,color_id) 
+                    VALUES (:fid,:cid)";
+            $query=$conn->prepare($sql);
+            return $query->execute([":fid"=> $filament_id ,":cid"=> $color_id]);
         } 
         
         
-
+        public function getFiltredFilamentColorsAjax($filament_id,$name)
+        {
+            $conn=$this->connect();
+            $sql="SELECT filament_color.name,filament_color.id,filament_color.color
+                    FROM filament_color
+                    WHERE filament_color.name LIKE :search
+                    AND NOT EXISTS (
+                        SELECT 1 FROM filament_color_relation 
+                        WHERE filament_color_relation.color_id = filament_color.id 
+                        AND filament_color_relation.filament_id = :fid
+                    )
+                    ORDER BY filament_color.id DESC 
+                    LIMIT 5
+                    ";
+            $query=$conn->prepare($sql);
+            $query->execute([":search"=>"%".$name."%",":fid"=>$filament_id]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
         public function getFiltredFilamentColors($name)
         {
             $conn=$this->connect();
@@ -773,7 +817,7 @@
         public function getFiltredFilamentColorsFilament($filament_id,$name)
         {
             $conn=$this->connect();
-            $sql="SELECT filament_color.name,filament_color.id
+            $sql="SELECT filament_color.name,filament_color.id,filament_color.color
                     FROM filament_color
                     JOIN filament_color_relation ON filament_color.id=color_id
                     JOIN filament ON filament_color_relation.filament_id=filament.id
@@ -788,7 +832,7 @@
         public function getLastFilamentColorFilament($filament_id)
         {
             $conn=$this->connect();
-            $sql="SELECT filament_color.name,filament_color.id
+            $sql="SELECT filament_color.name,filament_color.id,filament_color.color
                     FROM filament_color
                     JOIN filament_color_relation ON filament_color.id=color_id
                     JOIN filament ON filament_color_relation.filament_id=filament.id

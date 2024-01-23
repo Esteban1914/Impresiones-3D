@@ -13,55 +13,63 @@
         $fliament_colors=$bot->getFiltredFilamentColors($filter_filament_color);
     else
         $fliament_colors = $bot->getLastFilamentColor()?>
-<div class="row mt-4 p-2 justify-content-center">       
-    <table class="table table-dark table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Color</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>  
-        <tbody >
-        
-            <?php foreach($fliament_colors as $color): ?>
+<?php if(empty($fliament_colors)):?>
+    <div class="row mt-4 p-2 justify-content-center">
+    <div class="col-auto">
+        Sin información para mostrar
+    </div>
+    </div>
+<?php else:?>
+    <div class="row mt-4 p-2 justify-content-center">       
+        <table class="table table-dark table-striped">
+            <thead>
                 <tr>
-                    <th ><?php echo $color['name']?></th>
-                    <th><div class="btn "style="background-color: <?php echo $color['color']?>;">  </div></th>
-                    <th >
-                        <a data-bs-toggle="modal" data-bs-target="#modalDelteFilamentColor<?php echo $color['id']?>" title="Eliminar" class="bg-danger mx-2 text-light p-1 rounded-pill"href=""><i class="bi bi-trash"></i></a>
-                    </th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Color</th>
+                    <th scope="col"></th>
                 </tr>
-                
-            <?php endforeach ?>    
-        </tbody>
-    </table>
-    <?php foreach($fliament_colors as $color): ?>
-        <div class="modal fade" id="modalDelteFilamentColor<?php echo $color['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body  text-dark">
-                            <form action="../../includes/delete_filament_color.php" method="post"> 
-                            
-                                <h3 class="m-3">Eliminar color <br><?php echo $color['name'] ?></h3>
-                                <hr>
-                                <input type="hidden" name="delete_id" value="<?php echo $color['id']?>">
-                                <div class="row justify-content-around">
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button  type="submit" class="btn btn-danger">Eliminar</button>
-                                    </div>
-                                </div>   
-                            </form>            
+            </thead>  
+            <tbody >
+            
+                <?php foreach($fliament_colors as $color): ?>
+                    <tr>
+                        <th ><?php echo $color['name']?></th>
+                        <th><div class="btn "style="background-color: <?php echo $color['color']?>;">  </div></th>
+                        <th >
+                            <a data-bs-toggle="modal" data-bs-target="#modalDelteFilamentColor<?php echo $color['id']?>" title="Eliminar" class="bg-danger mx-2 text-light p-1 rounded-pill"href=""><i class="bi bi-trash"></i></a>
+                        </th>
+                    </tr>
+                    
+                <?php endforeach ?>    
+            </tbody>
+        </table>
+        <?php foreach($fliament_colors as $color): ?>
+            <div class="modal fade" id="modalDelteFilamentColor<?php echo $color['id']?>" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body  text-dark">
+                                <form action="../../includes/delete_color.php" method="post"> 
+                                
+                                    <h3 class="m-3">Eliminar color <br><?php echo $color['name'] ?></h3>
+                                    <hr>
+                                    <input type="hidden" name="delete_id" value="<?php echo $color['id']?>">
+                                    <div class="row justify-content-around">
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button  type="submit" class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                    </div>   
+                                </form>            
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <?php endforeach ?>  
-</div>  
+        <?php endforeach ?>  
+    </div>  
+<?php endif?>

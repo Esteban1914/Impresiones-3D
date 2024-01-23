@@ -53,7 +53,7 @@
                 $count=0;
                 foreach ($files as $row): ?>
                     <?php $count+=1;/*$row['state']=$bot->getFilestate($row['id']);*/?>
-                    <div class="col col-md-3 mx-4 focus-transition my-3 border p-2 border border-<?php echo getColorByIndex($seleccionados[$count]) ?>p-2">
+                    <div class="col mx-4 focus-transition my-3 border p-2 border border-<?php echo getColorByIndex($seleccionados[$count]) ?>p-2">
                         <div class="card bg-<?php echo getColorByIndex($seleccionados[$count])?>">
                             <div class="card-body">
                                 <h4 class="card-title"><i class="<?php 

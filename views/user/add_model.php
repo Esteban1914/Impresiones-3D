@@ -18,10 +18,11 @@
                     <form id="_form" action="../../includes/upload_file.php" method="post" enctype="multipart/form-data">
                             
                         <div class="row justify-content-center">
-                            <div class="col-auto">
-                                    <input required type="file" accept=".stl" id="fileSTL" name="file" style="display: none;">
-                                    <label for="fileSTL" id="label_load_file"class="text-dark p-3 bg-danger rounded-pill h4 focus-transition">Cargar fichero</label>
-                                
+                            <div class="d-none" id="id_btn_upload">
+                                <div class="col-auto">
+                                        <input required type="file" accept=".stl" id="fileSTL" name="file" style="display: none;">
+                                        <label for="fileSTL" id="label_load_file"class="text-dark p-3 bg-danger rounded-pill h4 focus-transition">Cargar fichero</label>                               
+                                </div>
                             </div>
                         </div>
                         <div id="id_div_all_row" class="d-none">
@@ -220,10 +221,11 @@
 
     document.getElementById('id_filament_color').addEventListener('change', (event)=>{
         let select = document.getElementById("id_filament_color");
+        
         let color = select.options[select.selectedIndex].getAttribute("data-color");
         try
         {
-            mesh.material.color.setHex(color);
+            mesh.material.color.setHex(parseInt(color.replace("#", ""), 16));
         }catch(e){}
         showElement("id_btn_send")
         //document.getElementById("id_btn_send").className="row d-block";
@@ -396,6 +398,7 @@
     
     //Iniciar la animación
     animate();
+    document.getElementById("id_btn_upload").classList.remove("d-none")
     window.addEventListener(
         'resize',
         function() 

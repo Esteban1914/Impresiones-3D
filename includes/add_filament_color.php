@@ -7,9 +7,9 @@
         if($bot->userIsAdmin())
         {
             if($bot->addFilamentColorFilament($_POST['filament_id'],$_POST['color_id']))
-                header("Location: ../views/admin/filament_colors.php?add_color=OK");
+                header("Location: ../views/admin/filament_colors.php?filament_id=".$_POST['filament_id']."&add_filament_color=OK");
             else
-                header("Location: ../views/admin/filament_colors.php?add_color=BAD");
+                header("Location: ../views/admin/filament_colors.php?add_filament_color=BAD");
         }
     }
 ?>

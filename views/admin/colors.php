@@ -27,7 +27,7 @@
                         switch ($key) {
                             case 'add_color':
                                 return "Creado color";
-                            case "delete_filament_color":
+                            case "delete_color":
                                 return "Eliminado color";
                             default:
                                 return "Realizada operación";
