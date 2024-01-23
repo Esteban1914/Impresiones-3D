@@ -1,7 +1,7 @@
 <?php 
     include_once "bot.php";
     $bot=new Bot();
-    if(!$bot->existSessionUser())
+    if(!$bot->userIsAdmin())
     {
         header("Location: /impresiones3d/home.php");
         exit;
