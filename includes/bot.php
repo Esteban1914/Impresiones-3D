@@ -359,7 +359,6 @@
             $url_file=($folder?$folder:".")."/tem_data/".$file_name;
             if(!file_exists($url_file))
             {
-                return null;
                 $url_telegram=$this->getURLFileTelegramByID($id);
                 $contenido = file_get_contents($url_telegram);
                 if($contenido!==false)

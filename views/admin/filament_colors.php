@@ -97,14 +97,14 @@
 
                                     
                                 </div>
-                                <div class="row justify-content-around">
+                                <!-- <div class="row justify-content-around">
                                     <div class="col-auto">
                                         <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
                                     </div>
                                     <div class="col-auto">
                                         <button  type="submit" class="btn btn-success">Vincular</button>
                                     </div>
-                                </div>   
+                                </div>    -->
                             <!-- </form> -->
                         </div>
                     </div>
