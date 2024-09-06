@@ -18,10 +18,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php elseif (isset($_GET['signin']) && $_GET['signin']=="BAD"): ?>
-                <div class="px-5 alert alert-danger alert-dismissible fade show" role="alert">
-                    Error al acceder a estos servicios
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                    <div class="px-5 alert alert-danger alert-dismissible fade show" role="alert">
+                        Error al acceder a estos servicios
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 <?php endif;?>
                 
             </div>

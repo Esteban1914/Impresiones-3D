@@ -6,11 +6,12 @@ class DB extends Session
     protected $session;
     public function __construct()
     {
+
         parent::__construct();
         $this->host=getenv('DB_HOST');
         $this->db="impresiones3d";
         $this->user=getenv('DB_USER');
-        $this->password=getenv('DB_PASSWORD');
+        $this->password=getenv('DB_PASS');
         if($this->password==" ")
             $this->password="";
         $this->charset='utf8mb4';
