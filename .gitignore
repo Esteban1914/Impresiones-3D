@@ -1,3 +1,4 @@
 tem_data/
 ignore/
 composer/
+.env
