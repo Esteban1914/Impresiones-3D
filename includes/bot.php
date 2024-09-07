@@ -1,6 +1,7 @@
 <?php 
     include_once "user.php";
-
+    include_once "db.php";
+    
     class Bot extends User
     {
         private $token,$path;
@@ -10,12 +11,9 @@
             parent::__construct();
             $this->MAX_COUNT_FILES=5;
             $this->GROUP_UPLOAD_FILES="-4114338928";
-            // $this->servername = getenv('DB_HOST');
-            // $this->username = getenv('DB_USER');
-            // $this->password=getenv('DB_PASSWORD');
-            //if($this->password==" ")
-            //    $this->password="";
-            $this->token = getenv("DB_TELEGRAM_TOKEN");
+            
+            $this->token = DB::get_env()["DB_TELEGRAM_TOKEN"];
+            
             $this->path = "https://api.telegram.org/bot".$this->token."/";
         }
         public function getMaxCountFiles()

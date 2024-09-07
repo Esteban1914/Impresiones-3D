@@ -1,7 +1,6 @@
 <?php
     include_once "../includes/db.php";
-    $db = new DB();
-    $env = $db->get_env();
+    $env = DB::get_env();
     
     $host = $env['DB_HOST'];
     $user = $env['DB_USER'];
