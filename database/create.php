@@ -10,6 +10,7 @@
     echo $host;
     echo $user;
     echo $password;
+    echo "D";
     ///////////////////////CONNECT///////////////////////
     try {
         $conn = new PDO("mysql:host=$host;", $user, $password);
