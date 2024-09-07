@@ -1,4 +1,4 @@
-<Files "./database/">
+<Files "./database/create.php">
     Order allow,deny
     Deny from all
 </Files>
