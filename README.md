@@ -14,7 +14,7 @@ Esta página web está dedicada a mejorar la gestión de impresión 3D. Permite 
 
 ### Lenguaje
 > PHP
-![alt text](image.png)
+
 ### Desarollador 
 > [Esteban Acevedo](https://github.com/acevedoesteban999)
 
