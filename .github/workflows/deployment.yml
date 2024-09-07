@@ -25,5 +25,5 @@ jobs:
         username: ${{ secrets.USER }}
         password: ${{ secrets.PASSWORD }}
         local-dir: './'
-        server-dir: '/htdocs/'
+        server-dir: '/htdocs/impresiones3d/'
         protocol: 'ftp'
