@@ -1,4 +1,4 @@
-# <Files "./database/">
-#     Order allow,deny
-#     Deny from all
-# </Files>
+<Files "./database/">
+    Order allow,deny
+    Deny from all
+</Files>
