@@ -7,12 +7,14 @@ class Session{
     {
         $this->startSession();
         $path = __DIR__ . "/../.env";
+        echo $path;
         if (!file_exists($path)) {
             die ("No .env file");
         }
         $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
+        echo $lines;
         foreach ($lines as $line) {
+            echo $line;
             if (strpos(trim($line), '#') === 0) {
                 continue;
             }
