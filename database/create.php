@@ -1,16 +1,11 @@
 <?php
-    echo "A";
-    include_once "../includes/session.php";
-    echo "B";
-    $s = new Session();
-    echo "C";
-    $host = getenv('DB_HOST');
-    $user = getenv('DB_USER');
-    $password = getenv('DB_PASS');
-    echo $host;
-    echo $user;
-    echo $password;
-    echo "D";
+    include_once "../includes/db.php";
+    $db = new DB();
+    $env = $db->get_env();
+    
+    $host = $env['DB_HOST'];
+    $user = $env['DB_USER'];
+    $password =$env['DB_PASS'];
     ///////////////////////CONNECT///////////////////////
     try {
         $conn = new PDO("mysql:host=$host;", $user, $password);

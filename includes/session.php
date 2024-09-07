@@ -6,24 +6,6 @@ class Session{
     public function __construct()
     {
         $this->startSession();
-        $path = __DIR__ . "/../.env";
-        echo $path;
-        if (!file_exists($path)) {
-            die ("No .env file");
-        }
-        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        echo $lines;
-        foreach ($lines as $line) {
-            echo $line;
-            if (strpos(trim($line), '#') === 0) {
-                continue;
-            }
-            list($key, $value) = explode('=', $line, 2);
-            $key = trim($key);
-            $value = trim($value);
-            putenv("$key=$value"); 
-        }
-        
     } 
     public function startSession()
     {
