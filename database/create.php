@@ -1,9 +1,15 @@
 <?php
+    echo "A";
     include_once "../includes/session.php";
+    echo "B";
     $s = new Session();
+    echo "C";
     $host = getenv('DB_HOST');
     $user = getenv('DB_USER');
     $password = getenv('DB_PASS');
+    echo $host;
+    echo $user;
+    echo $password;
     ///////////////////////CONNECT///////////////////////
     try {
         $conn = new PDO("mysql:host=$host;", $user, $password);
