@@ -5,6 +5,7 @@
     
     $host = $env['DB_HOST'];
     $user = $env['DB_USER'];
+    $db = $env['DB_NAME'];
     $password =$env['DB_PASS'];
     ///////////////////////CONNECT///////////////////////
     try {
@@ -16,17 +17,17 @@
     }
     
     // // ///////////////////////CREATE DB///////////////////////
-    try {
-        $sql = "CREATE DATABASE impresiones3D";
-        $conn->exec($sql);
-        echo "CREATED DB -> OK<br>";
-    } catch(PDOException $e) {
-        die ("Error:" . $e->getMessage());
-    }
+    // try {
+    //     $sql = "CREATE DATABASE impresiones3D";
+    //     $conn->exec($sql);
+    //     echo "CREATED DB -> OK<br>";
+    // } catch(PDOException $e) {
+    //     die ("Error:" . $e->getMessage());
+    // }
     
 
     // // ///////////////////////CONNECT DB///////////////////////
-    $conn->exec("USE impresiones3D");
+    $conn->exec("USE $db");
     echo "USE -> OK<br>";
     
     ///////////////////////////CREATE TABLES///////////////////////
@@ -120,9 +121,9 @@
     echo "TABLES CRATED -> OK<br>";
     
     // // ///////////////////////INSERT TABLE///////////////////////
-    $sql="INSERT INTO users (username,password) VALUES (:u,:p)";
+    $sql="INSERT INTO users (username,password,role) VALUES (:u,:p,:r)";
     $query=$conn->prepare($sql);
-    if($query->execute([":u"=> "Esteban","p"=> "1234567890"]))
+    if($query->execute([":u"=> "Esteban","p"=> "1234567890","r"=>"admin"]))
         echo "CREATED ESTEBAN -> OK<br>";
     else
         echo "NO CREATED ESTEBAN -> X<br>";
