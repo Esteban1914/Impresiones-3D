@@ -1,0 +1,29 @@
+name: Build and Deploy PHP App
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2.21'  
+      
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.HOST }}    
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}  
+          local-dir: './'                 
+          server-dir: '/htdocs/'     
+          protocol: 'ftp'                 
