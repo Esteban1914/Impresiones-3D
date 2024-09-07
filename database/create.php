@@ -123,7 +123,7 @@
     // // ///////////////////////INSERT TABLE///////////////////////
     $sql="INSERT INTO users (username,password,role) VALUES (:u,:p,:r)";
     $query=$conn->prepare($sql);
-    if($query->execute([":u"=> "Esteban","p"=> "1234567890","r"=>"admin"]))
+    if($query->execute([":u"=> "Esteban","p"=> md5("1234567890"),"r"=>"admin"]))
         echo "CREATED ESTEBAN -> OK<br>";
     else
         echo "NO CREATED ESTEBAN -> X<br>";
