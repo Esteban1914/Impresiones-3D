@@ -1,15 +1,13 @@
 <?php
 
-    $archivo = fopen('telegram.txt', 'w');
-    if ($archivo) {
-        $contenido = "Hola, este es el contenido que quiero guardar en el archivo.\n";
-        fwrite($archivo, $contenido);
-        fclose($archivo);
-    }
-
     include_once "../includes/bot.php";
     $bot=new Bot();
     $update=$bot->reciveMessage();
+    $archivo = fopen('telegram.txt', 'w');
+    if ($archivo) {
+        fwrite($archivo, $update);
+        fclose($archivo);
+    }
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
     $reply=$update['message']['reply_to_message'];
