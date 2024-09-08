@@ -1,13 +1,20 @@
 <?php
-
-    include_once "../includes/bot.php";
-    $bot=new Bot();
-    $update=$bot->reciveMessage();
-    $archivo = fopen('telegram.txt', 'w');
-    if ($archivo) {
-        fwrite($archivo, $update);
-        fclose($archivo);
+    function test($name,$str)
+    {
+        $archivo = fopen($name, 'w');
+        if ($archivo) {
+            fwrite($archivo, $str);
+            fclose($archivo);
+        }
     }
+    test('test1','A');
+    include_once "../includes/bot.php";
+    test('test2','A');
+    $bot=new Bot();
+    test('test3','A');
+    $update=$bot->reciveMessage();
+    test('test4','A');
+    test('test5',$update);
     $chatID = $update["message"]["chat"]["id"];
     $usernametelegram=$update['message']['from']['username'];
     $reply=$update['message']['reply_to_message'];
