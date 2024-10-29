@@ -19,4 +19,4 @@ Esta página web está dedicada a mejorar la gestión de impresión 3D. Permite 
 > [Esteban Acevedo](https://github.com/acevedoesteban999)
 
 ### Sitio Web  
-> [Impresiones 3D](http://acb2.kesug.com/)
+> [Impresiones 3D](http://acb2.kesug.com/impresiones3d)
